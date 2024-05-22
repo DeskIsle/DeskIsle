@@ -7,8 +7,6 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-let mainWindow = null
-
 const createWindow = () => {
   // Create the browser window.
   const externalDisplay = getExternalDisplay()
@@ -25,14 +23,17 @@ const createWindow = () => {
     width: width,
     height: height,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
     },
     frame: false,
+    resizable: false,
+    maximizable: false,
     transparent: true,
     skipTaskbar: true,
   });
   mainWindow.setAlwaysOnTop(false, "modal-panel", 0)
-  // mainWindow.setIgnoreMouseEvents(true)
+  // mainWindow.setIgnoreMouseEvents(true, { forward: true })
   mainWindow.setSize(width, height)
 
   // and load the index.html of the app.
@@ -43,7 +44,43 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
+
+  // mouse event through transparency
+  const updateIgnoreMouseEvents = async (x: number, y: number) => {
+    console.log("updateIgnoreMouseEvents");
+  
+    // capture 1x1 image of mouse position.
+    const image = await mainWindow.webContents.capturePage({
+      x,
+      y,
+      width: 1,
+      height: 1,
+    });
+  
+    var buffer = image.getBitmap();
+  
+    // set ignore mouse events by alpha.
+    mainWindow.setIgnoreMouseEvents(!buffer[3]);
+    console.log("setIgnoreMouseEvents", !buffer[3]);
+  };
+
+  
+
+  const timer = setInterval(() => {
+    if (!mainWindow) return
+    const point = screen.getCursorScreenPoint();
+    const [x, y] = mainWindow.getPosition();
+    const [w, h] = mainWindow.getSize();
+  
+    if (point.x > x && point.x < x + w && point.y > y && point.y < y + h) {
+      updateIgnoreMouseEvents(point.x - x, point.y - y);
+    }
+  }, 300);
+
+  mainWindow.on('close', () => {
+    clearInterval(timer)
+  })
 };
 
 
@@ -71,3 +108,6 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+
+
