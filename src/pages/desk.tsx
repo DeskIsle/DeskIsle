@@ -1,43 +1,70 @@
-import Card from "@/components/common/Card";
+import AppLayout, { Comp } from "@/components/layout/AppLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import WeatherWidget from "@/components/widgets/WeatherWidget";
-import GearIcon from "@/icons/GearIcon";
-import HomeIcon from "@/icons/HomeIcon";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { GearIcon, HomeIcon } from "@radix-ui/react-icons";
+import { atom, useAtom } from "jotai";
+import React, { useState } from "react";
 
-interface Comp {
-  row: number,
-  col: number,
-  rowSpan: number,
-  colSpan: number,
-  widget?: React.ReactNode
-}
-
-interface TabData {
-  name: string,
-  icon: React.ReactNode,
-  comps: Comp[] // TODO
-}
+const comps = atom([
+  {
+    row: 0,
+    col: 0,
+    width: 1,
+    height: 1,
+    tag: '',
+    title: '',
+    type: "LinkWidget",
+    target: {
+      link: "https://baidu.com",
+      icon: ""
+    }
+  },{
+    row: 0,
+    col: 1,
+    width: 1,
+    height: 1,
+    tag: '',
+    title: '',
+    type: "LinkWidget",
+    target: {
+      link: "https://google.com",
+      icon: ""
+    }
+  },{
+    row: 1,
+    col: 0,
+    width: 4,
+    height: 4,
+    tag: '',
+    title: '',
+    type: "ImageWidget",
+    target: {
+      img: "https://component-1256901694.cos.ap-shanghai.myqcloud.com/images/img1.jpg",
+      alt: "Girl under the tree."
+    }
+  },{
+    row: 0,
+    col: 4,
+    width: 6,
+    height: 6,
+    tag: '',
+    title: 'Clima',
+    type: "IFrameWidget",
+    target: {
+      src: 'https://component-1256901694.cos.ap-shanghai.myqcloud.com/component/clima/index.html',
+      scale: 1.1
+    }
+  }
+])
 
 export function Desk() {
-  const [tabs, setTabs] = useState<TabData[]>([
+  const [tabs, setTabs] = useState([
     {
       name: "首页",
       icon: <HomeIcon/>,
-      comps: [
-        {
-          row: 1,
-          col: 1,
-          rowSpan: 1,
-          colSpan: 1,
-          widget: <WeatherWidget />
-        }
-      ]
     },
     {
       name: "设置",
       icon: <GearIcon/>,
-      comps: []
     },
   ])
   return (
@@ -56,7 +83,7 @@ export function Desk() {
         { tabs.map((item, index) => {
           return (
             <TabsContent className="w-[90vw] h-[90vh] mx-4" value={item.name} key={index}>
-              <ContentPage tabData={item}/>
+              <ContentPage page={item.name}/>
             </TabsContent>
           )
         })}
@@ -66,43 +93,17 @@ export function Desk() {
 }
 
 interface ContentPageProps {
-  tabData: TabData
+  page: string
 }
 
-function ContentPage({ tabData }: ContentPageProps) {
-  const [rows, setRows] = useState(10)
-  const [cols, setCols] = useState(5)
-  const contentRef = useRef<HTMLDivElement>(null)
-  const [cells, setCells] = useState<number[]>([])
-  useEffect(() => {
-    if (contentRef.current) {
-      const width = contentRef.current.offsetWidth
-      const height = contentRef.current.offsetHeight
-      const newCols = Math.floor(width / 64)
-      const newRows = Math.floor(height / 64)
-      setCols(newCols < 1 ? 1 : newCols)
-      setRows(newRows < 1 ? 1 : newRows)
-      setCells([...new Array(newCols*newRows).keys()])
-    }
-  }, [])
-  
+function ContentPage({ page }: ContentPageProps) {
+  const [compsValue, setCompsValue] = useAtom(comps)
+  if (page !== '设置') {
+    return (
+      <AppLayout comps={compsValue} gap={20} unit={50} />
+    )
+  }
   return (
-    <div 
-      ref={contentRef} 
-      style={{
-        gridTemplateColumns: `repeat(${cols},1fr)`,
-        gridTemplateRows: `repeat(${rows},1fr)`
-      }} 
-      className={`w-full h-full grid`}>
-      {
-        cells.map((item, index) => {
-          return (
-            <Card key={index} className="flex justify-center items-center bg-white">
-              
-            </Card>
-          )
-        })
-      }
-    </div>
+    <div className="text-white text-3xl w-full h-full flex justify-center items-center">Setting</div>
   )
 }

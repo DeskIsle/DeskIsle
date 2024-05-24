@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, screen } from 'electron';
+import { app, BrowserWindow, HandlerDetails, ipcMain, screen, shell } from 'electron';
 import path from 'path';
 import { getExternalDisplay } from './lib/display';
 
@@ -24,7 +24,6 @@ const createWindow = () => {
     height: height,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
     },
     frame: false,
     resizable: false,
@@ -43,12 +42,9 @@ const createWindow = () => {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
-
   // mouse event through transparency
   const updateIgnoreMouseEvents = async (x: number, y: number) => {
-    console.log("updateIgnoreMouseEvents");
+    // console.log("updateIgnoreMouseEvents");
   
     // capture 1x1 image of mouse position.
     const image = await mainWindow.webContents.capturePage({
@@ -62,11 +58,8 @@ const createWindow = () => {
   
     // set ignore mouse events by alpha.
     mainWindow.setIgnoreMouseEvents(!buffer[3]);
-    console.log("setIgnoreMouseEvents", !buffer[3]);
+    // console.log("setIgnoreMouseEvents", !buffer[3]);
   };
-
-  
-
   const timer = setInterval(() => {
     if (!mainWindow) return
     const point = screen.getCursorScreenPoint();
@@ -76,11 +69,23 @@ const createWindow = () => {
     if (point.x > x && point.x < x + w && point.y > y && point.y < y + h) {
       updateIgnoreMouseEvents(point.x - x, point.y - y);
     }
-  }, 300);
+  }, 200);
 
   mainWindow.on('close', () => {
     clearInterval(timer)
   })
+
+  // 拦截链接打开方式
+  mainWindow.webContents.setWindowOpenHandler((details: HandlerDetails) => {
+    const url = (details.url as string)
+    shell.openExternal(url)
+    return { action: "deny"}
+  })
+
+
+  
+  // Open the DevTools.
+  mainWindow.webContents.openDevTools();
 };
 
 
@@ -108,6 +113,5 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-
 
 

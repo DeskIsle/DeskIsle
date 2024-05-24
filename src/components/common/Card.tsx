@@ -1,13 +1,16 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
-export default function Card({children, className}: {children?: React.ReactNode, className: string}) {
+interface CardProps extends HTMLAttributes<HTMLDivElement>{
+}
+export default function Card({children, className, onClick, ...props}: CardProps) {
   return (
     <motion.div
+      onClick={onClick}
       whileHover={{scale: 1.2}}
       drag
-      className={cn("rounded-xl border shadow cursor-pointer", className)}>
+      className={cn("rounded-xl border shadow cursor-pointer flex justify-center items-center bg-white", className)}>
       {children}
     </motion.div>
   )
