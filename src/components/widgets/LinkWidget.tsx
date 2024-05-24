@@ -1,18 +1,28 @@
+import { layoutConfigAtom } from "@/atoms/layoutConfig";
+import { useLongPress } from "@uidotdev/usehooks";
+import { useAtom } from "jotai";
 import React from "react";
 
 export interface LinkWidgetProps {
   link: string,
-  icon: string,
+  icon: Icon,
+  iconColor?: string,
+  bgColor?: string,
 }
 
-export default function LinkWidget({link, icon}: LinkWidgetProps) {
+type Icon = string | React.ReactNode
+
+export default function LinkWidget({link, icon, iconColor, bgColor}: LinkWidgetProps) {
+  const [{dragMode}] = useAtom(layoutConfigAtom)
+  function openBrowser() {
+    if (dragMode) return
+    window.open(link)
+  }
+  if (!iconColor) iconColor = 'text-white'
+  if (!bgColor) bgColor = 'bg-gradient-to-r from-purple-500 to-pink-500'
   return (
-    <a href={link} target="_blank" className="w-full h-full h-14 bg-gradient-to-r from-purple-500 to-pink-500">
-      {/* <img
-        // src={`https://www.favicon.vip/get.php?url=${link}`}
-        // https://api.iowen.cn/favicon/www.iowen.cn.png
-        alt={link}
-        className="w-full h-full" /> */}
-    </a>
+    <div onClick={openBrowser} className={`${bgColor} ${iconColor} w-full h-full select-none flex justify-center items-center hover:cursor-pointer`}>
+      {icon}
+    </div>
   )
 }

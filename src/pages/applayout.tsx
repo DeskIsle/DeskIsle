@@ -1,28 +1,32 @@
+import { layoutConfigAtom } from "@/atoms/layoutConfig";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
 import IFrameWidget, { IFrameWidgetProps } from "@/components/widgets/IFrameWidget";
 import ImageWidget, { ImageWidgetProps } from "@/components/widgets/ImageWidget";
 import LinkWidget, { LinkWidgetProps } from "@/components/widgets/LinkWidget";
 import { cn } from "@/lib/utils";
-import { useMouse } from "@uidotdev/usehooks";
+import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
+import { useLongPress, useMouse } from "@uidotdev/usehooks";
 import { motion, MotionProps } from "framer-motion";
 import { atom, useAtom } from "jotai";
+import { useModalStack } from "rc-modal-sheet";
 import React, { useLayoutEffect } from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
+import EditModal from "./modals/edit-modal";
 
 
 interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
   comps: Comp[]
-  unit: number,
-  gap: number,
 }
 
 export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
-  ({comps, unit, gap, className, children, ...props}, ref) => {
+  ({comps, className, children, ...props}, ref) => {
+    const [{unit, gap}] = useAtom(layoutConfigAtom)
     const [shadow, setShadow] = useState<DragShadowProps>()
     const [compsValue, setCompsValue] = useState(comps)
     const shadowRef = useRef<HTMLDivElement>(null)
     const [mouse, layoutRef] = useMouse<HTMLDivElement>()
-    
-    function handleDrag(e: DragEvent, item: CompProps) {
+
+    function handleDrag(e: DragEvent, item: Comp) {
       const n = Math.floor((mouse.elementY - gap) / (unit + gap))
       const m = Math.floor((mouse.elementX - gap) / (unit + gap))
       setShadow({row: n, col: m, width: item.width, height: item.height})
@@ -35,8 +39,8 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
         <DragShadow ref={shadowRef} {...shadow} />
         {compsValue.map((item, index) => {
           return (
-            <Comp
-              {...item}
+            <CompElement
+              comp={item}
               key={index}
               onDrag={(e) => handleDrag(e as DragEvent, item)}
               dragConstraints={shadowRef}
@@ -52,12 +56,8 @@ AppLayout.displayName = 'AppLayout'
 
 export default AppLayout
 
-const layoutConfig = atom({
-  unit: 50,
-  gap: 20
-})
-
 export interface Comp {
+  id: number,
   row: number,
   col: number,
   width: number,
@@ -80,7 +80,7 @@ interface DragShadowProps extends MotionProps {
 
 const DragShadow = forwardRef<HTMLDivElement, DragShadowProps>(
   ({row = 0, col = 0, width = 0, height = 0, className, ...props}, ref) => {
-    const [{unit, gap}] = useAtom(layoutConfig)
+    const [{unit, gap}] = useAtom(layoutConfigAtom)
     return (
       <motion.div
         ref={ref}
@@ -100,19 +100,31 @@ const DragShadow = forwardRef<HTMLDivElement, DragShadowProps>(
 
 DragShadow.displayName = 'DragShadow'
 
-interface CompProps extends MotionProps, Comp {
+interface CompProps extends MotionProps {
+  comp: Comp,
   className?: string,
 }
 
-export function Comp({width, height, row, col, className, title, tag, type, target, ...props}: CompProps) {
-  const [{unit, gap}] = useAtom(layoutConfig)
+export function CompElement({comp, className, ...props}: CompProps) {
+  const {width, height, row, col, title, tag, type, target} = comp
+  const [{unit, gap}] = useAtom(layoutConfigAtom)
+  const [{dragMode}] = useAtom(layoutConfigAtom)
+  const { present } = useModalStack()
+  function openEditModal() {
+    present({
+      title: 'Edit',
+      content: () => (
+        <EditModal comp={comp}/>
+      ),
+    })
+  }
   return (
     <motion.div
       initial={{
         width: unit*width+((width-1)*gap), 
         height: unit*height+((height-1)*gap),
       }}
-      drag
+      drag={dragMode}
       whileHover={{scale: 1.05}}
       style={{
         top: unit*row + (row+1)*gap,
@@ -121,7 +133,21 @@ export function Comp({width, height, row, col, className, title, tag, type, targ
       className={cn(className, `absolute bg-transparent rounded-lg shadow-sm flex justify-center items-center overflow-hidden`)}
       {...props}
     >
-      <CompHandler type={type} target={target}/>
+      <ContextMenu>
+        <ContextMenuTrigger className="w-full h-full">
+          <CompHandler type={type} target={target} />
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuItem onClick={openEditModal} className="flex gap-2">
+            <Pencil2Icon/>
+            <span>Edit</span>
+          </ContextMenuItem>
+          <ContextMenuItem className="flex gap-2 text-[#FF0000]">
+            <TrashIcon/>
+            <span>Delete</span>
+          </ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
     </motion.div>
   )
 }
