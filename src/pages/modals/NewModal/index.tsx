@@ -89,7 +89,7 @@ export function NewHandler({type, setType}: NewHandlerProps) {
         <Input id="link" placeholder="link" value={linkWidget.target.link} onChange={(v) => setLinkWidget({...linkWidget, target: {...linkWidget.target, link: v.target.value}})} />
         <Label htmlFor="icon">Icon</Label>
         <div className="grid grid-cols-6">
-          {icons.map(icon => <div onClick={e => selectIcon(icon)} className={`p-2 rounded-sm ${icon === linkWidget.target.icon ? 'bg-accent' : ''} hover:bg-accent`}>{icon}</div>)}
+          {icons.map((icon, index) => <div key={index} onClick={e => selectIcon(icon)} className={`p-2 rounded-sm ${icon === linkWidget.target.icon ? 'bg-accent' : ''} hover:bg-accent`}>{icon}</div>)}
         </div>
         <Button onClick={save}>保存</Button>
       </div>
