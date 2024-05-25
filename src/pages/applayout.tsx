@@ -35,10 +35,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
       if (mouse.elementY < gap) anchor.y = gap
       if (mouse.elementX > layoutRef.current.offsetWidth - gap) anchor.x = layoutRef.current.offsetWidth
       if (mouse.elementY > layoutRef.current.offsetHeight - gap) anchor.y = layoutRef.current.offsetHeight
-      const offest = {
-        width: 0,
-        height: 0,
-      }
+
       let newRow = Math.floor((anchor.y - gap) / (unit + gap))
       let newCol = Math.floor((anchor.x - gap) / (unit + gap))
       const maxRow = (layoutRef.current.offsetHeight) / (unit + gap) - item.height
@@ -71,6 +68,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
               comp={item}
               key={index}
               onDrag={(e) => handleDrag(e as DragEvent, item)}
+              onDragEnd={() => console.log('dragend')}
               dragConstraints={shadowRef}
             />
           )
