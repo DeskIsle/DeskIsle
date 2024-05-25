@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAtom } from "jotai";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Comp } from "../applayout";
+import { Comp } from "../../applayout";
 
 interface EditModelProps {
   comp: Comp
@@ -12,7 +12,6 @@ interface EditModelProps {
 export default function EditModal({comp}: EditModelProps) {
   const [comps, setComps] = useAtom(compsAtom)
   const [compState, setCompState] = useState<any>(comp)
-  console.log(comps)
   useEffect(() => {
     const newComps = comps.map((item) => {
       if (item.id === comp.id) {

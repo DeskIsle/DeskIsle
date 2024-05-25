@@ -1,6 +1,9 @@
+import { LinkWidgetProps } from "@/components/widgets/LinkWidget";
 import YoutubeIcon from "@/icons/YoutubeIcon";
-import { GitHubLogoIcon, NotionLogoIcon } from "@radix-ui/react-icons";
+import { Comp } from "@/pages/applayout";
+import { BoxIcon, GitHubLogoIcon, NotionLogoIcon } from "@radix-ui/react-icons";
 import { atom } from "jotai";
+import { atomWithReset } from "jotai/utils"
 import React from "react";
 
 export const compsAtom = atom([
@@ -78,3 +81,20 @@ export const compsAtom = atom([
   //   }
   // }
 ])
+
+export const linkWidgetAtom = atomWithReset({
+  id: 0,
+  row: 0,
+  col: 0,
+  width: 1,
+  height: 1,
+  tag: '',
+  title: '',
+  type: "LinkWidget",
+  target: {
+    link: "",
+    icon: <BoxIcon />,
+    bgColor: "bg-white",
+    iconColor: "text-black",
+  } as LinkWidgetProps
+})

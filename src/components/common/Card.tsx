@@ -8,7 +8,7 @@ export default function Card({children, className, onClick, ...props}: CardProps
   return (
     <motion.div
       onClick={onClick}
-      whileHover={{scale: 1.2}}
+      whileHover={{scale: 1.02}}
       drag
       className={cn("rounded-xl border shadow cursor-pointer flex justify-center items-center bg-white", className)}>
       {children}

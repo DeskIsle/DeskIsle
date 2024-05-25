@@ -4,17 +4,18 @@ import IFrameWidget, { IFrameWidgetProps } from "@/components/widgets/IFrameWidg
 import ImageWidget, { ImageWidgetProps } from "@/components/widgets/ImageWidget";
 import LinkWidget, { LinkWidgetProps } from "@/components/widgets/LinkWidget";
 import { cn } from "@/lib/utils";
-import { DimensionsIcon, DragHandleDots2Icon, DropdownMenuIcon, Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
+import { DashboardIcon, DimensionsIcon, DragHandleDots2Icon, DropdownMenuIcon, Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
 import { useMouse } from "@uidotdev/usehooks";
 import { motion, MotionProps } from "framer-motion";
 import { useAtom } from "jotai";
 import { useModalStack } from "rc-modal-sheet";
 import React, { useEffect } from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
-import EditModal from "./modals/edit-modal";
+import EditModal from "./modals/EditModal";
 import ResizeButton from "@/components/common/ResizeButton";
 import { compsAtom } from "@/atoms/comps";
 import { Separator } from "@/components/ui/separator";
+import NewModal from "./modals/NewModal";
 
 
 interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -145,6 +146,14 @@ export function CompElement({comp, className, ...props}: CompProps) {
       ),
     })
   }
+  function openNewModal() {
+    present({
+      title: 'New',
+      content: () => (
+        <NewModal/>
+      ),
+    })
+  }
   function deleteComp() {
     const newComps = comps.filter(item => item.id !== comp.id)
     setComps(newComps)
@@ -174,7 +183,7 @@ export function CompElement({comp, className, ...props}: CompProps) {
             <Pencil2Icon/>
             <span>Edit</span>
           </ContextMenuItem>
-          <div className="relative flex gap-1 flex-col cursor-default select-none justify-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+          <div className="relative flex gap-1 flex-col cursor-default select-none justify-center rounded-sm px-2 py-1.5 text-sm outline-none">
             <div className="flex gap-2">
               <DimensionsIcon/>
               <span>Resize</span>
@@ -200,6 +209,10 @@ export function CompElement({comp, className, ...props}: CompProps) {
               </ContextMenuItem>
             </div>
           </div>
+          <ContextMenuItem onClick={openNewModal} className="flex gap-2">
+            <DashboardIcon/>
+            <span>New</span>
+          </ContextMenuItem>
           <ContextMenuItem onClick={deleteComp} className="flex gap-2 text-[#FF0000] focus:text-[#FF0000] focus:bg-[#FFDBDC]">
             <TrashIcon/>
             <span>Delete</span>

@@ -5,7 +5,7 @@ import React from "react";
 
 export interface LinkWidgetProps {
   link: string,
-  icon: Icon,
+  icon?: Icon,
   iconColor?: string,
   bgColor?: string,
 }
