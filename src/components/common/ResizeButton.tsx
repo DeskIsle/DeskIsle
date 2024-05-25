@@ -9,7 +9,7 @@ interface LayoutButtonProps {
   comp: Comp
 }
 
-export default function LayoutButton({width, height, comp}: LayoutButtonProps) {
+export default function ResizeButton({width, height, comp}: LayoutButtonProps) {
   const [comps, setComps] = useAtom(compsAtom)
   function handleClick() {
     const newComps = comps.map((item) => {
@@ -22,7 +22,7 @@ export default function LayoutButton({width, height, comp}: LayoutButtonProps) {
   return (
     <button 
       onClick={handleClick}
-      className="hover:bg-accent hover:text-accent-foreground border rounded-lg px-2">
+    >
       {width}x{height}
     </button>
   )

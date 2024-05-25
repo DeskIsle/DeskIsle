@@ -4,7 +4,7 @@ import IFrameWidget, { IFrameWidgetProps } from "@/components/widgets/IFrameWidg
 import ImageWidget, { ImageWidgetProps } from "@/components/widgets/ImageWidget";
 import LinkWidget, { LinkWidgetProps } from "@/components/widgets/LinkWidget";
 import { cn } from "@/lib/utils";
-import { DimensionsIcon, Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
+import { DimensionsIcon, DragHandleDots2Icon, DropdownMenuIcon, Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
 import { useMouse } from "@uidotdev/usehooks";
 import { motion, MotionProps } from "framer-motion";
 import { useAtom } from "jotai";
@@ -12,8 +12,9 @@ import { useModalStack } from "rc-modal-sheet";
 import React from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
 import EditModal from "./modals/edit-modal";
-import LayoutButton from "@/components/common/LayoutButton";
+import ResizeButton from "@/components/common/ResizeButton";
 import { compsAtom } from "@/atoms/comps";
+import { Separator } from "@/components/ui/separator";
 
 
 interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -111,6 +112,7 @@ export function CompElement({comp, className, ...props}: CompProps) {
   const [{unit, gap}] = useAtom(layoutConfigAtom)
   const [{dragMode}] = useAtom(layoutConfigAtom)
   const { present } = useModalStack()
+  const [comps, setComps] = useAtom(compsAtom)
   function openEditModal() {
     present({
       title: 'Edit',
@@ -119,7 +121,10 @@ export function CompElement({comp, className, ...props}: CompProps) {
       ),
     })
   }
-  console.log('compElement')
+  function deleteComp() {
+    const newComps = comps.filter(item => item.id !== comp.id)
+    setComps(newComps)
+  }
   return (
     <motion.div
       drag={dragMode}
@@ -138,6 +143,9 @@ export function CompElement({comp, className, ...props}: CompProps) {
           <CompHandler type={type} target={target} />
         </ContextMenuTrigger>
         <ContextMenuContent>
+          <ContextMenuItem className="focus:bg-transparent">
+            <Separator className="my-1"/>
+          </ContextMenuItem>
           <ContextMenuItem onClick={openEditModal} className="flex gap-2">
             <Pencil2Icon/>
             <span>Edit</span>
@@ -145,15 +153,30 @@ export function CompElement({comp, className, ...props}: CompProps) {
           <div className="relative flex gap-1 flex-col cursor-default select-none justify-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
             <div className="flex gap-2">
               <DimensionsIcon/>
-              <span>Layout</span>
+              <span>Resize</span>
             </div>
-            <div className="flex gap-1">
-              <LayoutButton width={1} height={1} comp={comp}/>
-              <LayoutButton width={1} height={2} comp={comp}/>
-              <LayoutButton width={2} height={2} comp={comp}/>
+            <div className="grid grid-cols-3 gap-1">
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={1} height={1} comp={comp}/>
+              </ContextMenuItem>
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={1} height={2} comp={comp}/>
+              </ContextMenuItem>
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={2} height={2} comp={comp}/>
+              </ContextMenuItem>
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={3} height={3} comp={comp}/>
+              </ContextMenuItem>
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={4} height={4} comp={comp}/>
+              </ContextMenuItem>
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={5} height={5} comp={comp}/>
+              </ContextMenuItem>
             </div>
           </div>
-          <ContextMenuItem className="flex gap-2 text-[#FF0000]">
+          <ContextMenuItem onClick={deleteComp} className="flex gap-2 text-[#FF0000] focus:text-[#FF0000] focus:bg-[#FFDBDC]">
             <TrashIcon/>
             <span>Delete</span>
           </ContextMenuItem>
