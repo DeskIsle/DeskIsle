@@ -23,8 +23,8 @@ export default function YoutubeIcon() {
         stroke-dashoffset="0"
         font-family="none"
         font-weight="none"
-        font-size="none"
-        text-anchor="none"
+        fontSize="none"
+        textAnchor="none"
         style={{mixBlendMode: 'normal'}}
       >
         <path d="M0,256v-256h256v256z" id="bgRectangle"></path>

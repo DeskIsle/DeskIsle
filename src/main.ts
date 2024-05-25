@@ -44,8 +44,6 @@ const createWindow = () => {
 
   // mouse event through transparency
   const updateIgnoreMouseEvents = async (x: number, y: number) => {
-    // console.log("updateIgnoreMouseEvents");
-  
     // capture 1x1 image of mouse position.
     const image = await mainWindow.webContents.capturePage({
       x,
@@ -58,7 +56,6 @@ const createWindow = () => {
   
     // set ignore mouse events by alpha.
     mainWindow.setIgnoreMouseEvents(!buffer[3]);
-    // console.log("setIgnoreMouseEvents", !buffer[3]);
   };
   const timer = setInterval(() => {
     if (!mainWindow) return
@@ -82,10 +79,8 @@ const createWindow = () => {
     return { action: "deny"}
   })
 
-
-  
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools({mode: 'detach'});
 };
 
 

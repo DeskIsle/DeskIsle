@@ -50,19 +50,21 @@ export const compsAtom = atom([
       iconColor: 'text-black'
     }
   }
-  // ,{
-  //   row: 1,
-  //   col: 0,
-  //   width: 4,
-  //   height: 4,
-  //   tag: '',
-  //   title: '',
-  //   type: "ImageWidget",
-  //   target: {
-  //     img: "https://component-1256901694.cos.ap-shanghai.myqcloud.com/images/img1.jpg",
-  //     alt: "Girl under the tree."
-  //   }
-  // },{
+  ,{
+    id: 3,
+    row: 1,
+    col: 0,
+    width: 4,
+    height: 4,
+    tag: '',
+    title: '',
+    type: "ImageWidget",
+    target: {
+      img: "https://component-1256901694.cos.ap-shanghai.myqcloud.com/images/img1.jpg",
+      alt: "Girl under the tree."
+    }
+  },
+  // {
   //   row: 0,
   //   col: 4,
   //   width: 6,

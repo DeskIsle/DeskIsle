@@ -4,25 +4,26 @@ import IFrameWidget, { IFrameWidgetProps } from "@/components/widgets/IFrameWidg
 import ImageWidget, { ImageWidgetProps } from "@/components/widgets/ImageWidget";
 import LinkWidget, { LinkWidgetProps } from "@/components/widgets/LinkWidget";
 import { cn } from "@/lib/utils";
-import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
-import { useLongPress, useMouse } from "@uidotdev/usehooks";
+import { DimensionsIcon, Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
+import { useMouse } from "@uidotdev/usehooks";
 import { motion, MotionProps } from "framer-motion";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { useModalStack } from "rc-modal-sheet";
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
 import EditModal from "./modals/edit-modal";
+import LayoutButton from "@/components/common/LayoutButton";
+import { compsAtom } from "@/atoms/comps";
 
 
 interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
-  comps: Comp[]
 }
 
 export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
-  ({comps, className, children, ...props}, ref) => {
+  ({className, children, ...props}, ref) => {
+    const [comps, setComps] = useAtom(compsAtom)
     const [{unit, gap}] = useAtom(layoutConfigAtom)
     const [shadow, setShadow] = useState<DragShadowProps>()
-    const [compsValue, setCompsValue] = useState(comps)
     const shadowRef = useRef<HTMLDivElement>(null)
     const [mouse, layoutRef] = useMouse<HTMLDivElement>()
 
@@ -37,7 +38,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
         className={cn(className, "relative w-full h-full m-10")}
       >
         <DragShadow ref={shadowRef} {...shadow} />
-        {compsValue.map((item, index) => {
+        {comps.map((item, index) => {
           return (
             <CompElement
               comp={item}
@@ -118,17 +119,16 @@ export function CompElement({comp, className, ...props}: CompProps) {
       ),
     })
   }
+  console.log('compElement')
   return (
     <motion.div
-      initial={{
-        width: unit*width+((width-1)*gap), 
-        height: unit*height+((height-1)*gap),
-      }}
       drag={dragMode}
       whileHover={{scale: 1.05}}
       style={{
         top: unit*row + (row+1)*gap,
-        left: unit*col + (col+1)*gap
+        left: unit*col + (col+1)*gap,
+        width: unit*width+((width-1)*gap), 
+        height: unit*height+((height-1)*gap),
       }}
       className={cn(className, `absolute bg-transparent rounded-lg shadow-sm flex justify-center items-center overflow-hidden`)}
       {...props}
@@ -142,6 +142,17 @@ export function CompElement({comp, className, ...props}: CompProps) {
             <Pencil2Icon/>
             <span>Edit</span>
           </ContextMenuItem>
+          <div className="relative flex gap-1 flex-col cursor-default select-none justify-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+            <div className="flex gap-2">
+              <DimensionsIcon/>
+              <span>Layout</span>
+            </div>
+            <div className="flex gap-1">
+              <LayoutButton width={1} height={1} comp={comp}/>
+              <LayoutButton width={1} height={2} comp={comp}/>
+              <LayoutButton width={2} height={2} comp={comp}/>
+            </div>
+          </div>
           <ContextMenuItem className="flex gap-2 text-[#FF0000]">
             <TrashIcon/>
             <span>Delete</span>

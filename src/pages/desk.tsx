@@ -54,10 +54,9 @@ interface ContentPageProps {
 }
 
 function ContentPage({ page }: ContentPageProps) {
-  const [compsValue, setCompsValue] = useAtom(compsAtom)
   if (page !== '设置') {
     return (
-      <AppLayout comps={compsValue} />
+      <AppLayout />
     )
   }
   return (
