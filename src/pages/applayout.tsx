@@ -9,7 +9,7 @@ import { useMouse } from "@uidotdev/usehooks";
 import { motion, MotionProps } from "framer-motion";
 import { useAtom } from "jotai";
 import { useModalStack } from "rc-modal-sheet";
-import React from "react";
+import React, { useEffect } from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
 import EditModal from "./modals/edit-modal";
 import ResizeButton from "@/components/common/ResizeButton";
@@ -27,16 +27,42 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
     const [shadow, setShadow] = useState<DragShadowProps>()
     const shadowRef = useRef<HTMLDivElement>(null)
     const [mouse, layoutRef] = useMouse<HTMLDivElement>()
-
     function handleDrag(e: DragEvent, item: Comp) {
-      const n = Math.floor((mouse.elementY - gap) / (unit + gap))
-      const m = Math.floor((mouse.elementX - gap) / (unit + gap))
-      setShadow({row: n, col: m, width: item.width, height: item.height})
+      const anchor = {
+        x: mouse.elementX, y: mouse.elementY
+      }
+      if (mouse.elementX < gap) anchor.x = gap
+      if (mouse.elementY < gap) anchor.y = gap
+      if (mouse.elementX > layoutRef.current.offsetWidth - gap) anchor.x = layoutRef.current.offsetWidth
+      if (mouse.elementY > layoutRef.current.offsetHeight - gap) anchor.y = layoutRef.current.offsetHeight
+      const offest = {
+        width: 0,
+        height: 0,
+      }
+      let newRow = Math.floor((anchor.y - gap) / (unit + gap))
+      let newCol = Math.floor((anchor.x - gap) / (unit + gap))
+      const maxRow = (layoutRef.current.offsetHeight) / (unit + gap) - item.height
+      const maxCol = (layoutRef.current.offsetWidth) / (unit + gap) - item.width
+      if (newRow + item.height > maxRow) newRow = maxRow
+      if (newCol + item.width > maxCol) newCol = maxCol
+      setShadow({row: newRow, col: newCol, width: item.width, height: item.height})
     }
+
+    useEffect(() => {
+      // compute layoutRef width and height
+      const layoutSize = {
+        width: layoutRef.current.parentElement!.offsetWidth,
+        height: layoutRef.current.parentElement!.offsetHeight
+      }
+      layoutSize.width -= layoutSize.width % (unit + gap)
+      layoutSize.height -= layoutSize.height % (unit + gap)
+      layoutRef.current.style.width = `${layoutSize.width}px`
+      layoutRef.current.style.height = `${String(layoutSize.height)}px`
+    }, [])
     return (
       <div 
         ref={layoutRef} 
-        className={cn(className, "relative w-full h-full m-10")}
+        className={cn(className, "relative border p-4")}
       >
         <DragShadow ref={shadowRef} {...shadow} />
         {comps.map((item, index) => {
@@ -72,7 +98,7 @@ export interface Comp {
 
 export type WidgetProps = LinkWidgetProps | ImageWidgetProps | IFrameWidgetProps
 
-interface DragShadowProps extends MotionProps {
+interface DragShadowProps extends HTMLAttributes<HTMLDivElement> {
   row?: number,
   col?: number,
   width?: number,
@@ -84,7 +110,7 @@ const DragShadow = forwardRef<HTMLDivElement, DragShadowProps>(
   ({row = 0, col = 0, width = 0, height = 0, className, ...props}, ref) => {
     const [{unit, gap}] = useAtom(layoutConfigAtom)
     return (
-      <motion.div
+      <div
         ref={ref}
         style={{
           top: unit*row + (row+1)*gap, 
@@ -92,10 +118,10 @@ const DragShadow = forwardRef<HTMLDivElement, DragShadowProps>(
           width: unit*width+((width-1)*gap),
           height: unit*height+((height-1)*gap)
         }}
-        className={`absolute bg-transparent rounded-lg border`}
+        className={`absolute bg-transparent rounded-lg border-2 border-slate-300`}
         {...props}
       >
-      </motion.div>
+      </div>
     )
   }
 )

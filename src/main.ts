@@ -10,12 +10,12 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const externalDisplay = getExternalDisplay()
-  let x = 5, y = 5, width = 80, height = 200
+  let x = 20, y = 20, width = 0, height = 0
   if (externalDisplay) {
     x += externalDisplay.bounds.x
     y += externalDisplay.bounds.y
-    width = externalDisplay.bounds.width - 10
-    height = externalDisplay.bounds.height - 10
+    width = externalDisplay.bounds.width - 40
+    height = externalDisplay.bounds.height - 40
   }
   const mainWindow = new BrowserWindow({
     x: x,
@@ -25,6 +25,7 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+    fullscreen: true,
     frame: false,
     resizable: false,
     maximizable: false,
@@ -32,7 +33,6 @@ const createWindow = () => {
     skipTaskbar: true,
   });
   mainWindow.setAlwaysOnTop(false, "modal-panel", 0)
-  // mainWindow.setIgnoreMouseEvents(true, { forward: true })
   mainWindow.setSize(width, height)
 
   // and load the index.html of the app.
