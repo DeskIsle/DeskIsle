@@ -60,7 +60,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
     return (
       <div 
         ref={layoutRef} 
-        className={cn(className, "relative border p-4")}
+        className={cn(className, "relative p-4")}
       >
         <DragShadow ref={shadowRef} {...shadow} />
         {comps.map((item, index) => {
@@ -69,7 +69,6 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
               comp={item}
               key={index}
               onDrag={(e) => handleDrag(e as DragEvent, item)}
-              onDragEnd={() => console.log('dragend')}
               dragConstraints={shadowRef}
             />
           )
@@ -115,9 +114,9 @@ const DragShadow = forwardRef<HTMLDivElement, DragShadowProps>(
           top: unit*row + (row+1)*gap, 
           left: unit*col + (col+1)*gap,
           width: unit*width+((width-1)*gap),
-          height: unit*height+((height-1)*gap)
+          height: unit*height+((height-1)*gap),
         }}
-        className={`absolute bg-transparent rounded-lg border-2 border-slate-300`}
+        className={`absolute opacity-0`}
         {...props}
       >
       </div>
