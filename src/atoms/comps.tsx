@@ -11,8 +11,8 @@ export const compsAtom = atom([
     id: 0,
     row: 0,
     col: 0,
-    width: 1,
-    height: 1,
+    width: 3,
+    height: 3,
     tag: '',
     title: 'Youtube',
     type: "LinkWidget",
@@ -53,20 +53,20 @@ export const compsAtom = atom([
       iconColor: 'text-black'
     }
   }
-  ,{
-    id: 3,
-    row: 1,
-    col: 0,
-    width: 4,
-    height: 4,
-    tag: '',
-    title: '',
-    type: "ImageWidget",
-    target: {
-      img: "https://component-1256901694.cos.ap-shanghai.myqcloud.com/images/img1.jpg",
-      alt: "Girl under the tree."
-    }
-  },
+  // ,{
+  //   id: 3,
+  //   row: 1,
+  //   col: 0,
+  //   width: 4,
+  //   height: 4,
+  //   tag: '',
+  //   title: '',
+  //   type: "ImageWidget",
+  //   target: {
+  //     img: "https://component-1256901694.cos.ap-shanghai.myqcloud.com/images/img1.jpg",
+  //     alt: "Girl under the tree."
+  //   }
+  // },
   // {
   //   row: 0,
   //   col: 4,

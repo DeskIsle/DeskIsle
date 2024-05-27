@@ -1,6 +1,7 @@
-import { app, BrowserWindow, globalShortcut, HandlerDetails, ipcMain, screen, shell } from 'electron';
+import { app, BrowserWindow, HandlerDetails, screen, shell } from 'electron';
 import path from 'path';
 import { getExternalDisplay } from './lib/display';
+import { setInterval, setTimeout } from 'timers';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -8,9 +9,9 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = () => {
-  // Create the browser window.
-  const externalDisplay = getExternalDisplay()
   let x = 20, y = 20, width = 0, height = 0
+  const externalDisplay = getExternalDisplay()
+  // Create the browser window.
   if (externalDisplay) {
     x += externalDisplay.bounds.x
     y += externalDisplay.bounds.y
@@ -29,7 +30,6 @@ const createWindow = () => {
     resizable: false,
     frame: false, 
     minimizable: true,
-    maximizable: false,
     transparent: true,
     skipTaskbar: true,
     alwaysOnTop: false,
@@ -102,10 +102,22 @@ app.on('window-all-closed', () => {
 
 app.on('browser-window-blur', () => {
   BrowserWindow.getAllWindows().map((win, index, arr) => {
-    win.minimize()
-    win.show()
+    win.setAlwaysOnTop(true)
+    debounce(() => {
+      win.setAlwaysOnTop(true)
+      win.setAlwaysOnTop(false)
+    }, 500)()
   })
 })
+
+function debounce(fn: any, wait: number) {
+  var timeout: any = null;
+  return function() {
+      if(timeout !== null) 
+              clearTimeout(timeout);
+      timeout = setTimeout(fn, wait);
+  }
+}
 
 app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
