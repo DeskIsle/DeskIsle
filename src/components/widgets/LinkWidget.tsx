@@ -18,10 +18,14 @@ export default function LinkWidget({link, icon, iconColor, bgColor}: LinkWidgetP
     if (dragMode) return
     window.open(link)
   }
-  if (!iconColor) iconColor = 'text-white'
-  if (!bgColor) bgColor = 'bg-gradient-to-r from-purple-500 to-pink-500'
   return (
-    <div onClick={openBrowser} className={`${bgColor} ${iconColor} w-full h-full select-none flex justify-center items-center hover:cursor-pointer`}>
+    <div 
+      onClick={openBrowser} 
+      style={{
+        backgroundColor: bgColor,
+        color: iconColor
+      }}
+      className={`w-full h-full select-none flex justify-center items-center hover:cursor-pointer`}>
       {icon}
     </div>
   )

@@ -6,5 +6,5 @@ export const iconsAtom = atom([
   <HomeIcon/>,
   <GearIcon/>,
   <EnvelopeOpenIcon/>,
-  <ChatBubbleIcon/>
+  <ChatBubbleIcon/>,
 ])

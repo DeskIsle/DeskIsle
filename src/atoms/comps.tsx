@@ -6,7 +6,7 @@ import { atom } from "jotai";
 import { atomWithReset } from "jotai/utils"
 import React from "react";
 
-export const compsAtom = atom([
+export const compsAtom = atom<Comp[]>([
   {
     id: 0,
     row: 0,
@@ -19,8 +19,8 @@ export const compsAtom = atom([
     target: {
       link: "https://youtube.com",
       icon: <YoutubeIcon />,
-      bgColor: "bg-white",
-      iconColor: "text-[#FF0000]",
+      bgColor: "#FFFFFF",
+      iconColor: "#FF0000",
     }
   },{
     id: 1,
@@ -34,8 +34,8 @@ export const compsAtom = atom([
     target: {
       link: "https://github.com",
       icon: <GitHubLogoIcon className="w-3/4 h-3/4"/>,
-      bgColor: 'bg-black',
-      iconColor: 'text-white'
+      bgColor: '#000000',
+      iconColor: '#FFFFFF'
     }
   },{
     id: 2,
@@ -49,8 +49,8 @@ export const compsAtom = atom([
     target: {
       link: "https://notion.so",
       icon: <NotionLogoIcon className="w-3/4 h-3/4"/>,
-      bgColor: 'bg-white',
-      iconColor: 'text-black'
+      bgColor: '#FFFFFF',
+      iconColor: '#000000'
     }
   }
   // ,{
@@ -94,7 +94,7 @@ export const linkWidgetAtom = atomWithReset({
   target: {
     link: "",
     icon: <BoxIcon />,
-    bgColor: "bg-white",
-    iconColor: "text-black",
+    bgColor: "",
+    iconColor: "",
   } as LinkWidgetProps
 })

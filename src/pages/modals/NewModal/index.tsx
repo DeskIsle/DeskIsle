@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button";
 import { useResetAtom } from "jotai/utils";
 import { ChatBubbleIcon, EnvelopeOpenIcon, GearIcon, HomeIcon } from "@radix-ui/react-icons";
 import { iconsAtom } from "@/atoms/icons";
+import { Comp, CompElement } from "@/pages/applayout";
+import { Separator } from "@/components/ui/separator";
+import LinkWidget from "@/components/widgets/LinkWidget";
+import { layoutConfigAtom } from "@/atoms/layoutConfig";
 
 export default function NewModal() {
   const [comps, setComps] = useAtom(compsAtom)
@@ -76,21 +80,47 @@ export function NewHandler({type, setType}: NewHandlerProps) {
     const [linkWidget, setLinkWidget] = useAtom(linkWidgetAtom)
     const reset = useResetAtom(linkWidgetAtom)
     const icons = useAtomValue(iconsAtom)
+    const [comps, setComps] = useAtom(compsAtom)
+    const [{unit, gap}] = useAtom(layoutConfigAtom)
     function save() {
-      // reset()
+      setComps([...comps, linkWidget])
+      reset()
       setType('')
     }
     function selectIcon(icon: React.ReactNode) {
       setLinkWidget({...linkWidget, target: {...linkWidget.target, icon}})
     }
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full h-full">
         <Label htmlFor="link">网址</Label>
-        <Input id="link" placeholder="link" value={linkWidget.target.link} onChange={(v) => setLinkWidget({...linkWidget, target: {...linkWidget.target, link: v.target.value}})} />
-        <Label htmlFor="icon">Icon</Label>
-        <div className="grid grid-cols-6">
-          {icons.map((icon, index) => <div key={index} onClick={e => selectIcon(icon)} className={`p-2 rounded-sm ${icon === linkWidget.target.icon ? 'bg-accent' : ''} hover:bg-accent`}>{icon}</div>)}
+        <Input id="link" value={linkWidget.target.link} onChange={(v) => setLinkWidget({...linkWidget, target: {...linkWidget.target, link: v.target.value}})} />
+        <Label htmlFor="icon">图标</Label>
+        <div className="flex flex-wrap">
+          {icons.map((icon, index) => 
+            <div 
+              key={index} 
+              onClick={e => selectIcon(icon)} 
+              className={`w-auto h-auto p-2 rounded-sm ${icon === linkWidget.target.icon ? 'bg-accent' : ''} hover:bg-accent`}>
+                {icon}
+            </div>
+          )}
         </div>
+        <Label htmlFor="bgColor">背景色</Label>
+        <Input id="bgColor" value={linkWidget.target.bgColor} onChange={(v) => setLinkWidget({...linkWidget, target: {...linkWidget.target, bgColor: v.target.value}})} />
+        <Label htmlFor="iconColor">图标色</Label>
+        <Input id="iconColor" value={linkWidget.target.iconColor} onChange={(v) => setLinkWidget({...linkWidget, target: {...linkWidget.target, iconColor: v.target.value}})} />
+        
+        <Separator />
+        <Label>预览</Label>
+        <motion.div
+          whileHover={{scale: 1.05}}
+          style={{
+            width: unit*linkWidget.width+((linkWidget.width-1)*gap), 
+            height: unit*linkWidget.height+((linkWidget.height-1)*gap),
+          }} 
+          className="bg-transparent rounded-lg shadow-lg flex justify-center items-center overflow-hidden">
+          <LinkWidget {...linkWidget.target} />
+        </motion.div>
         <Button onClick={save}>保存</Button>
       </div>
     )
