@@ -103,7 +103,7 @@ app.on('window-all-closed', () => {
 app.on('browser-window-blur', () => {
   BrowserWindow.getAllWindows().map((win, index, arr) => {
     win.minimize()
-    win.restore()
+    win.show()
   })
 })
 
