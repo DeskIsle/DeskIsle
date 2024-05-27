@@ -1,4 +1,4 @@
-import { app, BrowserWindow, HandlerDetails, ipcMain, screen, shell } from 'electron';
+import { app, BrowserWindow, globalShortcut, HandlerDetails, ipcMain, screen, shell } from 'electron';
 import path from 'path';
 import { getExternalDisplay } from './lib/display';
 
@@ -24,15 +24,17 @@ const createWindow = () => {
     height: height,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-    },
-    fullscreen: true,
-    frame: false,
+      nodeIntegration: true,
+    }, 
     resizable: false,
+    frame: false, 
+    minimizable: true,
     maximizable: false,
     transparent: true,
     skipTaskbar: true,
+    alwaysOnTop: false,
   });
-  mainWindow.setAlwaysOnTop(false, "modal-panel", 0)
+  // mainWindow.setAlwaysOnTop(true, "modal-panel", 0)
   mainWindow.setSize(width, height)
 
   // and load the index.html of the app.
@@ -87,16 +89,23 @@ const createWindow = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', createWindow)
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit();
-  }
+    app.quit(); 
+  } 
 });
+
+app.on('browser-window-blur', () => {
+  BrowserWindow.getAllWindows().map((win, index, arr) => {
+    win.minimize()
+    win.restore()
+  })
+})
 
 app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the

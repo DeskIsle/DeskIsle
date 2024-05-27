@@ -29,10 +29,10 @@ export const compsAtom = atom([
     width: 1,
     height: 1,
     tag: '',
-    title: 'Google',
+    title: 'Github',
     type: "LinkWidget",
     target: {
-      link: "https://google.com",
+      link: "https://github.com",
       icon: <GitHubLogoIcon className="w-3/4 h-3/4"/>,
       bgColor: 'bg-black',
       iconColor: 'text-white'
