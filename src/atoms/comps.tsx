@@ -1,10 +1,26 @@
+import { IFrameWidgetProps } from "@/components/widgets/IFrameWidget";
+import { ImageWidgetProps } from "@/components/widgets/ImageWidget";
 import { LinkWidgetProps } from "@/components/widgets/LinkWidget";
+import { MemoWidgetProps } from "@/components/widgets/MemoWidget";
 import YoutubeIcon from "@/icons/YoutubeIcon";
-import { Comp } from "@/pages/applayout";
 import { BoxIcon, GitHubLogoIcon, NotionLogoIcon } from "@radix-ui/react-icons";
 import { atom } from "jotai";
 import { atomWithReset } from "jotai/utils"
 import React from "react";
+
+export interface Comp {
+  id: number,
+  row: number,
+  col: number,
+  width: number,
+  height: number,
+  tag: string,
+  title: string,
+  type: string,
+  target: WidgetProps
+}
+
+export type WidgetProps = LinkWidgetProps | ImageWidgetProps | IFrameWidgetProps | MemoWidgetProps
 
 export const compsAtom = atom<Comp[]>([
   {
@@ -52,6 +68,18 @@ export const compsAtom = atom<Comp[]>([
       bgColor: '#FFFFFF',
       iconColor: '#000000'
     }
+  }, {
+    id: 5,
+    row: 1,
+    col: 0,
+    width: 5,
+    height: 5,
+    tag: '',
+    title: '备忘录',
+    type: "MemoWidget",
+    target: {
+      
+    }
   }
   // ,{
   //   id: 3,
@@ -68,7 +96,7 @@ export const compsAtom = atom<Comp[]>([
   //   }
   // },
   // {
-  //   row: 0,
+  //   row: 4,
   //   col: 4,
   //   width: 6,
   //   height: 6,

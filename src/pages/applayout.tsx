@@ -13,9 +13,10 @@ import React, { useEffect } from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
 import EditModal from "./modals/EditModal";
 import ResizeButton from "@/components/common/ResizeButton";
-import { compsAtom } from "@/atoms/comps";
+import { Comp, compsAtom } from "@/atoms/comps";
 import { Separator } from "@/components/ui/separator";
 import NewModal from "./modals/NewModal";
+import MemoWidget, { MemoWidgetProps } from "@/components/widgets/MemoWidget";
 
 
 interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -81,20 +82,6 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
 AppLayout.displayName = 'AppLayout'
 
 export default AppLayout
-
-export interface Comp {
-  id: number,
-  row: number,
-  col: number,
-  width: number,
-  height: number,
-  tag: string,
-  title: string,
-  type: string,
-  target: WidgetProps
-}
-
-export type WidgetProps = LinkWidgetProps | ImageWidgetProps | IFrameWidgetProps
 
 interface DragShadowProps extends HTMLAttributes<HTMLDivElement> {
   row?: number,
@@ -239,6 +226,10 @@ export function CompHandler({ type, target }: CompHandlerProps) {
   } else if (type === 'IFrameWidget') {
     return (
       <IFrameWidget {...target as IFrameWidgetProps}/>
+    )
+  } else if (type === 'MemoWidget') {
+    return (
+      <MemoWidget {...target as MemoWidgetProps} />
     )
   } else {
     return (
