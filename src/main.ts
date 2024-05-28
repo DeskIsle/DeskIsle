@@ -9,9 +9,9 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = () => {
-  let x = 20, y = 20, width = 0, height = 0
+  const primaryDisplay = screen.getPrimaryDisplay()
+  let x = 20, y = 20, width = primaryDisplay.bounds.width, height = primaryDisplay.bounds.height
   const externalDisplay = getExternalDisplay()
-  // Create the browser window.
   if (externalDisplay) {
     x += externalDisplay.bounds.x
     y += externalDisplay.bounds.y
