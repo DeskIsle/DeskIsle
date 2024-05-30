@@ -1,5 +1,4 @@
-import { compsAtom } from "@/atoms/comps";
-import { Comp } from "@/pages/applayout";
+import { Comp, compsAtom } from "@/atoms/comps";
 import { useAtom } from "jotai";
 import React from "react";
 
