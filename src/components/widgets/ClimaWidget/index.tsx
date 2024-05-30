@@ -3570,3 +3570,9 @@ export default function ClimaWidget({}: ClimaWidgetProps) {
     </div>
   )
 }
+
+export function ClimaWidgetEditor() {
+  return (
+    <div>ClimaWidgetEditor</div>
+  )
+}

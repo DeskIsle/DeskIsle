@@ -1,3 +1,4 @@
+import ClimaWidget, { ClimaWidgetEditor } from "@/components/widgets/ClimaWidget";
 import LinkWidget, { LinkWidgetEditor } from "@/components/widgets/LinkWidget";
 import { atom } from "jotai";
 import React from "react";
@@ -54,20 +55,17 @@ export const compsAtom = atom<Comp[]>([
       bgColor: '#FFFFFF',
     }
   }
-  // , {
-  //   id: 5,
-  //   row: 1,
-  //   col: 0,
-  //   width: 5,
-  //   height: 5,
-  //   tag: '',
-  //   title: '天气',
-  //   element: ClimaWidget,
-  //   elementEditor: null,
-  //   elementProps: {
-      
-  //   }
-  // }
+  , {
+    id: 4,
+    row: 1,
+    col: 0,
+    width: 5,
+    height: 5,
+    Element: ClimaWidget,
+    ElementEditor: ClimaWidgetEditor,
+    elementProps: {
+    }
+  }
   // ,{
   //   id: 3,
   //   row: 1,
