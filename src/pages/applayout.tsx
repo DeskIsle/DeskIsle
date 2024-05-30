@@ -1,22 +1,17 @@
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
-import IFrameWidget, { IFrameWidgetProps } from "@/components/widgets/IFrameWidget";
-import ImageWidget, { ImageWidgetProps } from "@/components/widgets/ImageWidget";
-import LinkWidget, { LinkWidgetProps } from "@/components/widgets/LinkWidget";
 import { cn } from "@/lib/utils";
-import { DashboardIcon, DimensionsIcon, DragHandleDots2Icon, DropdownMenuIcon, Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
+import { DashboardIcon, DimensionsIcon, Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
 import { useMouse } from "@uidotdev/usehooks";
-import { motion, MotionProps } from "framer-motion";
+import { AnimatePresence, motion, MotionProps } from "framer-motion";
 import { useAtom } from "jotai";
 import { useModalStack } from "rc-modal-sheet";
 import React, { useEffect } from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
-import EditModal from "./modals/EditModal";
 import ResizeButton from "@/components/common/ResizeButton";
 import { Comp, compsAtom } from "@/atoms/comps";
 import { Separator } from "@/components/ui/separator";
-import NewModal from "./modals/NewModal";
-import MemoWidget, { MemoWidgetProps } from "@/components/widgets/MemoWidget";
+import WidgetShop from "./modals/WidgetShop";
 
 
 interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -119,16 +114,17 @@ interface CompProps extends MotionProps {
 }
 
 export function CompElement({comp, className, ...props}: CompProps) {
-  const {width, height, row, col, title, tag, type, target} = comp
+  const { Element, ElementEditor, ...compAllProps } = comp
+  const {width, height, row, col, elementProps} = compAllProps
   const [{unit, gap}] = useAtom(layoutConfigAtom)
   const [{dragMode}] = useAtom(layoutConfigAtom)
-  const { present } = useModalStack()
+  const { present, dismissTop } = useModalStack()
   const [comps, setComps] = useAtom(compsAtom)
   function openEditModal() {
     present({
-      title: 'Edit',
+      title: '编辑',
       content: () => (
-        <EditModal comp={comp}/>
+        <ElementEditor dismissTop={dismissTop} comp={comp}/>
       ),
     })
   }
@@ -136,7 +132,7 @@ export function CompElement({comp, className, ...props}: CompProps) {
     present({
       title: 'New',
       content: () => (
-        <NewModal/>
+        <WidgetShop/>
       ),
     })
   }
@@ -159,7 +155,7 @@ export function CompElement({comp, className, ...props}: CompProps) {
     >
       <ContextMenu>
         <ContextMenuTrigger className="w-full h-full">
-          <CompHandler type={type} target={target} />
+          <Element {...elementProps}/>
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem className="focus:bg-transparent">
@@ -207,33 +203,4 @@ export function CompElement({comp, className, ...props}: CompProps) {
       </ContextMenu>
     </motion.div>
   )
-}
-
-interface CompHandlerProps {
-  type: Comp['type']
-  target: Comp['target']
-}
-
-export function CompHandler({ type, target }: CompHandlerProps) {
-  if (type === 'LinkWidget') {
-    return (
-      <LinkWidget {...target as LinkWidgetProps}/>
-    )
-  } else if (type === 'ImageWidget') {
-    return (
-      <ImageWidget {...target as ImageWidgetProps}/>
-    )
-  } else if (type === 'IFrameWidget') {
-    return (
-      <IFrameWidget {...target as IFrameWidgetProps}/>
-    )
-  } else if (type === 'MemoWidget') {
-    return (
-      <MemoWidget {...target as MemoWidgetProps} />
-    )
-  } else {
-    return (
-      <div className="w-full h-full"></div>
-    )
-  }
 }

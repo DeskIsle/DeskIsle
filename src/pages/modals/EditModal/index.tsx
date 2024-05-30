@@ -1,15 +1,14 @@
-import { compsAtom } from "@/atoms/comps";
+import { Comp, compsAtom } from "@/atoms/comps";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAtom } from "jotai";
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Comp } from "../../applayout";
+import React, { useEffect, useState } from "react";
 
-interface EditModelProps {
+interface EditModalProps {
   comp: Comp
 }
 
-export default function EditModal({comp}: EditModelProps) {
+export default function EditModal({comp}: EditModalProps) {
   const [comps, setComps] = useAtom(compsAtom)
   const [compState, setCompState] = useState<any>(comp)
   useEffect(() => {

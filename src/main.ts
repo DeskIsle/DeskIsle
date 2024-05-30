@@ -32,7 +32,7 @@ const createWindow = () => {
     minimizable: true,
     transparent: true,
     skipTaskbar: true,
-    alwaysOnTop: false,
+    alwaysOnTop: true,
   });
   // mainWindow.setAlwaysOnTop(true, "modal-panel", 0)
   mainWindow.setSize(width, height)
@@ -100,15 +100,15 @@ app.on('window-all-closed', () => {
   } 
 });
 
-app.on('browser-window-blur', () => {
-  BrowserWindow.getAllWindows().map((win, index, arr) => {
-    win.setAlwaysOnTop(true)
-    debounce(() => {
-      win.setAlwaysOnTop(true)
-      win.setAlwaysOnTop(false)
-    }, 500)()
-  })
-})
+// app.on('browser-window-blur', () => {
+//   BrowserWindow.getAllWindows().map((win, index, arr) => {
+//     win.setAlwaysOnTop(true)
+//     debounce(() => {
+//       win.setAlwaysOnTop(true)
+//       win.setAlwaysOnTop(false)
+//     }, 500)()
+//   })
+// })
 
 function debounce(fn: any, wait: number) {
   var timeout: any = null;
