@@ -219,19 +219,21 @@
     transition: all 2s ease-in-out;
     animation: stormAnimation 10s infinite ease-in-out, stormAnimation2 12s infinite ease-in-out;
 }
-.window-rounded svg#mountains.storm #clouds,
-.window-rounded svg#mountains.storm #back-clouds-1,
-.window-rounded svg#mountains.storm #back-clouds-2,
-.window-rounded svg#mountains.storm #back-clouds-3 {
+/* blackclouds */
+.window-rounded svg#mountains.blackclouds #clouds,
+.window-rounded svg#mountains.blackclouds #back-clouds-1,
+.window-rounded svg#mountains.blackclouds #back-clouds-2,
+.window-rounded svg#mountains.blackclouds #back-clouds-3 {
     opacity: 1;
     translate: 0 0%;
     filter: contrast(1) grayscale(0.7) brightness(0.6);
     animation: cloudsAnimation 12s infinite ease-in-out !important;
 }
-.window-rounded svg#mountains.storm #strike-1 {
+/* lighting */
+.window-rounded svg#mountains.lighting #strike-1 {
     animation: lightningAnimation 10s infinite ease-in-out;
 }
-.window-rounded svg#mountains.storm #strike-2 {
+.window-rounded svg#mountains.lighting #strike-2 {
     animation: lightningAnimation 12s infinite ease-in-out;
 }
 @keyframes stormAnimation {
@@ -296,12 +298,19 @@
         opacity: 0;
     }
 }
-.window-rounded svg#mountains.storm #snow-1 {
+/* rain */
+.window-rounded svg#mountains.rain #snow-1 {
     animation: stormRainAnimation 1s infinite linear !important;
     opacity: 0.3;
 }
-.window-rounded svg#mountains.storm #snow-2 {
-    animation: stormRainAnimation 1.1s infinite linear !important;
+/* medium rain */
+.window-rounded svg#mountains.medium-rain #snow-2 {
+    animation: stormRainAnimation 0.8s infinite linear !important;
+    opacity: 0.3;
+}
+/* heavy rain */
+.window-rounded svg#mountains.heavy-rain #snow-2 {
+    animation: stormRainAnimation 0.5s infinite linear !important;
     opacity: 0.3;
 }
 @keyframes stormRainAnimation {

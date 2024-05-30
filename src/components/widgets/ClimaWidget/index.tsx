@@ -25,25 +25,35 @@ export default function ClimaWidget({}: ClimaWidgetProps) {
         const curTime = new Date(Date.parse(data.updateTime));
       
         setTemperature(tempValue)
+
+        const newWeatherClass = []
         
-        setWeatherClass([])
-        if (icon === 100) {
-        }
+        // if (icon === 100) {
+        // }
         if (icon >= 101 && icon <= 104) {
-          setWeatherClass([...weatherClass, 'clouds'])
-        }
-        if (icon >= 300 && icon <= 399) {
-          setWeatherClass([...weatherClass, 'storm'])
-        }
-        if (icon >= 400 && icon <= 499) {
-          setWeatherClass([...weatherClass, 'snow'])
+          newWeatherClass.push('clouds')
+        } else if (icon >= 300 && icon <= 399) {
+          newWeatherClass.push('blackclouds')
+          newWeatherClass.push('rain')
+          if (icon >= 302 && icon <= 304) {
+            newWeatherClass.push('storm')
+            newWeatherClass.push('lighting')
+          } else if (icon === 306 || (icon >= 313 && icon <= 315) || icon === 350) {
+            newWeatherClass.push('medium-rain')
+          } else if ((icon >= 307 && icon <= 308) || (icon >= 310 && icon <= 312) || (icon >= 316 && icon <= 318) || icon === 351) {
+            newWeatherClass.push('medium-rain')
+            newWeatherClass.push('heavy-rain')
+          }
+        } else if (icon >= 400 && icon <= 499) {
+          newWeatherClass.push('snow')
         }
         // update by time
         if (curTime.getHours() >= 18 && curTime.getHours() <= 20) {
-          setWeatherClass([...weatherClass, 'sunset'])
+          newWeatherClass.push('sunset')
         } else if (curTime.getHours() >= 21 || curTime.getHours() <= 5) {
-          setWeatherClass([...weatherClass, 'moon'])
+          newWeatherClass.push('moon')
         }
+        setWeatherClass(newWeatherClass)
     });
   }, [])
 
