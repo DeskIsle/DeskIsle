@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Card from "@/components/common/Card";
 import { AnimatePresence, motion } from "framer-motion";
+import { registryComps } from "@/atoms/comps";
 
 export default function WidgetShop() {
   const containerVariant = {
@@ -27,9 +28,13 @@ export default function WidgetShop() {
         animate="visible" 
         className="absolute p-4 grid grid-cols-2 gap-2 w-full h-full"
       >
-        <motion.li variants={itemVariant}><Card onClick={() => setType('LinkWidget')} className="w-40 h-40">网址导航</Card></motion.li>
-        <motion.li variants={itemVariant}><Card onClick={() => setType('ImageWidget')} className="w-40 h-40">图像小组件</Card></motion.li>
-        <motion.li variants={itemVariant}><Card onClick={() => setType('IFrameWidget')} className="w-40 h-40">iFrame组件</Card></motion.li>
+        {
+          Object.keys(registryComps).map((key) => (
+            <motion.li variants={itemVariant} key={key}>
+              <Card onClick={() => setType(key)} className="w-40 h-40">{registryComps[key].name}</Card>
+            </motion.li>
+          ))
+        }
       </motion.ul>
       <NewHandler type={type}/>
     </div>

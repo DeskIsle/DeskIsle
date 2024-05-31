@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import './index.css'
-import CitySelector from "@/components/common/CitySelector";
 
 export interface ClimaWidgetProps {
   
