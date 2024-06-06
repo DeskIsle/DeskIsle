@@ -95,8 +95,8 @@ export const compsAtom = atom<Comp[]>([
     id: 4,
     row: 1,
     col: 0,
-    width: 5,
-    height: 5,
+    width: 4,
+    height: 4,
     Element: registryComps['ClimaWidget'].Element,
     ElementEditor: registryComps['ClimaWidget'].ElementEditor,
     elementProps: {

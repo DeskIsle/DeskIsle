@@ -135,7 +135,7 @@ export function CompElement({comp, className, ...props}: CompProps) {
   return (
     <motion.div
       drag={dragMode}
-      whileHover={{scale: 1.1}}
+      whileHover={{y: -5, transition: {duration: 0.1}}}
       style={{
         top: unit*row + (row+1)*gap,
         left: unit*col + (col+1)*gap,

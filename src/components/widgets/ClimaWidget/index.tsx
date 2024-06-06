@@ -27,8 +27,6 @@ export default function ClimaWidget({}: ClimaWidgetProps) {
 
         const newWeatherClass = []
         
-        // if (icon === 100) {
-        // }
         if (icon >= 101 && icon <= 104) {
           newWeatherClass.push('clouds')
         } else if (icon >= 300 && icon <= 399) {
