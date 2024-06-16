@@ -2,11 +2,15 @@ import { app, BrowserWindow, HandlerDetails, screen, shell } from 'electron';
 import path from 'path';
 import { getExternalDisplay } from './lib/display';
 import { setInterval, setTimeout } from 'timers';
+import { attach, detach, refresh } from 'electron-as-wallpaper';
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
+
+let windowIsAttach = false
 
 const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay()
@@ -26,16 +30,21 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
-    }, 
+    },
     resizable: false,
     frame: false, 
-    minimizable: true,
     transparent: true,
     skipTaskbar: true,
-    alwaysOnTop: true,
+    autoHideMenuBar: true,
   });
-  // mainWindow.setAlwaysOnTop(true, "modal-panel", 0)
   mainWindow.setSize(width, height)
+  
+  attach(mainWindow, {
+    transparent: true,
+    forwardKeyboardInput: true,
+    forwardMouseInput: true,
+  })
+  windowIsAttach = true
 
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
@@ -57,7 +66,19 @@ const createWindow = () => {
     var buffer = image.getBitmap();
   
     // set ignore mouse events by alpha.
-    mainWindow.setIgnoreMouseEvents(!buffer[3]);
+    if (!buffer[3] && !windowIsAttach) {
+      attach(mainWindow, {
+        transparent: true,
+        forwardKeyboardInput: true,
+        forwardMouseInput: true,
+      })
+      windowIsAttach = true      
+      mainWindow.setIgnoreMouseEvents(true);
+    } else if (buffer[3] && windowIsAttach) {
+      detach(mainWindow)
+      windowIsAttach = false
+      mainWindow.setIgnoreMouseEvents(false);
+    }
   };
   const timer = setInterval(() => {
     if (!mainWindow) return
@@ -68,7 +89,7 @@ const createWindow = () => {
     if (point.x > x && point.x < x + w && point.y > y && point.y < y + h) {
       updateIgnoreMouseEvents(point.x - x, point.y - y);
     }
-  }, 200);
+  }, 100);
 
   mainWindow.on('close', () => {
     clearInterval(timer)
@@ -99,25 +120,6 @@ app.on('window-all-closed', () => {
     app.quit(); 
   } 
 });
-
-// app.on('browser-window-blur', () => {
-//   BrowserWindow.getAllWindows().map((win, index, arr) => {
-//     win.setAlwaysOnTop(true)
-//     debounce(() => {
-//       win.setAlwaysOnTop(true)
-//       win.setAlwaysOnTop(false)
-//     }, 500)()
-//   })
-// })
-
-function debounce(fn: any, wait: number) {
-  var timeout: any = null;
-  return function() {
-      if(timeout !== null) 
-              clearTimeout(timeout);
-      timeout = setTimeout(fn, wait);
-  }
-}
 
 app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the

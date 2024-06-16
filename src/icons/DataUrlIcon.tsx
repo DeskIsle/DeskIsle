@@ -7,6 +7,6 @@ interface DataUrlIconProps extends HTMLAttributes<HTMLDivElement>{
 
 export default function DataUrlIcon({src, className, ...props}: DataUrlIconProps) {
 	return (
-    <img className={className} {...props} alt='' src={src} />
+    <img className={className} draggable={false} {...props} alt='' src={src} />
   )
 }
