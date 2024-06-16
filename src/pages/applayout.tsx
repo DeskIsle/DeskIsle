@@ -8,7 +8,7 @@ import { useModalStack } from "rc-modal-sheet";
 import React, { useEffect } from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
 import ResizeButton from "@/components/common/ResizeButton";
-import { Comp, compsAtom } from "@/atoms/comps";
+import { Comp, compsAtom, registryComps } from "@/atoms/comps";
 import { Separator } from "@/components/ui/separator";
 import WidgetShop from "./modals/WidgetShop";
 import { RadixIconsDashboard, RadixIconsDimensions, RadixIconsPencil2, RadixIconsTrash } from "@/icons/RadixIcons";
@@ -114,12 +114,14 @@ interface CompProps extends MotionProps {
 }
 
 export function CompElement({comp, className, ...props}: CompProps) {
-  const { Element, ElementEditor, ...compAllProps } = comp
+  const { element, ...compAllProps } = comp
   const {width, height, row, col, elementProps} = compAllProps
   const [{unit, gap}] = useAtom(layoutConfigAtom)
   const [{dragMode}] = useAtom(layoutConfigAtom)
   const { present, dismissTop } = useModalStack()
   const [comps, setComps] = useAtom(compsAtom)
+  const Element = registryComps[element].Element
+  const ElementEditor = registryComps[element].ElementEditor
   function openEditModal() {
     present({
       title: '编辑',

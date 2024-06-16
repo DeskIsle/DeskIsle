@@ -1,6 +1,6 @@
-import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils"
 
-export const layoutConfigAtom = atom({
+export const layoutConfigAtom = atomWithStorage('user-config', {
   unit: 50,
   gap: 20,
   dragMode: true
