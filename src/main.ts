@@ -1,8 +1,7 @@
-import { app, BrowserWindow, HandlerDetails, screen, shell } from 'electron';
+import { app, BrowserWindow, HandlerDetails, screen, shell, ipcMain, IpcMainEvent } from 'electron';
 import path from 'path';
 import { getExternalDisplay } from './lib/display';
 import { setInterval, setTimeout } from 'timers';
-import { attach, detach, refresh } from 'electron-as-wallpaper';
 
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -10,7 +9,7 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-let windowIsAttach = false
+let mainWindow: BrowserWindow
 
 const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay()
@@ -22,7 +21,7 @@ const createWindow = () => {
     width = externalDisplay.bounds.width - 40
     height = externalDisplay.bounds.height - 40
   }
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     x: x,
     y: y,
     width: width,
@@ -38,14 +37,8 @@ const createWindow = () => {
     autoHideMenuBar: true,
   });
   mainWindow.setSize(width, height)
+  mainWindow.setIgnoreMouseEvents(true)
   
-  attach(mainWindow, {
-    transparent: true,
-    forwardKeyboardInput: true,
-    forwardMouseInput: true,
-  })
-  windowIsAttach = true
-
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
@@ -64,21 +57,10 @@ const createWindow = () => {
     });
   
     var buffer = image.getBitmap();
-  
-    // set ignore mouse events by alpha.
-    if (!buffer[3] && !windowIsAttach) {
-      attach(mainWindow, {
-        transparent: true,
-        forwardKeyboardInput: true,
-        forwardMouseInput: true,
-      })
-      windowIsAttach = true      
-      mainWindow.setIgnoreMouseEvents(true);
-    } else if (buffer[3] && windowIsAttach) {
-      detach(mainWindow)
-      windowIsAttach = false
-      mainWindow.setIgnoreMouseEvents(false);
-    }
+    
+    const transparent = !buffer[3]
+    mainWindow.setIgnoreMouseEvents(transparent);
+    
   };
   const timer = setInterval(() => {
     if (!mainWindow) return
@@ -89,7 +71,7 @@ const createWindow = () => {
     if (point.x > x && point.x < x + w && point.y > y && point.y < y + h) {
       updateIgnoreMouseEvents(point.x - x, point.y - y);
     }
-  }, 100);
+  }, 200);
 
   mainWindow.on('close', () => {
     clearInterval(timer)
@@ -106,12 +88,12 @@ const createWindow = () => {
   mainWindow.webContents.openDevTools({mode: 'detach'});
 };
 
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
-
+app.whenReady().then(() => {
+  createWindow()
+})
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.

@@ -1,7 +1,7 @@
 import { atomWithStorage } from "jotai/utils"
 
-export const layoutConfigAtom = atomWithStorage('user-config', {
+export const layoutConfigAtom = atomWithStorage('config', {
   unit: 50,
   gap: 20,
-  dragMode: true
+  editMode: true
 })

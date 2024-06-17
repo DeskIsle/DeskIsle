@@ -1,4 +1,4 @@
-import { Comp, compsAtom } from "@/atoms/comps";
+import { Comp, compsAtom, isDraggingAtom } from "@/atoms/comps";
 import { iconsAtom } from "@/atoms/icons";
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { Button } from "@/components/ui/button";
@@ -22,14 +22,14 @@ export interface LinkWidgetProps {
 
 
 export default function LinkWidget({link, icon, bgColor}: LinkWidgetProps) {
-  const [{dragMode}] = useAtom(layoutConfigAtom)
+  const [isDragging] = useAtom(isDraggingAtom)
   function openBrowser() {
-    if (dragMode) return
+    if (isDragging) return
     window.open(link)
   }
   return (
     <div 
-      onClick={openBrowser} 
+      onMouseUp={openBrowser} 
       style={{
         backgroundColor: bgColor,
       }}

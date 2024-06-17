@@ -93,15 +93,15 @@ export const compsAtom = atomWithStorage<Comp[]>('comps', [
       bgColor: '#FFFFFF',
     }
   }
-  , {
-    id: 4,
-    row: 1,
-    col: 0,
-    width: 4,
-    height: 4,
-    element: 'ClimaWidget',
-    elementProps: {}
-  }
+  // , {
+  //   id: 4,
+  //   row: 1,
+  //   col: 0,
+  //   width: 4,
+  //   height: 4,
+  //   element: 'ClimaWidget',
+  //   elementProps: {}
+  // }
   // ,{
   //   id: 3,
   //   row: 1,
@@ -132,4 +132,5 @@ export const compsAtom = atomWithStorage<Comp[]>('comps', [
 ])
 
 // 下一个可放置的位置
-export const nextPlacePosition = atom({row: 0, col: 3})
+export const nextPlacePositionAtom = atom({row: 0, col: 3})
+export const isDraggingAtom = atom(false)

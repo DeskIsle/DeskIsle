@@ -8,10 +8,11 @@ import { useModalStack } from "rc-modal-sheet";
 import React, { useEffect } from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
 import ResizeButton from "@/components/common/ResizeButton";
-import { Comp, compsAtom, registryComps } from "@/atoms/comps";
+import { Comp, compsAtom, isDraggingAtom, registryComps } from "@/atoms/comps";
 import { Separator } from "@/components/ui/separator";
 import WidgetShop from "./modals/WidgetShop";
 import { RadixIconsDashboard, RadixIconsDimensions, RadixIconsPencil2, RadixIconsTrash } from "@/icons/RadixIcons";
+import { useLongPress } from "ahooks";
 
 
 interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -117,11 +118,14 @@ export function CompElement({comp, className, ...props}: CompProps) {
   const { element, ...compAllProps } = comp
   const {width, height, row, col, elementProps} = compAllProps
   const [{unit, gap}] = useAtom(layoutConfigAtom)
-  const [{dragMode}] = useAtom(layoutConfigAtom)
+  const [layoutConfig, setLayoutConfig] = useAtom(layoutConfigAtom)
   const { present, dismissTop } = useModalStack()
   const [comps, setComps] = useAtom(compsAtom)
   const Element = registryComps[element].Element
   const ElementEditor = registryComps[element].ElementEditor
+  const [isDragging, setIsDragging] = useAtom(isDraggingAtom)
+  const elementRef = useRef<HTMLDivElement>(null)
+  
   function openEditModal() {
     present({
       title: '编辑',
@@ -136,7 +140,9 @@ export function CompElement({comp, className, ...props}: CompProps) {
   }
   return (
     <motion.div
-      drag={dragMode}
+      onDragStart={() => {setIsDragging(true); console.log('drag start')}}
+      onDragEnd={() => {setIsDragging(false); ; console.log('drag end')}}
+      drag={layoutConfig.editMode}
       whileHover={{y: -5, transition: {duration: 0.1}}}
       style={{
         top: unit*row + (row+1)*gap,
@@ -149,7 +155,7 @@ export function CompElement({comp, className, ...props}: CompProps) {
     >
       <ContextMenu>
         <ContextMenuTrigger className="w-full h-full">
-          <Element {...elementProps}/>
+          <Element ref={elementRef} {...elementProps}/>
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem className="focus:bg-transparent">
