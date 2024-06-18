@@ -10,23 +10,84 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataUrlIcon from "@/icons/DataUrlIcon";
 import { motion } from "framer-motion";
 import { useAtom, useAtomValue } from "jotai";
-import React, { useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 
-export interface LinkWidgetProps {
-  link: string,
-  icon: string,
-  bgColor: string,
-}
-
-
-export default function LinkWidget({link, icon, bgColor}: LinkWidgetProps) {
-  const [isDragging] = useAtom(isDraggingAtom)
-  function openBrowser() {
-    if (isDragging) return
-    window.open(link)
+export type LinkWidgetProps = {
+  elementProps: {
+    link: string,
+    icon: string,
+    bgColor: string,
   }
+} & Omit<Comp, 'elementProps'>
+
+export default function LinkWidget(comp: LinkWidgetProps) {
+  const {link, icon, bgColor} = comp.elementProps
+  const [isDragging] = useAtom(isDraggingAtom)
+  const openBrowser: MouseEventHandler = (e) => {
+    if (isDragging) return
+    if (e.button === 0) {
+      window.open(link)
+    }
+  }
+  
+  // function openEditModal() {
+  //   present({
+  //     title: '编辑',
+  //     content: () => (
+  //       <ElementEditor dismissTop={dismissTop} comp={comp}/>
+  //     ),
+  //   })
+  // }
+  // function deleteComp() {
+  //   const newComps = comps.filter(item => item.id !== comp.id)
+  //   setComps(newComps)
+  // }
+  {/* <ContextMenu>
+        <ContextMenuTrigger className="w-full h-full">
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuItem className="focus:bg-transparent">
+            <Separator className="my-1"/>
+          </ContextMenuItem>
+          <ContextMenuItem onClick={openEditModal} className="flex gap-2">
+            <RadixIconsPencil2/>
+            <span>编辑</span>
+          </ContextMenuItem>
+          <div className="relative flex gap-1 flex-col cursor-default select-none justify-center rounded-sm px-2 py-1.5 text-sm outline-none">
+            <div className="flex gap-2 items-center">
+              <RadixIconsDimensions className="text-md"/>
+              <span>布局</span>
+            </div>
+            <div className="grid grid-cols-3 gap-1">
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={1} height={1} comp={comp}/>
+              </ContextMenuItem>
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={1} height={2} comp={comp}/>
+              </ContextMenuItem>
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={2} height={2} comp={comp}/>
+              </ContextMenuItem>
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={3} height={3} comp={comp}/>
+              </ContextMenuItem>
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={4} height={4} comp={comp}/>
+              </ContextMenuItem>
+              <ContextMenuItem className="rounded-lg border shadow-sm">
+                <ResizeButton width={5} height={5} comp={comp}/>
+              </ContextMenuItem>
+            </div>
+          </div>
+          <ContextMenuItem onClick={deleteComp} className="flex gap-2 text-[#FF0000] focus:text-[#FF0000] focus:bg-[#FFDBDC]">
+            <RadixIconsTrash />
+            <span>删除</span>
+          </ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu> */}
+
   return (
     <div 
       onMouseUp={openBrowser} 

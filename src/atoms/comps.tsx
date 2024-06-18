@@ -10,8 +10,7 @@ import { atomWithStorage } from "jotai/utils"
 export type RegistryComps = {
   [key in keyof typeof registryComps]: {
     name: string,
-    Element: ({}?: any) => React.JSX.Element,
-    ElementEditor: ({}?: any) => React.JSX.Element
+    Element: ({}?: any) => React.JSX.Element
   }
 }
 
@@ -19,30 +18,25 @@ export const registryComps = {
   'SettingWidget': {
     name: '设置组件',
     Element: SettingWidget,
-    ElementEditor: SettingWidgetEditor,
   },
   'LinkWidget': {
     name: '导航组件',
     Element: LinkWidget,
-    ElementEditor: LinkWidgetEditor,
   },
   'ClimaWidget': {
     name: '天气组件',
     Element: ClimaWidget,
-    ElementEditor: ClimaWidgetEditor,
   }
 }
 
 
-export interface Comp {
+export type Comp = {
   id: number,
   row: number,
   col: number,
   width: number,
   height: number,
   element: keyof RegistryComps,
-  // Element: ({}?: any) => React.JSX.Element,
-  // ElementEditor: ({}?: any) => React.JSX.Element
   elementProps: any
 }
 
