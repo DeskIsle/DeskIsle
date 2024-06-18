@@ -9,10 +9,10 @@ import IconShop from "@/components/common/IconShop"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataUrlIcon from "@/icons/DataUrlIcon";
 import { motion } from "framer-motion";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import React, { MouseEventHandler, useState } from "react";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
-import { HexColorInput, HexColorPicker } from "react-colorful";
+import { HexColorPicker } from "react-colorful";
 
 export type LinkWidgetProps = {
   elementProps: {

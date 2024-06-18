@@ -1,19 +1,17 @@
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { cn } from "@/lib/utils";
-import { useMouse } from "@uidotdev/usehooks";
 import { motion, MotionProps } from "framer-motion";
 import { useAtom } from "jotai";
-import React, { memo, useEffect } from "react";
+import React, { useEffect } from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
 import { Comp, compsAtom, isDraggingAtom, registryComps } from "@/atoms/comps";
-import { timeStamp } from "console";
 
 interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
   ({className, children, ...props}, ref) => {
-    const [comps, setComps] = useAtom(compsAtom)
+    const [comps] = useAtom(compsAtom)
     const [{unit, gap}] = useAtom(layoutConfigAtom)
     const [shadow, setShadow] = useState<DragShadowProps>()
     const shadowRef = useRef<HTMLDivElement>(null)
@@ -26,7 +24,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
       setMouse({elementX: e.clientX, elementY: e.clientY})
     }
     function handleDragEnd(e: DragEvent) {
-      setIsDragging(false)
+      setIsDragging(false)  
     }
     function handleDrag(e: DragEvent, item: Comp) {
       const anchor = {
@@ -123,6 +121,7 @@ interface CompProps extends MotionProps {
 }
 
 export function CompElement({comp, className, ...props}: CompProps) {
+  console.log('CompElement: render')
   const { element, ...compAllProps } = comp
   const {width, height, row, col} = compAllProps
   const [{unit, gap}] = useAtom(layoutConfigAtom)

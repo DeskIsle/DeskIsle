@@ -35,6 +35,7 @@ const createWindow = () => {
     transparent: true,
     skipTaskbar: true,
     autoHideMenuBar: true,
+    alwaysOnTop: true,
   });
   mainWindow.setSize(width, height)
   mainWindow.setIgnoreMouseEvents(true)

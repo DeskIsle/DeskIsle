@@ -1,61 +1,73 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRequest } from 'ahooks';
+
 import './index.css'
 
 export interface ClimaWidgetProps {
   
 }
 
+async function getClimaData(): Promise<any> {
+  const res = await fetch("https://devapi.qweather.com/v7/weather/now?location=101020300&key=a216b8f544364323b8fa5b3e287d8ee2")
+  return res.json()
+}
+
+
 export default function ClimaWidget({}: ClimaWidgetProps) {
   const [temperature, setTemperature] = useState<number>(23)
   const [weatherClass, setWeatherClass] = useState<string[]>([])
-  const [weather, setWeather] = useState<string>('')
-  const [icon, setIcon] = useState<number>()
+  const [updateTime, setUpdateTime] = useState<string>('')
+  const { data, loading, refresh } = useRequest(getClimaData, {
+    cacheKey: 'clima-widget-data',
+    staleTime: 60000,
+  }); 
+  setInterval(() => {
+    refresh()
+    console.log('refresh climaWidget data')
+  }, 10 * 60 * 1000) 
 
   useEffect(() => {
-    fetch("https://devapi.qweather.com/v7/weather/now?location=101020300&key=a216b8f544364323b8fa5b3e287d8ee2")
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        const tempValue = data.now.temp;
-        const icon = parseInt(data.now.icon);
-        const text = data.now.text;
-        setWeather(text)
-        setIcon(icon)
-        const curTime = new Date(Date.parse(data.updateTime));
-      
-        setTemperature(tempValue)
+    if (!data) return
+    console.log(data)
+    const tempValue = data.now.temp;
+    const icon = parseInt(data.now.icon);
+    const text = data.now.text;
+    const curTime = new Date(Date.parse(data.updateTime));
+    setUpdateTime(curTime.toLocaleTimeString())
+  
+    setTemperature(tempValue)
 
-        const newWeatherClass = []
-        
-        if (icon >= 101 && icon <= 104) {
-          newWeatherClass.push('clouds')
-        } else if (icon >= 300 && icon <= 399) {
-          newWeatherClass.push('blackclouds')
-          newWeatherClass.push('rain')
-          if (icon >= 302 && icon <= 304) {
-            newWeatherClass.push('storm')
-            newWeatherClass.push('lighting')
-          } else if (icon === 306 || (icon >= 313 && icon <= 315) || icon === 350) {
-            newWeatherClass.push('medium-rain')
-          } else if ((icon >= 307 && icon <= 308) || (icon >= 310 && icon <= 312) || (icon >= 316 && icon <= 318) || icon === 351) {
-            newWeatherClass.push('medium-rain')
-            newWeatherClass.push('heavy-rain')
-          }
-        } else if (icon >= 400 && icon <= 499) {
-          newWeatherClass.push('snow')
-        }
-        // update by time
-        if (curTime.getHours() >= 18 && curTime.getHours() <= 20) {
-          newWeatherClass.push('sunset')
-        } else if (curTime.getHours() >= 21 || curTime.getHours() <= 5) {
-          newWeatherClass.push('moon')
-        }
-        setWeatherClass(newWeatherClass)
-    });
-  }, [])
+    const newWeatherClass = []
+    
+    if (icon >= 101 && icon <= 104) {
+      newWeatherClass.push('clouds')
+    } else if (icon >= 300 && icon <= 399) {
+      newWeatherClass.push('blackclouds')
+      newWeatherClass.push('rain')
+      if (icon >= 302 && icon <= 304) {
+        newWeatherClass.push('storm')
+        newWeatherClass.push('lighting')
+      } else if (icon === 306 || (icon >= 313 && icon <= 315) || icon === 350) {
+        newWeatherClass.push('medium-rain')
+      } else if ((icon >= 307 && icon <= 308) || (icon >= 310 && icon <= 312) || (icon >= 316 && icon <= 318) || icon === 351) {
+        newWeatherClass.push('medium-rain')
+        newWeatherClass.push('heavy-rain')
+      }
+    } else if (icon >= 400 && icon <= 499) {
+      newWeatherClass.push('snow')
+    }
+    // update by time
+    if (curTime.getHours() >= 18 && curTime.getHours() <= 20) {
+      newWeatherClass.push('sunset')
+    } else if (curTime.getHours() >= 21 || curTime.getHours() <= 5) {
+      newWeatherClass.push('moon')
+    }
+    setWeatherClass(newWeatherClass)
+  }, [data])
+    
 
   return (
-    <div className="w-full h-full relative">
+    <div onClick={refresh} className="w-full h-full relative">
       <svg id="noise-svg">
         <filter id='noiseFilter'>
             <feTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch' />
@@ -3571,8 +3583,15 @@ export default function ClimaWidget({}: ClimaWidgetProps) {
         </div>
       </div>
       <div className="bottom-panel flex flex-col justify-start items-center px-8 py-2 text-white">
-        <div>温度: {temperature}°C</div>
-        <div>天气: {weather}</div>
+      {loading ? 
+        <div>Loading...</div> 
+        : 
+        <div>
+          <div>温度: {temperature}°C</div>
+          <div>天气: {data.now.text}</div>
+          <div>最后更新时间: {updateTime}</div>
+        </div>
+      }
       </div>
     </div>
   )

@@ -1,7 +1,6 @@
-import { compsAtom, isDraggingAtom } from "@/atoms/comps";
+import { isDraggingAtom } from "@/atoms/comps";
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
 import DataUrlIcon from "@/icons/DataUrlIcon";
 import { Label } from "@radix-ui/react-label";
 import { useAtom } from "jotai";
@@ -11,7 +10,6 @@ import React, { MouseEventHandler } from "react";
 export default function SettingWidget() {
   const { present } = useModalStack()
   const [isDragging] = useAtom(isDraggingAtom)
-  
   const openSettingEditorModal: MouseEventHandler<HTMLDivElement> = (event) => {
     if (isDragging) return
     if (event.button === 0) {
@@ -42,8 +40,6 @@ export function SettingWidgetEditor() {
       <Input id="unit" placeholder="unit" value={layoutConfig.unit} onChange={(v) => setLayoutConfig({...layoutConfig, unit: Number(v.target.value)})}/>
       <Label htmlFor="gap">间隔</Label>
       <Input id="gap" placeholder="gap" value={layoutConfig.gap} onChange={(v) => setLayoutConfig({...layoutConfig, gap: Number(v.target.value)})}/>
-      {/* <Label htmlFor="dragMode">编辑模式</Label>
-      <Switch id="dragMode" checked={layoutConfig.editMode} onCheckedChange={toggleEditMode} /> */}
     </div>
   )
 }
