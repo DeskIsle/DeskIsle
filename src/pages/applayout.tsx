@@ -43,8 +43,9 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
       const maxCol = (layoutRef.current!.offsetWidth) / (unit + gap) - item.width
       if (newRow + item.height > maxRow) newRow = maxRow
       if (newCol + item.width > maxCol) newCol = maxCol
-      setShadow({row: newRow, col: newCol, width: item.width, height: item.height})
       setMouse({elementX: e.clientX, elementY: e.clientY})
+      setShadow({row: newRow, col: newCol, width: item.width, height: item.height})
+      console.log(mouse)
     }
 
     useEffect(() => {
@@ -94,7 +95,7 @@ interface DragShadowProps extends HTMLAttributes<HTMLDivElement> {
   className?: string
 }
 
-const DragShadow = memo(forwardRef<HTMLDivElement, DragShadowProps>(
+const DragShadow = forwardRef<HTMLDivElement, DragShadowProps>(
   ({row = 0, col = 0, width = 0, height = 0, className, ...props}, ref) => {
     const [{unit, gap}] = useAtom(layoutConfigAtom)
     return (
@@ -112,7 +113,7 @@ const DragShadow = memo(forwardRef<HTMLDivElement, DragShadowProps>(
       </div>
     )
   }
-))
+)
 
 DragShadow.displayName = 'DragShadow'
 
@@ -129,7 +130,7 @@ export function CompElement({comp, className, ...props}: CompProps) {
   
   return (
     <motion.div
-      whileHover={{y: -5, transition: {duration: 0.1}}}
+      // whileHover={{y: -5, transition: {duration: 0.1}}}
       style={{
         top: unit*row + (row+1)*gap,
         left: unit*col + (col+1)*gap,
