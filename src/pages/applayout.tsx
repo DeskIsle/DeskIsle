@@ -116,11 +116,9 @@ interface CompProps extends MotionProps {
 
 export function CompElement({comp, className, ...props}: CompProps) {
   const { element, ...compAllProps } = comp
-  const {width, height, row, col, elementProps} = compAllProps
+  const {width, height, row, col} = compAllProps
   const [{unit, gap}] = useAtom(layoutConfigAtom)
-  const [layoutConfig, setLayoutConfig] = useAtom(layoutConfigAtom)
-  const { present, dismissTop } = useModalStack()
-  const [comps, setComps] = useAtom(compsAtom)
+  const [layoutConfig] = useAtom(layoutConfigAtom)
   const Element = registryComps[element].Element
   const [isDragging, setIsDragging] = useAtom(isDraggingAtom)
   
