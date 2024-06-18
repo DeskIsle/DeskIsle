@@ -8,5 +8,5 @@ const root = createRoot(document.getElementById('root')!);
 root.render(
   <ModalStackContainer m={motion}>
     <Desk />
-  </ModalStackContainer>  
+  </ModalStackContainer>
 );

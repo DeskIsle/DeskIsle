@@ -1,4 +1,4 @@
-import { Comp, compsAtom } from "@/atoms/comps"
+import { Comp, compAtoms } from "@/atoms/comps"
 import { ClimaWidgetProps } from './index'
 import { useState } from "react"
 import { useAtom } from "jotai"
@@ -20,7 +20,7 @@ export function ClimaWidgetEditor({comp: oldComp, dismissTop}: ClimaWidgetEditor
       ...oldComp.elementProps
     } as ClimaWidgetProps
   })
-  const [comps, setComps] = useAtom(compsAtom)
+  const [comps, setComps] = useAtom(compAtoms)
   function save() {
     const newComps = comps.map(item => item.id === comp.id ? comp : item)
     setComps(newComps)

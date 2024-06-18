@@ -1,4 +1,4 @@
-import { Comp, compsAtom } from "@/atoms/comps";
+import { Comp, compAtoms } from "@/atoms/comps";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAtom } from "jotai";
@@ -9,7 +9,7 @@ interface EditModalProps {
 }
 
 export default function EditModal({comp}: EditModalProps) {
-  const [comps, setComps] = useAtom(compsAtom)
+  const [comps, setComps] = useAtom(compAtoms)
   const [compState, setCompState] = useState<any>(comp)
   useEffect(() => {
     const newComps = comps.map((item) => {

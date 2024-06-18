@@ -4,7 +4,7 @@ import LinkWidget, { LinkWidgetEditor } from "@/components/widgets/LinkWidget";
 import SettingWidget, { SettingWidgetEditor } from "@/components/widgets/SettingWidget";
 import { atom } from "jotai";
 import React from "react";
-import { atomWithStorage } from "jotai/utils"
+import { atomWithStorage, splitAtom } from "jotai/utils"
 
 
 export type RegistryComps = {
@@ -40,16 +40,16 @@ export type Comp = {
   elementProps: any
 }
 
-export const compsAtom = atomWithStorage<Comp[]>('comps', [
-  {
-    id: 0,
-    row: 0,
-    col: 0,
-    width: 1,
-    height: 1,
-    element: 'SettingWidget',
-    elementProps: {}
-  },
+export const compAtoms = atomWithStorage<Comp[]>('comps', [
+  // {
+  //   id: 0,
+  //   row: 0,
+  //   col: 0,
+  //   width: 1,
+  //   height: 1,
+  //   element: 'SettingWidget',
+  //   elementProps: {}
+  // },
   {
     id: 1,
     row: 0,
@@ -86,16 +86,19 @@ export const compsAtom = atomWithStorage<Comp[]>('comps', [
       icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHBhdGggZmlsbD0iIzMxNzhDNiIgZD0iTTIwIDBoMjE2YzExLjA0NiAwIDIwIDguOTU0IDIwIDIwdjIxNmMwIDExLjA0Ni04Ljk1NCAyMC0yMCAyMEgyMGMtMTEuMDQ2IDAtMjAtOC45NTQtMjAtMjBWMjBDMCA4Ljk1NCA4Ljk1NCAwIDIwIDAiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTUwLjUxOCAyMDAuNDc1djI3LjYyYzQuNDkyIDIuMzAyIDkuODA1IDQuMDI4IDE1LjkzOCA1LjE3OWM2LjEzMyAxLjE1MSAxMi41OTcgMS43MjYgMTkuMzkzIDEuNzI2YzYuNjIyIDAgMTIuOTE0LS42MzMgMTguODc0LTEuODk5YzUuOTYtMS4yNjYgMTEuMTg3LTMuMzUyIDE1LjY3OC02LjI1N2M0LjQ5Mi0yLjkwNiA4LjA0OC02LjcwNCAxMC42NjktMTEuMzk0YzIuNjItNC42ODkgMy45My0xMC40ODYgMy45My0xNy4zOTFjMC01LjAwNi0uNzQ5LTkuMzk0LTIuMjQ2LTEzLjE2M2EzMC43NDggMzAuNzQ4IDAgMCAwLTYuNDc5LTEwLjA1NWMtMi44MjEtMi45MzUtNi4yMDUtNS41NjctMTAuMTQ5LTcuODk4Yy0zLjk0NS0yLjMzLTguMzk0LTQuNTMxLTEzLjM0Ny02LjYwMmMtMy42MjgtMS40OTctNi44ODEtMi45NDktOS43NjEtNC4zNTljLTIuODc5LTEuNDEtNS4zMjctMi44NDgtNy4zNDItNC4zMTZjLTIuMDE2LTEuNDY3LTMuNTcxLTMuMDIxLTQuNjY1LTQuNjYxYy0xLjA5NC0xLjY0LTEuNjQxLTMuNDk1LTEuNjQxLTUuNTY3YzAtMS44OTkuNDg5LTMuNjEgMS40NjgtNS4xMzVzMi4zNjItMi44MzQgNC4xNDctMy45MjdjMS43ODUtMS4wOTQgMy45NzMtMS45NDIgNi41NjUtMi41NDdjMi41OTEtLjYwNCA1LjQ3MS0uOTA2IDguNjM4LS45MDZjMi4zMDQgMCA0LjczNy4xNzMgNy4yOTkuNTE4YzIuNTYzLjM0NSA1LjE0Ljg3NyA3LjczMiAxLjU5N2E1My42NjkgNTMuNjY5IDAgMCAxIDcuNTU4IDIuNzE5YTQxLjcgNDEuNyAwIDAgMSA2Ljc4MSAzLjc5N3YtMjUuODA3Yy00LjIwNC0xLjYxMS04Ljc5Ny0yLjgwNS0xMy43NzgtMy41ODJjLTQuOTgxLS43NzctMTAuNjk3LTEuMTY1LTE3LjE0Ny0xLjE2NWMtNi41NjUgMC0xMi43ODQuNzA1LTE4LjY1OCAyLjExNWMtNS44NzQgMS40MDktMTEuMDQzIDMuNjEtMTUuNTA2IDYuNjAyYy00LjQ2MyAyLjk5My03Ljk5IDYuODA1LTEwLjU4MiAxMS40MzdjLTIuNTkxIDQuNjMyLTMuODg3IDEwLjE3LTMuODg3IDE2LjYxNWMwIDguMjI4IDIuMzc1IDE1LjI0OCA3LjEyNyAyMS4wNmM0Ljc1MSA1LjgxMSAxMS45NjMgMTAuNzMxIDIxLjYzOCAxNC43NTlhMjkxLjQ1OCAyOTEuNDU4IDAgMCAxIDEwLjYyNSA0LjU3NWMzLjI4MyAxLjQ5NiA2LjExOSAzLjA0OSA4LjUwOSA0LjY2YzIuMzkgMS42MTEgNC4yNzYgMy4zNjYgNS42NTggNS4yNjVjMS4zODIgMS44OTkgMi4wNzMgNC4wNTcgMi4wNzMgNi40NzRhOS45MDEgOS45MDEgMCAwIDEtMS4yOTYgNC45NjNjLS44NjMgMS41MjQtMi4xNzQgMi44NDgtMy45MyAzLjk3Yy0xLjc1NiAxLjEyMi0zLjk0NSAxLjk5OS02LjU2NSAyLjYzMmMtMi42Mi42MzMtNS42ODcuOTUtOS4yLjk1Yy01Ljk4OSAwLTExLjkyLTEuMDUtMTcuNzk0LTMuMTUxYy01Ljg3NS0yLjEtMTEuMzE3LTUuMjUtMTYuMzI3LTkuNDUxbS00Ni4wMzYtNjguNzMzSDE0MFYxMDlINDF2MjIuNzQyaDM1LjM0NVYyMzNoMjguMTM3eiIvPjwvc3ZnPg==',
       bgColor: '#FFFFFF',
     }
-  }, {
-    id: 4,
-    row: 1,
-    col: 0,
-    width: 4,
-    height: 4,
-    element: 'ClimaWidget',
-    elementProps: {}
   }
+  // , {
+  //   id: 4,
+  //   row: 1,
+  //   col: 0,
+  //   width: 4,
+  //   height: 4,
+  //   element: 'ClimaWidget',
+  //   elementProps: {}
+  // }
 ])
+
+export const splitCompAtoms = splitAtom(compAtoms)
 
 // 下一个可放置的位置
 export const nextPlacePositionAtom = atom({row: 0, col: 3})

@@ -1,4 +1,4 @@
-import { Comp, compsAtom } from "@/atoms/comps";
+import { Comp, compAtoms } from "@/atoms/comps";
 import { useAtom } from "jotai";
 import React from "react";
 
@@ -9,7 +9,7 @@ interface LayoutButtonProps {
 }
 
 export default function ResizeButton({width, height, comp}: LayoutButtonProps) {
-  const [comps, setComps] = useAtom(compsAtom)
+  const [comps, setComps] = useAtom(compAtoms)
   function handleClick() {
     const newComps = comps.map((item) => {
       if (item.id === comp.id) return {...item, width, height}

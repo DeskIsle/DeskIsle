@@ -1,4 +1,4 @@
-import { Comp, compsAtom, isDraggingAtom } from "@/atoms/comps";
+import { Comp, compAtoms, isDraggingAtom } from "@/atoms/comps";
 import { iconsAtom } from "@/atoms/icons";
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { Button } from "@/components/ui/button";
@@ -8,47 +8,51 @@ import { Separator } from "@/components/ui/separator";
 import IconShop from "@/components/common/IconShop"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataUrlIcon from "@/icons/DataUrlIcon";
-import { motion } from "framer-motion";
-import { useAtom } from "jotai";
+import { PrimitiveAtom, useAtom } from "jotai";
 import React, { MouseEventHandler, useState } from "react";
-import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import { Cross2Icon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { HexColorPicker } from "react-colorful";
+import Modal from "@/components/common/Modal";
 
-export type LinkWidgetProps = {
-  elementProps: {
-    link: string,
-    icon: string,
-    bgColor: string,
-  }
-} & Omit<Comp, 'elementProps'>
+export interface LinkWidgeteProps {
+  compAtom: PrimitiveAtom<Comp>
+}
 
-export default function LinkWidget(comp: LinkWidgetProps) {
+export default function LinkWidget({compAtom}: LinkWidgeteProps) {
+  const [comp, setComp] = useAtom(compAtom)
   const {link, icon, bgColor} = comp.elementProps
   const [isDragging] = useAtom(isDraggingAtom)
+  const [modalVisible, setModalVisible] = useState(false)
   const openBrowser: MouseEventHandler = (e) => {
     if (isDragging) return
     if (e.button === 0) {
       window.open(link)
+    } else if (e.button === 2) {
+      setModalVisible(true)
     }
   }
   
-  // function openEditModal() {
-  //   present({
-  //     title: '编辑',
-  //     content: () => (
-  //       <ElementEditor dismissTop={dismissTop} comp={comp}/>
-  //     ),
-  //   })
-  // }
-  // function deleteComp() {
-  //   const newComps = comps.filter(item => item.id !== comp.id)
-  //   setComps(newComps)
-  // }
-  {/* <ContextMenu>
-        <ContextMenuTrigger className="w-full h-full">
-        </ContextMenuTrigger>
-        <ContextMenuContent>
-          <ContextMenuItem className="focus:bg-transparent">
+  return (
+    <>
+      <div 
+        onMouseUp={openBrowser} 
+        style={{
+          backgroundColor: bgColor,
+        }}
+        className={`w-full h-full text-5xl select-none flex justify-center items-center hover:cursor-pointer`}>
+        
+        <DataUrlIcon 
+          className="w-3/4 h-3/4" 
+          src={icon} />
+      </div>
+      <Modal visible={modalVisible} closeModal={() => setModalVisible(false)}>
+        <LinkWidgetEditor compAtom={compAtom} />
+      </Modal>
+    </>
+  )
+}
+
+{/* <ContextMenuItem className="focus:bg-transparent">
             <Separator className="my-1"/>
           </ContextMenuItem>
           <ContextMenuItem onClick={openEditModal} className="flex gap-2">
@@ -81,47 +85,18 @@ export default function LinkWidget(comp: LinkWidgetProps) {
               </ContextMenuItem>
             </div>
           </div>
-          <ContextMenuItem onClick={deleteComp} className="flex gap-2 text-[#FF0000] focus:text-[#FF0000] focus:bg-[#FFDBDC]">
-            <RadixIconsTrash />
-            <span>删除</span>
-          </ContextMenuItem>
-        </ContextMenuContent>
-      </ContextMenu> */}
-
-  return (
-    <div 
-      onMouseUp={openBrowser} 
-      style={{
-        backgroundColor: bgColor,
-      }}
-      className={`w-full h-full text-5xl select-none flex justify-center items-center hover:cursor-pointer`}>
-      <DataUrlIcon 
-        className="w-3/4 h-3/4" 
-        src={icon} />
-    </div>
-  )
+              <ContextMenuItem onClick={deleteComp} className="flex gap-2 text-[#FF0000] focus:text-[#FF0000] focus:bg-[#FFDBDC]">
+                <RadixIconsTrash />
+                <span>删除</span>
+              </ContextMenuItem> */}
+export interface LinkWidgetEditorProps {
+  compAtom: PrimitiveAtom<Comp>
 }
 
-interface LinkWidgetEditorProps {
-  comp: Comp,
-  dismissTop: () => void
-}
-
-export const LinkWidgetEditor = ({comp: oldComp, dismissTop}: LinkWidgetEditorProps) => {
-  const [comp, setComp] = useState<Comp>({
-    ...oldComp,
-    elementProps: {
-      ...oldComp.elementProps
-    } as LinkWidgetProps
-  })
-  const [comps, setComps] = useAtom(compsAtom)
+export const LinkWidgetEditor = ({compAtom}: LinkWidgetEditorProps) => {
+  const [comp, setComp] = useAtom(compAtom)
   const [{unit, gap}] = useAtom(layoutConfigAtom)
 
-  function save() {
-    const newComps = comps.map(item => item.id === comp.id ? comp : item)
-    setComps(newComps)
-    dismissTop()
-  }
   function updateIcon(icon: string) {
     setComp({...comp, elementProps: {...comp.elementProps, icon}})
   }
@@ -150,19 +125,19 @@ export const LinkWidgetEditor = ({comp: oldComp, dismissTop}: LinkWidgetEditorPr
       <Label className="row-span-2" htmlFor="bgColor">背景色</Label>
       <HexColorPicker className="col-span-4 mt-4" id="bgColor" color={comp.elementProps.bgColor} onChange={(c) => setComp({...comp, elementProps: {...comp.elementProps, bgColor: c}})} />
       <Input className="col-span-2" value={comp.elementProps.bgColor} onChange={(c) => setComp({...comp, elementProps: {...comp.elementProps, bgColor: c.target.value}})} />
-      <Separator className="col-span-5" />
+    
 
-      <Label className="row-span-2">预览</Label>
-      <motion.div
-        whileHover={{scale: 1.05}}
-        style={{
-          width: (unit*comp.width+((comp.width-1)*gap)), 
-          height: (unit*comp.height+((comp.height-1)*gap)),
-        }} 
-        className="row-span-2 border bg-transparent col-span-4 rounded-lg shadow-lg overflow-hidden">
-        <LinkWidget {...comp.elementProps} />
-      </motion.div>
-      <Button className="col-start-3" onClick={save}>保存</Button>
+    {/* <Label className="row-span-2">预览</Label>
+    <motion.div
+    whileHover={{scale: 1.05}}
+    style={{
+      width: (unit*comp.width+((comp.width-1)*gap)), 
+      height: (unit*comp.height+((comp.height-1)*gap)),
+    }} 
+    className="row-span-2 border bg-transparent col-span-4 rounded-lg shadow-lg overflow-hidden">
+    <LinkWidget {...comp.elementProps} />
+  </motion.div> */}
+    {/* <Button className="col-start-3" onClick={save}>保存</Button> */}
     </div>
   )
 }

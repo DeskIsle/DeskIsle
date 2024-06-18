@@ -1,17 +1,17 @@
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { cn } from "@/lib/utils";
 import { motion, MotionProps } from "framer-motion";
-import { useAtom } from "jotai";
+import { PrimitiveAtom, useAtom } from "jotai";
 import React, { useEffect } from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
-import { Comp, compsAtom, isDraggingAtom, registryComps } from "@/atoms/comps";
+import { Comp, compAtoms, isDraggingAtom, registryComps, splitCompAtoms } from "@/atoms/comps";
 
 interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
   ({className, children, ...props}, ref) => {
-    const [comps] = useAtom(compsAtom)
+    const [compAtoms, dispatch] = useAtom(splitCompAtoms)
     const [{unit, gap}] = useAtom(layoutConfigAtom)
     const [shadow, setShadow] = useState<DragShadowProps>()
     const shadowRef = useRef<HTMLDivElement>(null)
@@ -63,10 +63,11 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
         className={cn(className, "relative p-4")}
       >
         <DragShadow ref={shadowRef} {...shadow} />
-        {comps.map((item, index) => {
+        {compAtoms.map((atom, index) => {
+          const [item] = useAtom(atom)
           return (
             <CompElement
-              comp={item}
+              compAtom={atom}
               key={index}
               drag={layoutConfig.editMode}
               onDrag={(e) => handleDrag(e as DragEvent, item)}
@@ -116,14 +117,14 @@ const DragShadow = forwardRef<HTMLDivElement, DragShadowProps>(
 DragShadow.displayName = 'DragShadow'
 
 interface CompProps extends MotionProps {
-  comp: Comp,
+  compAtom: PrimitiveAtom<Comp>
   className?: string,
 }
 
-export function CompElement({comp, className, ...props}: CompProps) {
+export function CompElement({compAtom, className, ...props}: CompProps) {
   console.log('CompElement: render')
-  const { element, ...compAllProps } = comp
-  const {width, height, row, col} = compAllProps
+  const [comp, setComp] = useAtom(compAtom)
+  const { element, width, height, row, col} = comp
   const [{unit, gap}] = useAtom(layoutConfigAtom)
   const Element = registryComps[element].Element
   
@@ -139,7 +140,7 @@ export function CompElement({comp, className, ...props}: CompProps) {
       className={cn(className, `absolute bg-transparent rounded-lg shadow-sm flex justify-center items-center overflow-hidden`)}
       {...props}
       >
-      <Element {...comp}/>
+      <Element compAtom={compAtom}/>
     </motion.div>
   )
 }
