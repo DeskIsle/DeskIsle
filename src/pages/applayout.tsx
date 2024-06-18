@@ -1,19 +1,12 @@
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
 import { cn } from "@/lib/utils";
 import { useMouse } from "@uidotdev/usehooks";
-import { AnimatePresence, motion, MotionProps } from "framer-motion";
+import { motion, MotionProps } from "framer-motion";
 import { useAtom } from "jotai";
-import { useModalStack } from "rc-modal-sheet";
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { forwardRef, HTMLAttributes, useRef, useState } from "react";
-import ResizeButton from "@/components/common/ResizeButton";
 import { Comp, compsAtom, isDraggingAtom, registryComps } from "@/atoms/comps";
-import { Separator } from "@/components/ui/separator";
-import WidgetShop from "./modals/WidgetShop";
-import { RadixIconsDashboard, RadixIconsDimensions, RadixIconsPencil2, RadixIconsTrash } from "@/icons/RadixIcons";
-import { useLongPress } from "ahooks";
-
+import { timeStamp } from "console";
 
 interface AppLayoutProps extends HTMLAttributes<HTMLDivElement> {
 }
@@ -24,35 +17,46 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
     const [{unit, gap}] = useAtom(layoutConfigAtom)
     const [shadow, setShadow] = useState<DragShadowProps>()
     const shadowRef = useRef<HTMLDivElement>(null)
-    const [mouse, layoutRef] = useMouse<HTMLDivElement>()
+    const layoutRef = useRef<HTMLDivElement>(null)
+    const [mouse, setMouse] = useState({elementX: 0, elementY: 0})
+    const [isDragging, setIsDragging] = useAtom(isDraggingAtom)
+    const [layoutConfig] = useAtom(layoutConfigAtom)
+    function handleDragStart(e: DragEvent) {
+      setIsDragging(true)
+      setMouse({elementX: e.clientX, elementY: e.clientY})
+    }
+    function handleDragEnd(e: DragEvent) {
+      setIsDragging(false)
+    }
     function handleDrag(e: DragEvent, item: Comp) {
       const anchor = {
         x: mouse.elementX, y: mouse.elementY
       }
       if (mouse.elementX < gap) anchor.x = gap
       if (mouse.elementY < gap) anchor.y = gap
-      if (mouse.elementX > layoutRef.current.offsetWidth - gap) anchor.x = layoutRef.current.offsetWidth
-      if (mouse.elementY > layoutRef.current.offsetHeight - gap) anchor.y = layoutRef.current.offsetHeight
+      if (mouse.elementX > layoutRef.current!.offsetWidth - gap) anchor.x = layoutRef.current!.offsetWidth
+      if (mouse.elementY > layoutRef.current!.offsetHeight - gap) anchor.y = layoutRef.current!.offsetHeight
 
       let newRow = Math.floor((anchor.y - gap) / (unit + gap))
       let newCol = Math.floor((anchor.x - gap) / (unit + gap))
-      const maxRow = (layoutRef.current.offsetHeight) / (unit + gap) - item.height
-      const maxCol = (layoutRef.current.offsetWidth) / (unit + gap) - item.width
+      const maxRow = (layoutRef.current!.offsetHeight) / (unit + gap) - item.height
+      const maxCol = (layoutRef.current!.offsetWidth) / (unit + gap) - item.width
       if (newRow + item.height > maxRow) newRow = maxRow
       if (newCol + item.width > maxCol) newCol = maxCol
       setShadow({row: newRow, col: newCol, width: item.width, height: item.height})
+      setMouse({elementX: e.clientX, elementY: e.clientY})
     }
 
     useEffect(() => {
       // compute layoutRef width and height
       const layoutSize = {
-        width: layoutRef.current.parentElement!.offsetWidth,
-        height: layoutRef.current.parentElement!.offsetHeight
+        width: layoutRef.current!.parentElement!.offsetWidth,
+        height: layoutRef.current!.parentElement!.offsetHeight
       }
       layoutSize.width -= layoutSize.width % (unit + gap)
       layoutSize.height -= layoutSize.height % (unit + gap)
-      layoutRef.current.style.width = `${layoutSize.width}px`
-      layoutRef.current.style.height = `${String(layoutSize.height)}px`
+      layoutRef.current!.style.width = `${layoutSize.width}px`
+      layoutRef.current!.style.height = `${String(layoutSize.height)}px`
     }, [])
     return (
       <div 
@@ -65,7 +69,10 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
             <CompElement
               comp={item}
               key={index}
+              drag={layoutConfig.editMode}
               onDrag={(e) => handleDrag(e as DragEvent, item)}
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
               dragConstraints={shadowRef}
             />
           )
@@ -87,7 +94,7 @@ interface DragShadowProps extends HTMLAttributes<HTMLDivElement> {
   className?: string
 }
 
-const DragShadow = forwardRef<HTMLDivElement, DragShadowProps>(
+const DragShadow = memo(forwardRef<HTMLDivElement, DragShadowProps>(
   ({row = 0, col = 0, width = 0, height = 0, className, ...props}, ref) => {
     const [{unit, gap}] = useAtom(layoutConfigAtom)
     return (
@@ -105,7 +112,7 @@ const DragShadow = forwardRef<HTMLDivElement, DragShadowProps>(
       </div>
     )
   }
-)
+))
 
 DragShadow.displayName = 'DragShadow'
 
@@ -118,15 +125,10 @@ export function CompElement({comp, className, ...props}: CompProps) {
   const { element, ...compAllProps } = comp
   const {width, height, row, col} = compAllProps
   const [{unit, gap}] = useAtom(layoutConfigAtom)
-  const [layoutConfig] = useAtom(layoutConfigAtom)
   const Element = registryComps[element].Element
-  const [isDragging, setIsDragging] = useAtom(isDraggingAtom)
   
   return (
     <motion.div
-      onDragStart={() => {setIsDragging(true); console.log('drag start')}}
-      onDragEnd={() => {setIsDragging(false); ; console.log('drag end')}}
-      drag={layoutConfig.editMode}
       whileHover={{y: -5, transition: {duration: 0.1}}}
       style={{
         top: unit*row + (row+1)*gap,
