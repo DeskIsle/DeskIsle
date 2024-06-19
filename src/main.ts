@@ -1,4 +1,4 @@
-import { app, BrowserWindow, HandlerDetails, screen, shell, ipcMain, IpcMainEvent } from 'electron';
+import { app, BrowserWindow, HandlerDetails, screen, shell, ipcMain, IpcMainEvent, nativeImage, Tray, Menu } from 'electron';
 import path from 'path';
 import { getExternalDisplay } from './lib/display';
 import { setInterval, setTimeout } from 'timers';
@@ -10,6 +10,7 @@ if (require('electron-squirrel-startup')) {
 }
 
 let mainWindow: BrowserWindow
+let tray
 
 const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay()
@@ -88,12 +89,42 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools({mode: 'detach'});
 };
-
+const createTray = () => {
+  const trayIcon = nativeImage.createFromPath('src/static/icon.png')
+  tray = new Tray(trayIcon)
+  tray.setTitle('DeskIsle')
+  let contextMenu = Menu.buildFromTemplate([
+    {
+      label: '置顶',
+      click: () => {
+        mainWindow.setAlwaysOnTop(true)
+      }
+    }, {
+      label: '取消置顶',
+      click: () => {
+        mainWindow.setAlwaysOnTop(false)
+      }
+    }, {
+      label: '刷新',
+      click: () => {
+        mainWindow.reload()
+      }
+    }, {
+      label: '退出',
+      click: () => {
+        app.quit()
+      }
+    }
+  ])
+  tray.setToolTip('DeskIsle')
+  tray.setContextMenu(contextMenu)
+}
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow()
+  createTray()
 })
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
