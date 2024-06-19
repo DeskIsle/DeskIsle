@@ -3582,14 +3582,16 @@ export default function ClimaWidget({}: ClimaWidgetProps) {
           </div>
         </div>
       </div>
-      <div className="bottom-panel flex flex-col justify-start items-center px-8 py-2 text-white">
+      <div className="bottom-panel px-8 py-2 text-white">
       {loading ? 
         <div>Loading...</div> 
         : 
-        <div>
-          <div>温度: {temperature}°C</div>
-          <div>天气: {data.now.text}</div>
-          <div>最后更新时间: {updateTime}</div>
+        <div className='h-full flex flex-col justify-between items-center'>
+          <div className=''>
+            <div>温度: {temperature}°C</div>
+            <div>天气: {data.now.text}</div>
+          </div>
+          <div className="text-gray-300 mb-2 text-sm leading-6">最后更新时间: {updateTime}</div>
         </div>
       }
       </div>
