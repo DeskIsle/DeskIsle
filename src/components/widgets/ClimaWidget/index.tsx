@@ -14,7 +14,7 @@ async function getClimaData(): Promise<any> {
 
 
 export default function ClimaWidget({}: ClimaWidgetProps) {
-  const [temperature, setTemperature] = useState<number>(23)
+  const [temperature, setTemperature] = useState<number>()
   const [weatherClass, setWeatherClass] = useState<string[]>([])
   const [updateTime, setUpdateTime] = useState<string>('')
   const { data, loading, refresh } = useRequest(getClimaData, {
@@ -27,11 +27,10 @@ export default function ClimaWidget({}: ClimaWidgetProps) {
   }, 10 * 60 * 1000) 
 
   useEffect(() => {
-    if (!data) return
+    if (!data || data.code === '402') return
     console.log(data)
     const tempValue = data.now.temp;
     const icon = parseInt(data.now.icon);
-    const text = data.now.text;
     const curTime = new Date(Date.parse(data.updateTime));
     setUpdateTime(curTime.toLocaleTimeString())
   
@@ -3589,7 +3588,7 @@ export default function ClimaWidget({}: ClimaWidgetProps) {
         <div className='h-full flex flex-col justify-between items-center'>
           <div className=''>
             <div>温度: {temperature}°C</div>
-            <div>天气: {data.now.text}</div>
+            <div>天气: {data?.now?.text}</div>
           </div>
           <div className="text-gray-300 mb-2 text-sm leading-6">最后更新时间: {updateTime}</div>
         </div>

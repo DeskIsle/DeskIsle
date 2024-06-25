@@ -1,8 +1,8 @@
 import { app, BrowserWindow, HandlerDetails, screen, shell, ipcMain, IpcMainEvent, nativeImage, Tray, Menu } from 'electron';
 import path from 'path';
 import { getExternalDisplay } from './lib/display';
-import { setInterval, setTimeout } from 'timers';
-
+import { setInterval } from 'timers';
+import {attach, detach, refresh} from "electron-as-wallpaper";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -11,6 +11,7 @@ if (require('electron-squirrel-startup')) {
 
 let mainWindow: BrowserWindow
 let tray
+let attached = false
 
 const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay()
@@ -39,7 +40,13 @@ const createWindow = () => {
     alwaysOnTop: true,
   });
   mainWindow.setSize(width, height)
-  mainWindow.setIgnoreMouseEvents(true)
+  // mainWindow.setIgnoreMouseEvents(true)
+  attach(mainWindow, {
+    transparent: true,
+    forwardKeyboardInput: true,
+    forwardMouseInput: true,
+  })
+  attached = true
   
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
@@ -49,35 +56,35 @@ const createWindow = () => {
   }
 
   // mouse event through transparency
-  const updateIgnoreMouseEvents = async (x: number, y: number) => {
-    // capture 1x1 image of mouse position.
-    const image = await mainWindow.webContents.capturePage({
-      x,
-      y,
-      width: 1,
-      height: 1,
-    });
+  // const updateIgnoreMouseEvents = async (x: number, y: number) => {
+  //   // capture 1x1 image of mouse position.
+  //   const image = await mainWindow.webContents.capturePage({
+  //     x,
+  //     y,
+  //     width: 1,
+  //     height: 1,
+  //   });
   
-    var buffer = image.getBitmap();
+  //   var buffer = image.getBitmap();
     
-    const transparent = !buffer[3]
-    mainWindow.setIgnoreMouseEvents(transparent);
+  //   const transparent = !buffer[3]
+  //   mainWindow.setIgnoreMouseEvents(transparent);
     
-  };
-  const timer = setInterval(() => {
-    if (!mainWindow) return
-    const point = screen.getCursorScreenPoint();
-    const [x, y] = mainWindow.getPosition();
-    const [w, h] = mainWindow.getSize();
+  // };
+  // const timer = setInterval(() => {
+  //   if (!mainWindow) return
+  //   const point = screen.getCursorScreenPoint();
+  //   const [x, y] = mainWindow.getPosition();
+  //   const [w, h] = mainWindow.getSize();
   
-    if (point.x > x && point.x < x + w && point.y > y && point.y < y + h) {
-      updateIgnoreMouseEvents(point.x - x, point.y - y);
-    }
-  }, 200);
+  //   if (point.x > x && point.x < x + w && point.y > y && point.y < y + h) {
+  //     updateIgnoreMouseEvents(point.x - x, point.y - y);
+  //   }
+  // }, 200);
 
-  mainWindow.on('close', () => {
-    clearInterval(timer)
-  })
+  // mainWindow.on('close', () => {
+  //   clearInterval(timer)
+  // })
 
   // 拦截链接打开方式
   mainWindow.webContents.setWindowOpenHandler((details: HandlerDetails) => {
@@ -97,12 +104,20 @@ const createTray = () => {
     {
       label: '置顶',
       click: () => {
+        detach(mainWindow)
+        attached = false
         mainWindow.setAlwaysOnTop(true)
       }
     }, {
-      label: '取消置顶',
+      label: '总是在底部',
       click: () => {
         mainWindow.setAlwaysOnTop(false)
+        attach(mainWindow, {
+          transparent: true,
+          forwardKeyboardInput: true,
+          forwardMouseInput: true,
+        })
+        attached = true
       }
     }, {
       label: '刷新',

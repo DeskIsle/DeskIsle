@@ -60,6 +60,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "electron-as-wallpaper": "^1.0.8",
     "electron-squirrel-startup": "^1.0.1",
     "framer-motion": "^11.2.5",
     "jotai": "^2.8.0",
