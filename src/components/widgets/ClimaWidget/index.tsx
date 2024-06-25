@@ -8,7 +8,7 @@ export interface ClimaWidgetProps {
 }
 
 async function getClimaData(): Promise<any> {
-  const res = await fetch("https://devapi.qweather.com/v7/weather/now?location=101020300&key=a216b8f544364323b8fa5b3e287d8ee2")
+  const res = await fetch("https://devapi.qweather.com/v7/weather/now?location=101020300&key=4a8cda440c914fe4820b02ddfefbd336")
   return res.json()
 }
 
@@ -21,14 +21,14 @@ export default function ClimaWidget({}: ClimaWidgetProps) {
     cacheKey: 'clima-widget-data',
     staleTime: 60000,
   }); 
-  setInterval(() => {
-    refresh()
-    console.log('refresh climaWidget data')
-  }, 10 * 60 * 1000) 
+  // setInterval(() => {
+  //   refresh()
+  //   console.log('refresh climaWidget data')
+  // }, 10 * 60 * 1000) 
 
   useEffect(() => {
-    if (!data || data.code === '402') return
     console.log(data)
+    if (!data || data.code === '402') return
     const tempValue = data.now.temp;
     const icon = parseInt(data.now.icon);
     const curTime = new Date(Date.parse(data.updateTime));
