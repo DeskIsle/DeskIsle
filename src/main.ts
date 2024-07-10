@@ -49,12 +49,10 @@ const createWindow = () => {
   if (externalDisplay) {
     x += externalDisplay.bounds.x
     y += externalDisplay.bounds.y
-    width = externalDisplay.bounds.width - 40
-    height = externalDisplay.bounds.height - 40
+    width = externalDisplay.bounds.width
+    height = externalDisplay.bounds.height
   }
   mainWindow = new BrowserWindow({
-    x: x,
-    y: y,
     width: width,
     height: height,
     webPreferences: {
@@ -62,13 +60,14 @@ const createWindow = () => {
       nodeIntegration: true,
     },
     resizable: false,
+    center: true,
     frame: false, 
     transparent: true,
     skipTaskbar: true,
     autoHideMenuBar: true,
     alwaysOnTop: true,
   });
-  mainWindow.setSize(width, height)
+  // mainWindow.setSize(width, height)
   // mainWindow.setIgnoreMouseEvents(true)
   attach(mainWindow, {
     transparent: true,
