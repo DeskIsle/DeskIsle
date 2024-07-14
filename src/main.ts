@@ -95,10 +95,10 @@ const createTray = () => {
   tray.setTitle('DeskIsle')
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: '插件商店',
-      // click: () => {
-        
-      // }
+      label: '组件商店',
+      click: () => {
+        mainWindow.webContents.send('open-widget-store', true)
+      }
     },
     {
       label: '置顶',

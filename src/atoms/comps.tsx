@@ -8,23 +8,38 @@ import { atomWithStorage, splitAtom } from "jotai/utils"
 
 export type RegistryComps = {
   [key in keyof typeof registryComps]: {
-    name: string,
+    name: string
     Element: (props?: unknown) => React.JSX.Element
+    defaultProps: {
+      width: number
+      height: number
+      elementProps: any
+    }
   }
 }
 
 export const registryComps = {
-  'SettingWidget': {
-    name: '设置组件',
-    Element: SettingWidget,
-  },
   'LinkWidget': {
     name: '导航组件',
     Element: LinkWidget,
+    defaultProps: {
+      width: 1,
+      height: 1,
+      elementProps: {
+        link: "",
+        icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMiIgZD0ibTE1LjA2MiAxMi41MDZsLS4yODQtLjI4NGwzLjExMy0yLjA5YTEuMiAxLjIgMCAwIDAtLjMwOS0yLjIyOEw0IDRsMy45MDQgMTMuNTYzYTEuMiAxLjIgMCAwIDAgMi4yMjguMzA4bDIuMDktMy4wOTNsMS4yNzggMS4yNzhNMTkgMjJ2LjAxTTE5IDE5YTIuMDAzIDIuMDAzIDAgMCAwIC45MTQtMy43ODJhMS45OCAxLjk4IDAgMCAwLTIuNDE0LjQ4MyIvPjwvc3ZnPg==",
+        bgColor: "#FFFFFF",
+      }
+    }
   },
   'ClimaWidget': {
     name: '天气组件',
     Element: ClimaWidget,
+    defaultProps: {
+      width: 4,
+      height: 4,
+      elementProps: {}
+    }
   }
 }
 
@@ -41,14 +56,6 @@ export type Comp = {
 
 export const compAtoms = atomWithStorage<Comp[]>('comps', [
   {
-    id: 0,
-    row: 0,
-    col: 0,
-    width: 1,
-    height: 1,
-    element: 'SettingWidget',
-    elementProps: {}
-  }, {
     id: 1,
     row: 0,
     col: 1,
@@ -111,5 +118,5 @@ export const compAtoms = atomWithStorage<Comp[]>('comps', [
 export const splitCompAtoms = splitAtom(compAtoms)
 
 // 下一个可放置的位置
-export const nextPlacePositionAtom = atom({row: 0, col: 3})
+export const nextPlacePositionAtom = atom({ row: 0, col: 3 })
 export const isDraggingAtom = atom(false)

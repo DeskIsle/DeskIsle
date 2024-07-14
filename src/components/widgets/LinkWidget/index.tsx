@@ -22,9 +22,11 @@ export default function LinkWidget({compAtom}: LinkWidgeteProps) {
   const openBrowser: MouseEventHandler = (e) => {
     if (isDragging) return
     if (e.button === 0) {
-      window.open(link)
-    } else if (e.button === 2) {
-      setModalVisible(true)
+      if (e.ctrlKey) {
+        setModalVisible(true)
+      } else {
+        window.open(link)
+      }
     }
   }
   

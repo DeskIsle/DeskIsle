@@ -1,6 +1,6 @@
 // See the Electron documentation for details on how to use preload scripts:
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 
 // declare the window.electronAPI, nor the font-end can't access electronAPI
 declare global {
@@ -10,5 +10,5 @@ declare global {
 }
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  
+  onOpenWidgetStore: (callback: any) => ipcRenderer.on('open-widget-store', (_event, value) => callback(value)),
 })
