@@ -1,16 +1,12 @@
-import { Comp, compAtoms, isDraggingAtom } from "@/atoms/comps";
-import { iconsAtom } from "@/atoms/icons";
-import { layoutConfigAtom } from "@/atoms/layoutConfig";
-import { Button } from "@/components/ui/button";
+import { Comp, isDraggingAtom } from "@/atoms/comps";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import IconShop from "@/components/common/IconShop"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataUrlIcon from "@/icons/DataUrlIcon";
 import { PrimitiveAtom, useAtom } from "jotai";
 import React, { MouseEventHandler, useState } from "react";
-import { Cross2Icon, ExternalLinkIcon } from "@radix-ui/react-icons";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { HexColorPicker } from "react-colorful";
 import Modal from "@/components/common/Modal";
 
@@ -19,7 +15,7 @@ export interface LinkWidgeteProps {
 }
 
 export default function LinkWidget({compAtom}: LinkWidgeteProps) {
-  const [comp, setComp] = useAtom(compAtom)
+  const [comp] = useAtom(compAtom)
   const {link, icon, bgColor} = comp.elementProps
   const [isDragging] = useAtom(isDraggingAtom)
   const [modalVisible, setModalVisible] = useState(false)
@@ -95,7 +91,6 @@ export interface LinkWidgetEditorProps {
 
 export const LinkWidgetEditor = ({compAtom}: LinkWidgetEditorProps) => {
   const [comp, setComp] = useAtom(compAtom)
-  const [{unit, gap}] = useAtom(layoutConfigAtom)
 
   function updateIcon(icon: string) {
     setComp({...comp, elementProps: {...comp.elementProps, icon}})

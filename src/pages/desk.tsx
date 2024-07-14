@@ -1,4 +1,4 @@
-import AppLayout from "@/pages/applayout";
+import { AppLayout } from "@/pages/applayout";
 import { Toaster } from "@/components/ui/toaster";
 import React from "react";
 

@@ -2,9 +2,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import React, { HTMLAttributes } from "react";
 
-interface CardProps extends HTMLAttributes<HTMLDivElement>{
-}
-export default function Card({children, className, onClick, ...props}: CardProps) {
+export default function Card({children, className, onClick}: HTMLAttributes<HTMLDivElement>) {
   return (
     <motion.div
       onClick={onClick}

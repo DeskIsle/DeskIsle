@@ -2,20 +2,19 @@ import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { cn } from "@/lib/utils";
 import { motion, MotionProps } from "framer-motion";
 import { PrimitiveAtom, useAtom } from "jotai";
-import React, { useEffect } from "react";
-import { forwardRef, HTMLAttributes, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Comp, isDraggingAtom, registryComps, splitCompAtoms } from "@/atoms/comps";
 
 export const AppLayout = () => {
-  const [compAtoms, dispatch] = useAtom(splitCompAtoms)
+  const [compAtoms] = useAtom(splitCompAtoms)
   const [{unit, gap}] = useAtom(layoutConfigAtom)
   const layoutRef = useRef<HTMLDivElement>(null)
-  const [isDragging, setIsDragging] = useAtom(isDraggingAtom)
+  const [, setIsDragging] = useAtom(isDraggingAtom)
   const [layoutConfig] = useAtom(layoutConfigAtom)
-  function handleDragStart(e: DragEvent) {
+  function handleDragStart() {
     setIsDragging(true)
   }
-  function handleDragEnd(e: DragEvent) {
+  function handleDragEnd() {
     setIsDragging(false)  
   }
 
@@ -49,15 +48,13 @@ export const AppLayout = () => {
 
 AppLayout.displayName = 'AppLayout'
 
-export default AppLayout
-
 interface CompProps extends MotionProps {
   compAtom: PrimitiveAtom<Comp>
   className?: string,
 }
 
 export function CompElement({compAtom, className, ...props}: CompProps) {
-  const [comp, setComp] = useAtom(compAtom)
+  const [comp] = useAtom(compAtom)
   const { element, width, height, row, col} = comp
   const [{unit, gap}] = useAtom(layoutConfigAtom)
   const Element = registryComps[element].Element

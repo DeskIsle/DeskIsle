@@ -3,17 +3,13 @@ import { useRequest } from 'ahooks';
 
 import './index.css'
 
-export interface ClimaWidgetProps {
-  
-}
-
 async function getClimaData(): Promise<any> {
   const res = await fetch("https://devapi.qweather.com/v7/weather/now?location=101020300&key=4a8cda440c914fe4820b02ddfefbd336")
   return res.json()
 }
 
 
-export default function ClimaWidget({}: ClimaWidgetProps) {
+export default function ClimaWidget() {
   const [temperature, setTemperature] = useState<number>()
   const [weatherClass, setWeatherClass] = useState<string[]>([])
   const [updateTime, setUpdateTime] = useState<string>('')

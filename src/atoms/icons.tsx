@@ -1,7 +1,4 @@
-import GithubIcon from "@/icons/DataUrlIcon";
-import { ChatBubbleIcon, EnvelopeOpenIcon, GearIcon, GitHubLogoIcon,HomeIcon, NotionLogoIcon } from "@radix-ui/react-icons";
 import { atom } from "jotai";
-import React from "react";
 
 type Icon = string
 

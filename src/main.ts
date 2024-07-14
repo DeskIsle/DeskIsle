@@ -1,8 +1,8 @@
-import { app, BrowserWindow, HandlerDetails, screen, shell, ipcMain, IpcMainEvent, nativeImage, Tray, Menu } from 'electron';
+import { app, BrowserWindow, HandlerDetails, screen, shell, nativeImage, Tray, Menu } from 'electron';
 import path from 'path';
 import { getExternalDisplay } from './lib/display';
 import { setInterval } from 'timers';
-import {attach, detach, refresh} from "electron-as-wallpaper";
+import {attach, detach} from "electron-as-wallpaper";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -11,7 +11,6 @@ if (require('electron-squirrel-startup')) {
 
 let mainWindow: BrowserWindow
 let tray
-let attached = false
 let mouseEventThroughTransparencyTimer: NodeJS.Timeout | null
 const mouseEventThroughTransparency = () => {
   const updateIgnoreMouseEvents = async (x: number, y: number) => {
@@ -23,7 +22,7 @@ const mouseEventThroughTransparency = () => {
       height: 1,
     });
   
-    var buffer = image.getBitmap();
+    const buffer = image.getBitmap();
     
     const transparent = !buffer[3]
     mainWindow.setIgnoreMouseEvents(transparent);
@@ -44,11 +43,9 @@ const mouseEventThroughTransparency = () => {
 
 const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay()
-  let x = 20, y = 20, width = primaryDisplay.bounds.width, height = primaryDisplay.bounds.height
+  let width = primaryDisplay.bounds.width, height = primaryDisplay.bounds.height
   const externalDisplay = getExternalDisplay()
   if (externalDisplay) {
-    x += externalDisplay.bounds.x
-    y += externalDisplay.bounds.y
     width = externalDisplay.bounds.width
     height = externalDisplay.bounds.height
   }
@@ -74,7 +71,6 @@ const createWindow = () => {
     forwardKeyboardInput: true,
     forwardMouseInput: true,
   })
-  attached = true
   
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
@@ -97,7 +93,13 @@ const createTray = () => {
   const trayIcon = nativeImage.createFromPath('src/static/icon.png')
   tray = new Tray(trayIcon)
   tray.setTitle('DeskIsle')
-  let contextMenu = Menu.buildFromTemplate([
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: '插件商店',
+      // click: () => {
+        
+      // }
+    },
     {
       label: '置顶',
       click: () => {
@@ -105,7 +107,6 @@ const createTray = () => {
         if (!mouseEventThroughTransparencyTimer) {
           mouseEventThroughTransparency()
         }
-        attached = false
         mainWindow.setAlwaysOnTop(true)
       }
     }, {
@@ -121,7 +122,6 @@ const createTray = () => {
           forwardKeyboardInput: true,
           forwardMouseInput: true,
         })
-        attached = true
       }
     }, {
       label: '刷新',

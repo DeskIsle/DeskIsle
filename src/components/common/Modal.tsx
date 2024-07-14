@@ -1,7 +1,6 @@
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { motion } from "framer-motion"
-import React, { useEffect, useRef, useState } from "react"
-import { ReactNode } from "react"
+import React, { useEffect, useRef, useState, ReactNode } from "react"
 import { createPortal } from "react-dom"
 import { Separator } from "../ui/separator"
 

@@ -1,0 +1,7 @@
+build
+out
+*.config.js
+*.config.ts
+*.json
+*.d.ts
+node_modules

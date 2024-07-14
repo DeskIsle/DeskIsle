@@ -1,5 +1,4 @@
-import React from "react";
-import { SVGProps } from "react";
+import React, { SVGProps } from "react";
 
 export function FluentEmojiFlatGear(props: SVGProps<SVGSVGElement>) {
   return (
