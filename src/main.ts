@@ -101,6 +101,12 @@ const createTray = () => {
       }
     },
     {
+      label: '设置',
+      click: () => {
+        mainWindow.webContents.send('open-settings', true)
+      }
+    },
+    {
       label: '置顶',
       click: () => {
         detach(mainWindow)

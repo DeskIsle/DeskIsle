@@ -11,4 +11,5 @@ declare global {
 
 contextBridge.exposeInMainWorld('electronAPI', {
   onOpenWidgetStore: (callback: any) => ipcRenderer.on('open-widget-store', (_event, value) => callback(value)),
+  onOpenSettings: (callback: any) => ipcRenderer.on('open-settings', (_event, value) => callback(value)),
 })
