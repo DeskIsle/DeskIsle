@@ -1,4 +1,5 @@
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@radix-ui/react-label";
@@ -41,11 +42,18 @@ export default function SettingWidget() {
         onWheel={handleWheel}
         onChange={(v) => setLayoutConfig({ ...layoutConfig, gap: Number(v.target.value) })}
       />
-      <div className="font-bold">💡小技巧</div>
-      <ul>
-        <li>导航组件编辑快捷键: Ctrl+鼠标左键</li>
-        <li>删除组件: 长按保持1s进入删除模式</li>
-      </ul>
+      <Alert className="mt-4">
+        <AlertTitle>💡 小技巧 1</AlertTitle>
+        <AlertDescription>
+          导航组件编辑快捷键: Ctrl+鼠标左键
+        </AlertDescription>
+      </Alert>
+      <Alert>
+        <AlertTitle>💡 小技巧 2</AlertTitle>
+        <AlertDescription>
+          删除组件: 长按保持1s进入删除模式
+        </AlertDescription>
+      </Alert>
     </div>
   )
 }
