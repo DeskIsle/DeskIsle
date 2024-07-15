@@ -1,5 +1,6 @@
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { Label } from "@radix-ui/react-label";
 import { useAtom } from "jotai";
 import React from "react";
@@ -40,6 +41,11 @@ export default function SettingWidget() {
         onWheel={handleWheel}
         onChange={(v) => setLayoutConfig({ ...layoutConfig, gap: Number(v.target.value) })}
       />
+      <div className="font-bold">💡小技巧</div>
+      <ul>
+        <li>导航组件编辑快捷键: Ctrl+鼠标左键</li>
+        <li>删除组件: 长按保持1s进入删除模式</li>
+      </ul>
     </div>
   )
 }
