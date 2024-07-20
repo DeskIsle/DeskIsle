@@ -120,15 +120,15 @@ export const compAtoms = atomWithStorage<Comp[]>('comps', [
       bgColor: '#2B2E3A',
     }
   }
-  // , {
-  //   id: 5,
-  //   row: 1,
-  //   col: 0,
-  //   width: 4,
-  //   height: 4,
-  //   element: 'ClimaWidget',
-  //   elementProps: {}
-  // }
+  , {
+    id: 5,
+    row: 1,
+    col: 0,
+    width: 4,
+    height: 4,
+    element: 'ClimaWidget',
+    elementProps: {}
+  }
 ])
 
 export const splitCompAtoms = splitAtom(compAtoms)
