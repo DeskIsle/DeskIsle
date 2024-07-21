@@ -23,7 +23,8 @@ function Input() {
   const [value, setValue] = useAtom(inputValueAtom)
   const [, setShowSearchList] = useAtom(showSearchListAtom)
   return (
-    <div className="flex items-center w-full">
+    <div className="flex items-center w-full gap-2 py-2">
+      <span>城市：</span>
       <input
         className="ring-1 ring-gray-300 focus:ring-1 focus:ring-primary outline-none rounded-md p-2 pr-8"
         title="city"
@@ -37,7 +38,7 @@ function Input() {
         }}
         placeholder="Select City"
       />
-      <CaretSortIcon className="w-4 h-4 -ml-6" />
+      <CaretSortIcon className="w-4 h-4 -ml-8" />
     </div>
   )
 }

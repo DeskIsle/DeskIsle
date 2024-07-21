@@ -31,13 +31,12 @@ export default function ClimaWidget() {
     icon: 0,
     lastUpdateTime: '',
   })
-  // setInterval(() => {
-  //   refresh()
-  //   console.log('refresh climaWidget data')
-  // }, 10 * 60 * 1000) 
+  setInterval(() => {
+    handleRequest()
+    console.log('refresh climaWidget data')
+  }, 10 * 60 * 1000)
   async function handleRequest() {
     const data = await getClimaData(selectedCity?.Location_ID)
-    console.log(data)
     if (!data || data.code === '402' || data.code === '400') return
     const tempValue = data.now.temp;
     const icon = parseInt(data.now.icon);
@@ -99,7 +98,7 @@ export default function ClimaWidget() {
               <div>温度: {weather.temp}°C</div>
               <div>天气: {weather.text}</div>
             </div>
-            <div className="flex flex-row justify-start items-center w-full ">
+            <div className="flex flex-row gap-1 justify-start items-center w-full mb-2">
               <Button className="bg-transparent hover:bg-transparent hover:bg-[#2a2d34] px-2 py-1" onClick={openClimaModal}>⚙</Button>
               <span className="text-gray-300 text-[0.7rem] align-middle">最后更新时间: {weather.lastUpdateTime}</span>
             </div>
@@ -108,7 +107,7 @@ export default function ClimaWidget() {
           <div>Loading...</div>
         }
       </div>
-      <Modal visible={modalVisible} closeModal={() => setModalVisible(false)}>
+      <Modal header="天气组件" visible={modalVisible} closeModal={() => setModalVisible(false)}>
         <CitySelector />
       </Modal>
     </div>
