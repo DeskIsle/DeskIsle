@@ -14,9 +14,9 @@ export interface LinkWidgeteProps {
   compAtom: PrimitiveAtom<Comp>
 }
 
-export default function LinkWidget({compAtom}: LinkWidgeteProps) {
+export default function LinkWidget({ compAtom }: LinkWidgeteProps) {
   const [comp] = useAtom(compAtom)
-  const {link, icon, bgColor} = comp.elementProps
+  const { link, icon, bgColor } = comp.elementProps
   const [isDragging] = useAtom(isDraggingAtom)
   const [modalVisible, setModalVisible] = useState(false)
   const openBrowser: MouseEventHandler = (e) => {
@@ -29,21 +29,21 @@ export default function LinkWidget({compAtom}: LinkWidgeteProps) {
       }
     }
   }
-  
+
   return (
     <>
-      <div 
-        onMouseUp={openBrowser} 
+      <div
+        onMouseUp={openBrowser}
         style={{
           backgroundColor: bgColor,
         }}
         className={`w-full h-full text-5xl select-none flex justify-center items-center hover:cursor-pointer`}>
-        
-        <DataUrlIcon 
-          className="w-3/4 h-3/4" 
+
+        <DataUrlIcon
+          className="w-3/4 h-3/4"
           src={icon} />
       </div>
-      <Modal visible={modalVisible} closeModal={() => setModalVisible(false)}>
+      <Modal header="导航组件" visible={modalVisible} closeModal={() => setModalVisible(false)}>
         <LinkWidgetEditor compAtom={compAtom} />
       </Modal>
     </>
@@ -91,40 +91,40 @@ export interface LinkWidgetEditorProps {
   compAtom: PrimitiveAtom<Comp>
 }
 
-export const LinkWidgetEditor = ({compAtom}: LinkWidgetEditorProps) => {
+export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
   const [comp, setComp] = useAtom(compAtom)
 
   function updateIcon(icon: string) {
-    setComp({...comp, elementProps: {...comp.elementProps, icon}})
+    setComp({ ...comp, elementProps: { ...comp.elementProps, icon } })
   }
   return (
     <div className="grid grid-cols-5 items-center gap-2">
       <Label htmlFor="link">网址</Label>
-      <Input className="col-span-4" id="link" value={comp.elementProps.link} onChange={(v) => setComp({...comp, elementProps: {...comp.elementProps, link: v.target.value}})} />
-      
+      <Input className="col-span-4" id="link" value={comp.elementProps.link} onChange={(v) => setComp({ ...comp, elementProps: { ...comp.elementProps, link: v.target.value } })} />
+
       <Label htmlFor="icon">图标</Label>
       <Tabs className="col-span-4" defaultValue="icon-shop">
         <TabsList>
           <TabsTrigger value="icon-shop">图标商店</TabsTrigger>
           <TabsTrigger className="flex gap-1" value="icon-url">
-            <span>图标URL</span> 
+            <span>图标URL</span>
             <ExternalLinkIcon onClick={() => window.open('https://icones.js.org/')} />
           </TabsTrigger>
         </TabsList>
         <TabsContent value="icon-shop">
-          <IconShop onSelect={(icon: string) => updateIcon(icon)}/>
+          <IconShop onSelect={(icon: string) => updateIcon(icon)} />
         </TabsContent>
         <TabsContent value="icon-url">
           <Input id="icon" value={comp.elementProps.icon} onChange={(v) => updateIcon(v.target.value)} />
         </TabsContent>
       </Tabs>
-      
-      <Label className="row-span-2" htmlFor="bgColor">背景色</Label>
-      <HexColorPicker className="col-span-4 mt-4" id="bgColor" color={comp.elementProps.bgColor} onChange={(c) => setComp({...comp, elementProps: {...comp.elementProps, bgColor: c}})} />
-      <Input className="col-span-2" value={comp.elementProps.bgColor} onChange={(c) => setComp({...comp, elementProps: {...comp.elementProps, bgColor: c.target.value}})} />
-    
 
-    {/* <Label className="row-span-2">预览</Label>
+      <Label className="row-span-2" htmlFor="bgColor">背景色</Label>
+      <HexColorPicker className="col-span-4 mt-4" id="bgColor" color={comp.elementProps.bgColor} onChange={(c) => setComp({ ...comp, elementProps: { ...comp.elementProps, bgColor: c } })} />
+      <Input className="col-span-2" value={comp.elementProps.bgColor} onChange={(c) => setComp({ ...comp, elementProps: { ...comp.elementProps, bgColor: c.target.value } })} />
+
+
+      {/* <Label className="row-span-2">预览</Label>
     <motion.div
     whileHover={{scale: 1.05}}
     style={{
@@ -134,7 +134,7 @@ export const LinkWidgetEditor = ({compAtom}: LinkWidgetEditorProps) => {
     className="row-span-2 border bg-transparent col-span-4 rounded-lg shadow-lg overflow-hidden">
     <LinkWidget {...comp.elementProps} />
   </motion.div> */}
-    {/* <Button className="col-start-3" onClick={save}>保存</Button> */}
+      {/* <Button className="col-start-3" onClick={save}>保存</Button> */}
     </div>
   )
 }
