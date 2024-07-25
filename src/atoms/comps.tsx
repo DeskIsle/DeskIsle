@@ -4,6 +4,7 @@ import SettingWidget from "@/components/widgets/SettingWidget";
 import { atom } from "jotai";
 import React from "react";
 import { atomWithStorage, splitAtom } from "jotai/utils"
+import ImageWidget from "@/components/widgets/ImageWidget";
 
 
 export type RegistryComps = {
@@ -39,6 +40,17 @@ export const registryComps = {
       width: 4,
       height: 4,
       elementProps: {}
+    }
+  },
+  'ImageWidget': {
+    name: '图片组件',
+    Element: ImageWidget,
+    defaultProps: {
+      width: 4,
+      height: 4,
+      elementProps: {
+        img: ''
+      }
     }
   }
 }
@@ -129,6 +141,17 @@ export const compAtoms = atomWithStorage<Comp[]>('comps', [
     element: 'ClimaWidget',
     elementProps: {}
   }
+  // , {
+  //   id: 6,
+  //   row: 1,
+  //   col: 4,
+  //   width: 4,
+  //   height: 4,
+  //   element: 'ImageWidget',
+  //   elementProps: {
+  //     img: 'https://component-1256901694.cos.ap-shanghai.myqcloud.com/images/img1.jpg',
+  //   }
+  // }
 ])
 
 export const splitCompAtoms = splitAtom(compAtoms)

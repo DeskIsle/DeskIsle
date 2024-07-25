@@ -10,11 +10,11 @@ import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { HexColorPicker } from "react-colorful";
 import Modal from "@/components/common/Modal";
 
-export interface LinkWidgeteProps {
+export interface LinkWidgetProps {
   compAtom: PrimitiveAtom<Comp>
 }
 
-export default function LinkWidget({ compAtom }: LinkWidgeteProps) {
+export default function LinkWidget({ compAtom }: LinkWidgetProps) {
   const [comp] = useAtom(compAtom)
   const { link, icon, bgColor } = comp.elementProps
   const [isDragging] = useAtom(isDraggingAtom)

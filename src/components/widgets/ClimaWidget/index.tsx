@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useRequest } from 'ahooks';
 
 import './index.css'
-import CitySelector, { selectedCityAtom } from "@/components/common/CitySelector";
 import { Button } from "@/components/ui/button";
 import ClimaSvg from "./ClimaSvg";
 import Modal from "@/components/common/Modal";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
+import { City, CityList } from "@/atoms/city";
+import SelectWithInput from "@/components/common/SelectWithInput";
 
 async function getClimaData(locationID: string | undefined): Promise<any> {
   const res = await fetch(`https://devapi.qweather.com/v7/weather/now?location=${locationID}&key=4a8cda440c914fe4820b02ddfefbd336`)
-  // const res = await fetch("")
   return res.json()
 }
 
@@ -21,6 +20,8 @@ type Weather = {
   lastUpdateTime: string
   cssClass?: string[]
 }
+
+const selectedCityAtom = atom<City | null>(null)
 
 export default function ClimaWidget() {
   const [selectedCity, setSelectedCity] = useAtom(selectedCityAtom)
@@ -108,8 +109,24 @@ export default function ClimaWidget() {
         }
       </div>
       <Modal header="天气组件" visible={modalVisible} closeModal={() => setModalVisible(false)}>
-        <CitySelector />
+        <ClimaWidgetEditor />
       </Modal>
+    </div>
+  )
+}
+
+
+const ClimaWidgetEditor = () => {
+  const [selectedCity, setSelectedCity] = useAtom(selectedCityAtom)
+  return (
+    <div className="flex flex-col gap-4 p-4">
+      <SelectWithInput
+        selected={selectedCity}
+        setSelected={setSelectedCity}
+        inputKey="CityZH"
+        options={CityList}
+        filter={(option, value) => option ? (option.CityZH.includes(value) || option.CityEN.toLowerCase().includes(value)) : false}
+      />
     </div>
   )
 }

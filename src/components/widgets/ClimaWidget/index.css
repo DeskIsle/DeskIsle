@@ -60,7 +60,7 @@
 .window {
     top: -1%;
     background: none;
-    width: calc(var(--init-size) * 0.83);
+    width: calc(var(--init-size) * 0.92);
     height: calc(var(--init-size) * 0.83 / 2);
     bottom: unset;
     border-radius: 12px;
