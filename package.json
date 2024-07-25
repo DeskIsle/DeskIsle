@@ -9,7 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint --ext .ts,.tsx .",
+    "install": "./node_modules/.bin/electron-rebuild"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.4.0",
@@ -21,6 +22,7 @@
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron-forge/plugin-vite": "^7.4.0",
     "@electron/fuses": "^1.8.0",
+    "@electron/rebuild": "^3.6.0",
     "@types/mockjs": "^1.0.10",
     "@types/node": "^20.12.12",
     "@types/react": "^18.3.2",
@@ -61,7 +63,9 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "electron-as-wallpaper": "^1.0.8",
+    "electron-disable-minimize": "github:zhubaitian/electron-disable-minimize",
     "electron-squirrel-startup": "^1.0.1",
+    "electron-swd": "^1.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "framer-motion": "^11.2.5",
     "jotai": "^2.8.0",

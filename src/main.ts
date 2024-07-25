@@ -2,7 +2,8 @@ import { app, BrowserWindow, HandlerDetails, screen, shell, nativeImage, Tray, M
 import path from 'path';
 import { getExternalDisplay } from './lib/display';
 import { setInterval } from 'timers';
-import {attach, detach} from "electron-as-wallpaper";
+import { toBottom } from "electron-swd";
+import { DisableMinimize } from 'electron-disable-minimize';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -62,15 +63,12 @@ const createWindow = () => {
     transparent: true,
     skipTaskbar: true,
     autoHideMenuBar: true,
-    alwaysOnTop: true,
+    alwaysOnTop: false,
   });
-  // mainWindow.setSize(width, height)
-  // mainWindow.setIgnoreMouseEvents(true)
-  attach(mainWindow, {
-    transparent: true,
-    forwardKeyboardInput: true,
-    forwardMouseInput: true,
-  })
+  mainWindow.setIgnoreMouseEvents(true)
+  mouseEventThroughTransparency()
+  toBottom(mainWindow.getNativeWindowHandle())
+  DisableMinimize(mainWindow.getNativeWindowHandle())
   
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
@@ -88,6 +86,10 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools({mode: 'detach'});
+
+  mainWindow.on('focus', () => {
+    toBottom(mainWindow.getNativeWindowHandle())
+  })
 };
 const createTray = () => {
   const trayIcon = nativeImage.createFromPath('src/static/icon.png')
@@ -107,34 +109,12 @@ const createTray = () => {
       }
     },
     {
-      label: '置顶',
-      click: () => {
-        detach(mainWindow)
-        if (!mouseEventThroughTransparencyTimer) {
-          mouseEventThroughTransparency()
-        }
-        mainWindow.setAlwaysOnTop(true)
-      }
-    }, {
-      label: '总是在底部',
-      click: () => {
-        mainWindow.setAlwaysOnTop(false)
-        if (mouseEventThroughTransparencyTimer) {
-          clearInterval(mouseEventThroughTransparencyTimer)
-        }
-        mouseEventThroughTransparencyTimer = null
-        attach(mainWindow, {
-          transparent: true,
-          forwardKeyboardInput: true,
-          forwardMouseInput: true,
-        })
-      }
-    }, {
       label: '刷新',
       click: () => {
         mainWindow.reload()
       }
-    }, {
+    }, 
+    {
       label: '退出',
       click: () => {
         app.quit()
