@@ -25,13 +25,7 @@ const selectedCityAtom = atom<City | null>(null)
 
 export default function ClimaWidget() {
   const [selectedCity, setSelectedCity] = useAtom(selectedCityAtom)
-  const [modalVisible, setModalVisible] = useState(false)
-  const [weather, setWeather] = useState<Weather>({
-    text: '',
-    temp: 0,
-    icon: 0,
-    lastUpdateTime: '',
-  })
+  const [weather, setWeather] = useState<Weather | null>(null)
   setInterval(() => {
     handleRequest()
     console.log('refresh climaWidget data')
@@ -82,35 +76,29 @@ export default function ClimaWidget() {
     handleRequest()
   }, [selectedCity])
 
-  function openClimaModal() {
-    setModalVisible(true)
-  }
-
   return (
     <div className="w-full h-full relative">
       <ClimaSvg weatherClass={weather?.cssClass ?? []} />
       <div
         className="bottom-panel px-8 py-2 text-white"
       >
-        {weather ?
-          <div className='h-full flex flex-col justify-between items-center'>
-            <div className='text-sm'>
-              <div>城市: {selectedCity?.CityZH}</div>
-              <div>温度: {weather.temp}°C</div>
-              <div>天气: {weather.text}</div>
-            </div>
-            <div className="flex flex-row gap-1 justify-start items-center w-full mb-2">
-              <Button className="bg-transparent hover:bg-transparent hover:bg-[#2a2d34] px-2 py-1" onClick={openClimaModal}>⚙</Button>
-              <span className="text-gray-300 text-[0.7rem] align-middle">最后更新时间: {weather.lastUpdateTime}</span>
-            </div>
+        <div className='h-full flex flex-col justify-between items-center'>
+          <div className='text-sm flex flex-col justify-center items-center gap-2'>
+            <ClimaWidgetEditor />
+            {weather &&
+              <div className="flex flex-row gap-4">
+                <div>温度: {weather.temp}°C</div>
+                <div>天气: {weather.text}</div>
+              </div>
+            }
           </div>
-          :
-          <div>Loading...</div>
-        }
+          {weather &&
+            <div className="flex flex-row gap-1 justify-center items-center w-full mb-2">
+              <span className="text-gray-500 text-[0.7rem] align-middle">最后更新时间: {weather.lastUpdateTime}</span>
+            </div>
+          }
+        </div>
       </div>
-      <Modal header="天气组件" visible={modalVisible} closeModal={() => setModalVisible(false)}>
-        <ClimaWidgetEditor />
-      </Modal>
     </div>
   )
 }
@@ -119,12 +107,13 @@ export default function ClimaWidget() {
 const ClimaWidgetEditor = () => {
   const [selectedCity, setSelectedCity] = useAtom(selectedCityAtom)
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="text-black h-6 w-[10rem]">
       <SelectWithInput
         selected={selectedCity}
         setSelected={setSelectedCity}
         inputKey="CityZH"
         options={CityList}
+        placeholder="输入城市"
         filter={(option, value) => option ? (option.CityZH.includes(value) || option.CityEN.toLowerCase().includes(value)) : false}
       />
     </div>

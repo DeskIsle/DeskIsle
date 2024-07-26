@@ -1,11 +1,9 @@
 import ClimaWidget from "@/components/widgets/ClimaWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
-import SettingWidget from "@/components/widgets/SettingWidget";
 import { atom } from "jotai";
 import React from "react";
 import { atomWithStorage, splitAtom } from "jotai/utils"
 import ImageWidget from "@/components/widgets/ImageWidget";
-
 
 export type RegistryComps = {
   [key in keyof typeof registryComps]: {

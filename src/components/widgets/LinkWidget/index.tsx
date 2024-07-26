@@ -37,7 +37,7 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
         style={{
           backgroundColor: bgColor,
         }}
-        className={`w-full h-full text-5xl select-none flex justify-center items-center hover:cursor-pointer`}>
+        className={`w-full h-full rounded-lg text-5xl select-none flex justify-center items-center hover:cursor-pointer`}>
 
         <DataUrlIcon
           className="w-3/4 h-3/4"

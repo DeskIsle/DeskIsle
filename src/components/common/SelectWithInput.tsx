@@ -17,7 +17,7 @@ export default function SelectWithInput<T>(props: SelectWithInputProps<T>) {
   const [value, setValue] = useState('')
   const [showSearchList, setShowSearchList] = useState(false)
   return (
-    <div className="flex flex-col gap-1 w-90">
+    <div className="relative w-full h-full">
       <Input value={value} setValue={setValue} placeholder={placeholder} setShowSearchList={setShowSearchList} />
       {showSearchList && <SearchResultList inputValue={value} setInputValue={setValue} setShowSearchList={setShowSearchList} {...others} />}
     </div>
@@ -34,14 +34,14 @@ interface InputProps {
 function Input(props: InputProps) {
   const { value, setValue, setShowSearchList, placeholder } = props
   return (
-    <div className="flex items-center w-full gap-2 py-2">
+    <div className="flex items-center w-full h-full gap-2">
       <input
-        className="ring-1 ring-gray-300 focus:ring-1 focus:ring-primary outline-none rounded-md p-2 pr-8"
+        className="ring-1 h-full w-full placeholder-slate-400 text-white ring-slate-700 bg-[#383d48] focus:ring-1 focus:ring-primary outline-none rounded-md p-2 pr-6"
         title="city"
         type="text"
         value={value}
         onFocus={() => setShowSearchList(true)}
-        onBlur={() => setTimeout(() => setShowSearchList(false), 200)}
+        onBlur={() => setTimeout(() => setShowSearchList(false), 100)}
         onChange={(e) => {
           setValue(e.target.value)
           setShowSearchList(true)
@@ -70,13 +70,13 @@ function SearchResultList<T>(props: SearchResultListProps<T>) {
   })
   if (filterOptions.length === 0) {
     return (
-      <Card className="flex flex-col w-full h-auto p-1">
+      <Card className="absolute top-1.2 flex flex-col w-full h-auto p-1">
         <div className="w-full p-2">No Result</div>
       </Card>
     )
   }
   return (
-    <Card className="flex flex-col w-full h-auto p-1">
+    <Card className="absolute top-1.2 flex flex-col w-full h-auto p-1">
       {filterOptions.map((item, index) => (
         <SearchResultItem
           key={index}

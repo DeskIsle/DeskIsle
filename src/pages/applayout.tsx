@@ -133,7 +133,7 @@ export function CompElement({ compAtom, className, ...props }: CompProps) {
       //   width: unit * width + ((width - 1) * gap),
       //   height: unit * height + ((height - 1) * gap),
       // }}
-      className={cn(className, `absolute bg-transparent rounded-lg shadow-sm flex justify-center items-center overflow-hidden`)}
+      className={cn(className, `absolute bg-transparent rounded-lg flex justify-center items-center`)}
       {...props}
     >
       <Element compAtom={compAtom} />
