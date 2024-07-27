@@ -2,6 +2,7 @@ import React from "react";
 import { compAtoms, registryComps } from "@/atoms/comps"
 import Card from "@/components/common/Card";
 import { useAtom } from "jotai";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function StoreWidget() {
   return (
@@ -17,11 +18,11 @@ export default function StoreWidget() {
 }
 
 function WidgetItem({ k }: { k: keyof typeof registryComps }) {
-  const { name, Element, defaultProps } = registryComps[k]
+  const { name, defaultProps } = registryComps[k]
   const [comps, setComps] = useAtom(compAtoms)
   function addWidget() {
     setComps([...comps, {
-      id: comps.length + 1,
+      id: uuidv4(),
       row: 0,
       col: 0,
       width: defaultProps.width,

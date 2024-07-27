@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 import './index.css'
-import { Button } from "@/components/ui/button";
+import { Comp } from "@/atoms/comps";
 import ClimaSvg from "./ClimaSvg";
-import Modal from "@/components/common/Modal";
-import { atom, useAtom } from "jotai";
+import { PrimitiveAtom, atom, useAtom } from "jotai";
 import { City, CityList } from "@/atoms/city";
 import SelectWithInput from "@/components/common/SelectWithInput";
+import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
+import { ContextMenu, ContextMenuItem } from "@/components/ui/context-menu";
+import BaseContextMenuContent from "@/components/common/BaseContextMenuContent";
 
 async function getClimaData(locationID: string | undefined): Promise<any> {
   const res = await fetch(`https://devapi.qweather.com/v7/weather/now?location=${locationID}&key=4a8cda440c914fe4820b02ddfefbd336`)
@@ -23,8 +25,13 @@ type Weather = {
 
 const selectedCityAtom = atom<City | null>(null)
 
-export default function ClimaWidget() {
-  const [selectedCity, setSelectedCity] = useAtom(selectedCityAtom)
+interface ClimaWidgetProps extends React.HTMLAttributes<HTMLDivElement> {
+  compAtom: PrimitiveAtom<Comp>
+}
+
+export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
+  const [comp] = useAtom(compAtom)
+  const [selectedCity] = useAtom(selectedCityAtom)
   const [weather, setWeather] = useState<Weather | null>(null)
   setInterval(() => {
     handleRequest()
@@ -77,29 +84,36 @@ export default function ClimaWidget() {
   }, [selectedCity])
 
   return (
-    <div className="w-full h-full relative">
-      <ClimaSvg weatherClass={weather?.cssClass ?? []} />
-      <div
-        className="bottom-panel px-8 py-2 text-white"
-      >
-        <div className='h-full flex flex-col justify-between items-center'>
-          <div className='text-sm flex flex-col justify-center items-center gap-2'>
-            <ClimaWidgetEditor />
-            {weather &&
-              <div className="flex flex-row gap-4">
-                <div>温度: {weather.temp}°C</div>
-                <div>天气: {weather.text}</div>
+    <ContextMenu modal={false}>
+      <ContextMenuTrigger className="w-full h-full">
+        <div className="w-full h-full relative">
+          <ClimaSvg weatherClass={weather?.cssClass ?? []} />
+          <div
+            className="bottom-panel px-8 pt-4 pb-4 text-white"
+          >
+            <div className='h-full flex flex-col justify-between items-center'>
+              <div className='text-sm flex flex-col justify-center items-center gap-2'>
+                <ClimaWidgetEditor />
+                {weather &&
+                  <div className="flex flex-row gap-4">
+                    <div>温度: {weather.temp}°C</div>
+                    <div>天气: {weather.text}</div>
+                  </div>
+                }
               </div>
-            }
-          </div>
-          {weather &&
-            <div className="flex flex-row gap-1 justify-center items-center w-full mb-2">
-              <span className="text-gray-500 text-[0.7rem] align-middle">最后更新时间: {weather.lastUpdateTime}</span>
+              {weather &&
+                <div className="flex flex-row gap-1 justify-center items-center w-full mb-2">
+                  <span className="text-gray-500 text-[0.7rem] align-middle">最后更新时间: {weather.lastUpdateTime}</span>
+                </div>
+              }
             </div>
-          }
+          </div>
         </div>
-      </div>
-    </div>
+      </ContextMenuTrigger>
+      <BaseContextMenuContent compAtom={compAtom}>
+      </BaseContextMenuContent>
+    </ContextMenu>
+
   )
 }
 

@@ -27,7 +27,6 @@ const mouseEventThroughTransparency = () => {
     
     const transparent = !buffer[3]
     mainWindow.setIgnoreMouseEvents(transparent);
-    
   };
   mouseEventThroughTransparencyTimer = setInterval(() => {
     if (!mainWindow) return

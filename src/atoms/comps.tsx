@@ -4,6 +4,7 @@ import { atom } from "jotai";
 import React from "react";
 import { atomWithStorage, splitAtom } from "jotai/utils"
 import ImageWidget from "@/components/widgets/ImageWidget";
+import { v4 as uuidv4 } from 'uuid';
 
 export type RegistryComps = {
   [key in keyof typeof registryComps]: {
@@ -13,7 +14,8 @@ export type RegistryComps = {
       width: number
       height: number
       elementProps: any
-    }
+    },
+    optionalSizes: { w: number, h: number }[]
   }
 }
 
@@ -29,7 +31,13 @@ export const registryComps = {
         icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMiIgZD0ibTE1LjA2MiAxMi41MDZsLS4yODQtLjI4NGwzLjExMy0yLjA5YTEuMiAxLjIgMCAwIDAtLjMwOS0yLjIyOEw0IDRsMy45MDQgMTMuNTYzYTEuMiAxLjIgMCAwIDAgMi4yMjguMzA4bDIuMDktMy4wOTNsMS4yNzggMS4yNzhNMTkgMjJ2LjAxTTE5IDE5YTIuMDAzIDIuMDAzIDAgMCAwIC45MTQtMy43ODJhMS45OCAxLjk4IDAgMCAwLTIuNDE0LjQ4MyIvPjwvc3ZnPg==",
         bgColor: "#FFFFFF",
       }
-    }
+    },
+    optionalSizes: [
+      { w: 1, h: 1 },
+      { w: 1, h: 2 },
+      { w: 2, h: 1 },
+      { w: 2, h: 2 },
+    ]
   },
   'ClimaWidget': {
     name: '天气组件',
@@ -38,7 +46,11 @@ export const registryComps = {
       width: 4,
       height: 4,
       elementProps: {}
-    }
+    },
+    optionalSizes: [
+      { w: 4, h: 4 },
+      { w: 5, h: 5 },
+    ]
   },
   'ImageWidget': {
     name: '图片组件',
@@ -49,13 +61,14 @@ export const registryComps = {
       elementProps: {
         img: ''
       }
-    }
+    },
+    optionalSizes: []
   }
 }
 
 
 export type Comp = {
-  id: number,
+  id: string,
   row: number,
   col: number,
   width: number,
@@ -66,7 +79,7 @@ export type Comp = {
 
 export const compAtoms = atomWithStorage<Comp[]>('comps', [
   {
-    id: 0,
+    id: uuidv4(),
     row: 0,
     col: 0,
     width: 1,
@@ -79,7 +92,7 @@ export const compAtoms = atomWithStorage<Comp[]>('comps', [
     }
   },
   {
-    id: 1,
+    id: uuidv4(),
     row: 0,
     col: 1,
     width: 1,
@@ -92,7 +105,7 @@ export const compAtoms = atomWithStorage<Comp[]>('comps', [
     }
   },
   {
-    id: 2,
+    id: uuidv4(),
     row: 0,
     col: 2,
     width: 1,
@@ -105,7 +118,7 @@ export const compAtoms = atomWithStorage<Comp[]>('comps', [
     }
   },
   {
-    id: 3,
+    id: uuidv4(),
     row: 0,
     col: 3,
     width: 1,
@@ -118,7 +131,7 @@ export const compAtoms = atomWithStorage<Comp[]>('comps', [
     }
   },
   {
-    id: 4,
+    id: uuidv4(),
     row: 0,
     col: 4,
     width: 1,
@@ -131,7 +144,7 @@ export const compAtoms = atomWithStorage<Comp[]>('comps', [
     }
   }
   , {
-    id: 5,
+    id: uuidv4(),
     row: 1,
     col: 0,
     width: 4,
@@ -140,7 +153,7 @@ export const compAtoms = atomWithStorage<Comp[]>('comps', [
     elementProps: {}
   }
   // , {
-  //   id: 6,
+  //   id: uuidv4(),
   //   row: 1,
   //   col: 4,
   //   width: 4,

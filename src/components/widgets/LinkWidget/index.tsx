@@ -9,6 +9,10 @@ import React, { MouseEventHandler, useState } from "react";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { HexColorPicker } from "react-colorful";
 import Modal from "@/components/common/Modal";
+import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
+import { ContextMenu, ContextMenuItem } from "@/components/ui/context-menu";
+import BaseContextMenuContent from "@/components/common/BaseContextMenuContent";
+import { RadixIconsPencil2 } from "@/icons/RadixIcons";
 
 export interface LinkWidgetProps {
   compAtom: PrimitiveAtom<Comp>
@@ -17,36 +21,41 @@ export interface LinkWidgetProps {
 export default function LinkWidget({ compAtom }: LinkWidgetProps) {
   const [comp] = useAtom(compAtom)
   const { link, icon, bgColor } = comp.elementProps
-  const [isDragging] = useAtom(isDraggingAtom)
   const [modalVisible, setModalVisible] = useState(false)
   const openBrowser: MouseEventHandler = (e) => {
-    if (isDragging) return
     if (e.button === 0) {
-      if (e.ctrlKey) {
-        setModalVisible(true)
-      } else {
-        window.open(link)
-      }
+      window.open(link)
     }
   }
 
   return (
     <>
-      <div
-        onMouseUp={openBrowser}
-        style={{
-          backgroundColor: bgColor,
-        }}
-        className={`w-full h-full rounded-lg text-5xl select-none flex justify-center items-center hover:cursor-pointer`}>
+      <ContextMenu modal={false}>
+        <ContextMenuTrigger className="w-full h-full">
+          <div
+            onMouseUp={openBrowser}
+            style={{
+              backgroundColor: bgColor,
+            }}
+            className={`w-full h-full rounded-lg text-5xl select-none flex justify-center items-center hover:cursor-pointer`}>
 
-        <DataUrlIcon
-          className="w-3/4 h-3/4"
-          src={icon} />
-      </div>
-      <Modal header="导航组件" visible={modalVisible} closeModal={() => setModalVisible(false)}>
+            <DataUrlIcon
+              className="w-3/4 h-3/4"
+              src={icon} />
+          </div>
+        </ContextMenuTrigger>
+        <BaseContextMenuContent compAtom={compAtom}>
+          <ContextMenuItem onClick={() => setModalVisible(true)} className="flex gap-2">
+            <RadixIconsPencil2 />
+            <span>编辑</span>
+          </ContextMenuItem>
+        </BaseContextMenuContent>
+      </ContextMenu>
+      <Modal visible={modalVisible} closeModal={() => setModalVisible(false)} >
         <LinkWidgetEditor compAtom={compAtom} />
       </Modal>
     </>
+
   )
 }
 
