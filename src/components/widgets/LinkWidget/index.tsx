@@ -6,13 +6,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataUrlIcon from "@/icons/DataUrlIcon";
 import { PrimitiveAtom, useAtom } from "jotai";
 import React, { MouseEventHandler, useState } from "react";
-import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import { DotsHorizontalIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { HexColorPicker } from "react-colorful";
 import Modal from "@/components/common/Modal";
 import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
 import { ContextMenu, ContextMenuItem } from "@/components/ui/context-menu";
 import BaseContextMenuContent from "@/components/common/BaseContextMenuContent";
 import { RadixIconsPencil2 } from "@/icons/RadixIcons";
+import { Button } from "@/components/ui/button";
 
 export interface LinkWidgetProps {
   compAtom: PrimitiveAtom<Comp>
@@ -106,11 +107,20 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
   function updateIcon(icon: string) {
     setComp({ ...comp, elementProps: { ...comp.elementProps, icon } })
   }
+  async function openFileDialog() {
+    const path = await window.electronAPI.openFile()
+    if (path) {
+      setComp({ ...comp, elementProps: { ...comp.elementProps, link: path } })
+    }
+  }
+
   return (
     <div className="grid grid-cols-5 items-center gap-2">
-      <Label htmlFor="link">网址</Label>
-      <Input className="col-span-4" id="link" value={comp.elementProps.link} onChange={(v) => setComp({ ...comp, elementProps: { ...comp.elementProps, link: v.target.value } })} />
-
+      <Label htmlFor="link">路径</Label>
+      <Input className="col-span-3" id="link" value={comp.elementProps.link} onChange={(v) => setComp({ ...comp, elementProps: { ...comp.elementProps, link: v.target.value } })} />
+      <Button className="col-span-1" onClick={openFileDialog} variant='outline' size='icon'>
+        <DotsHorizontalIcon />
+      </Button>
       <Label htmlFor="icon">图标</Label>
       <Tabs className="col-span-4" defaultValue="icon-shop">
         <TabsList>
@@ -144,6 +154,6 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
     <LinkWidget {...comp.elementProps} />
   </motion.div> */}
       {/* <Button className="col-start-3" onClick={save}>保存</Button> */}
-    </div>
+    </div >
   )
 }

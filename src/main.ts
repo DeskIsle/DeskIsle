@@ -1,4 +1,4 @@
-import { app, BrowserWindow, HandlerDetails, screen, shell, nativeImage, Tray, Menu } from 'electron';
+import { app, BrowserWindow, HandlerDetails, screen, shell, nativeImage, Tray, Menu, ipcMain, dialog } from 'electron';
 import path from 'path';
 import { getExternalDisplay } from './lib/display';
 import { setInterval } from 'timers';
@@ -55,6 +55,7 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
+      webSecurity: false
     },
     resizable: false,
     center: true,
@@ -129,6 +130,7 @@ const createTray = () => {
 app.whenReady().then(() => {
   createWindow()
   createTray()
+  ipcMain.handle('open-file-dialog', handleFileOpen)
 })
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -150,4 +152,9 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-
+async function handleFileOpen () {
+  const { canceled, filePaths } = await dialog.showOpenDialog({})
+  if (!canceled) {
+    return filePaths[0]
+  }
+}
