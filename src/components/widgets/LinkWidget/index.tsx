@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataUrlIcon from "@/icons/DataUrlIcon";
 import { PrimitiveAtom, useAtom } from "jotai";
 import React, { MouseEventHandler, useState } from "react";
-import { DotsHorizontalIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
+import { DotsHorizontalIcon, ExternalLinkIcon, StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
 import { HexColorPicker } from "react-colorful";
 import Modal from "@/components/common/Modal";
 import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
@@ -14,6 +14,8 @@ import { ContextMenu, ContextMenuItem } from "@/components/ui/context-menu";
 import BaseContextMenuContent from "@/components/common/BaseContextMenuContent";
 import { RadixIconsPencil2 } from "@/icons/RadixIcons";
 import { Button } from "@/components/ui/button";
+import { iconsAtom } from "@/atoms/icons";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export interface LinkWidgetProps {
   compAtom: PrimitiveAtom<Comp>
@@ -103,6 +105,7 @@ export interface LinkWidgetEditorProps {
 
 export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
   const [comp, setComp] = useAtom(compAtom)
+  const [icons, setIcons] = useAtom(iconsAtom)
 
   function updateIcon(icon: string) {
     setComp({ ...comp, elementProps: { ...comp.elementProps, icon } })
@@ -113,15 +116,30 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
       setComp({ ...comp, elementProps: { ...comp.elementProps, link: path } })
     }
   }
+  async function openIconDialog() {
+    const path = await window.electronAPI.openFile()
+    if (path) {
+      updateIcon(path)
+    }
+  }
+  function collectToIconStore() {
+    if (!icons.includes(comp.elementProps.icon)) {
+      setIcons([...icons, comp.elementProps.icon])
+    } else {
+      setIcons(icons.filter((i) => i !== comp.elementProps.icon))
+    }
+  }
 
   return (
     <div className="grid grid-cols-5 items-center gap-2">
-      <Label htmlFor="link">路径</Label>
-      <Input className="col-span-3" id="link" value={comp.elementProps.link} onChange={(v) => setComp({ ...comp, elementProps: { ...comp.elementProps, link: v.target.value } })} />
-      <Button className="col-span-1" onClick={openFileDialog} variant='outline' size='icon'>
-        <DotsHorizontalIcon />
-      </Button>
-      <Label htmlFor="icon">图标</Label>
+      <Label className="col-span-1" htmlFor="link">路径</Label>
+      <div className="col-span-4 grid grid-cols-4 gap-2">
+        <Input className="col-span-3" id="link" value={comp.elementProps.link} onChange={(v) => setComp({ ...comp, elementProps: { ...comp.elementProps, link: v.target.value } })} />
+        <Button onClick={openFileDialog} variant='outline' size='icon'>
+          <DotsHorizontalIcon />
+        </Button>
+      </div>
+      <Label className="col-span-1" htmlFor="icon">图标</Label>
       <Tabs className="col-span-4" defaultValue="icon-shop">
         <TabsList>
           <TabsTrigger value="icon-shop">图标商店</TabsTrigger>
@@ -134,7 +152,27 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
           <IconShop onSelect={(icon: string) => updateIcon(icon)} />
         </TabsContent>
         <TabsContent value="icon-url">
-          <Input id="icon" value={comp.elementProps.icon} onChange={(v) => updateIcon(v.target.value)} />
+          <div className="grid grid-cols-4 gap-2">
+            <Input className="col-span-3" id="icon" value={comp.elementProps.icon} onChange={(v) => updateIcon(v.target.value)} />
+            <div className="flex flex-row gap-1">
+              <Button onClick={openIconDialog} variant='outline' size='icon'>
+                <DotsHorizontalIcon />
+              </Button>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button onClick={collectToIconStore} variant='outline' size='icon'>
+                      {icons.includes(comp.elementProps.icon) ? <StarFilledIcon /> : <StarIcon />}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {icons.includes(comp.elementProps.icon) ? <p>取消收藏</p> : <p>收藏到图标商店</p>}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
 
@@ -142,18 +180,6 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
       <HexColorPicker className="col-span-4 mt-4" id="bgColor" color={comp.elementProps.bgColor} onChange={(c) => setComp({ ...comp, elementProps: { ...comp.elementProps, bgColor: c } })} />
       <Input className="col-span-2" value={comp.elementProps.bgColor} onChange={(c) => setComp({ ...comp, elementProps: { ...comp.elementProps, bgColor: c.target.value } })} />
 
-
-      {/* <Label className="row-span-2">预览</Label>
-    <motion.div
-    whileHover={{scale: 1.05}}
-    style={{
-      width: (unit*comp.width+((comp.width-1)*gap)), 
-      height: (unit*comp.height+((comp.height-1)*gap)),
-    }} 
-    className="row-span-2 border bg-transparent col-span-4 rounded-lg shadow-lg overflow-hidden">
-    <LinkWidget {...comp.elementProps} />
-  </motion.div> */}
-      {/* <Button className="col-start-3" onClick={save}>保存</Button> */}
     </div >
   )
 }
