@@ -1,4 +1,4 @@
-import { Comp, isDraggingAtom } from "@/atoms/comps";
+import { Comp } from "@/atoms/comps";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import IconShop from "@/components/common/IconShop"
@@ -7,7 +7,7 @@ import DataUrlIcon from "@/icons/DataUrlIcon";
 import { PrimitiveAtom, useAtom } from "jotai";
 import React, { MouseEventHandler, useState } from "react";
 import { DotsHorizontalIcon, ExternalLinkIcon, StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
-import { HexColorPicker } from "react-colorful";
+import { HexAlphaColorPicker } from "react-colorful";
 import Modal from "@/components/common/Modal";
 import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
 import { ContextMenu, ContextMenuItem } from "@/components/ui/context-menu";
@@ -177,7 +177,7 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
       </Tabs>
 
       <Label className="row-span-2" htmlFor="bgColor">背景色</Label>
-      <HexColorPicker className="col-span-4 mt-4" id="bgColor" color={comp.elementProps.bgColor} onChange={(c) => setComp({ ...comp, elementProps: { ...comp.elementProps, bgColor: c } })} />
+      <HexAlphaColorPicker className="col-span-4 mt-4" id="bgColor" color={comp.elementProps.bgColor} onChange={(c) => setComp({ ...comp, elementProps: { ...comp.elementProps, bgColor: c } })} />
       <Input className="col-span-2" value={comp.elementProps.bgColor} onChange={(c) => setComp({ ...comp, elementProps: { ...comp.elementProps, bgColor: c.target.value } })} />
 
     </div >
