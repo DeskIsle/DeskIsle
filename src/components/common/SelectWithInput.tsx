@@ -1,6 +1,6 @@
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
-import Card from "./Card";
+import DraggableCard from "./DraggableCard";
 
 interface SelectWithInputProps<T> extends React.HTMLAttributes<HTMLDivElement> {
   placeholder?: string
@@ -37,7 +37,6 @@ function Input(props: InputProps) {
     <div className="flex items-center w-full h-full gap-2">
       <input
         className="ring-1 h-full w-full placeholder-slate-400 text-white ring-slate-700 bg-[#383d48] focus:ring-1 focus:ring-primary outline-none rounded-md p-2 pr-6"
-        title="city"
         type="text"
         value={value}
         onFocus={() => setShowSearchList(true)}
@@ -70,13 +69,13 @@ function SearchResultList<T>(props: SearchResultListProps<T>) {
   })
   if (filterOptions.length === 0) {
     return (
-      <Card className="absolute top-1.2 flex flex-col w-full h-auto p-1">
+      <DraggableCard className="absolute top-1.2 flex flex-col w-full h-auto p-1">
         <div className="w-full p-2">No Result</div>
-      </Card>
+      </DraggableCard>
     )
   }
   return (
-    <Card className="absolute top-1.2 flex flex-col w-full h-auto p-1">
+    <DraggableCard className="absolute top-1.2 flex flex-col w-full h-auto p-1">
       {filterOptions.map((item, index) => (
         <SearchResultItem
           key={index}
@@ -86,7 +85,7 @@ function SearchResultList<T>(props: SearchResultListProps<T>) {
           setShowSearchList={setShowSearchList}
           inputKey={inputKey} />
       ))}
-    </Card>
+    </DraggableCard>
   )
 }
 

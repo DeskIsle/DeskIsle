@@ -12,10 +12,11 @@ interface BaseContextMenuContentProps extends React.HTMLAttributes<HTMLDivElemen
 
 export default function BaseContextMenuContent(props: BaseContextMenuContentProps) {
   const { compAtom, children } = props
+  const [comp] = useAtom(compAtom)
   const [, setComps] = useAtom(compAtoms)
 
   const deleteComp = () => {
-    setComps((comps) => comps.filter((comp) => comp.id !== comp.id))
+    setComps((comps) => comps.filter((c) => c.id !== comp.id))
   }
   const ref = useRef<HTMLDivElement>(null)
   return (

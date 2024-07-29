@@ -11,7 +11,7 @@ export default function ImageWidget({ compAtom }: ImageWidgetProps) {
   const { img } = comp.elementProps
   return (
     <img
-      className="object-cover"
+      className="object-cover w-full h-full"
       draggable={false}
       src={img}
       alt=''

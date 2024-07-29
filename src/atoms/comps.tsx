@@ -28,7 +28,7 @@ export const registryComps = {
       height: 1,
       elementProps: {
         link: "",
-        icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMiIgZD0ibTE1LjA2MiAxMi41MDZsLS4yODQtLjI4NGwzLjExMy0yLjA5YTEuMiAxLjIgMCAwIDAtLjMwOS0yLjIyOEw0IDRsMy45MDQgMTMuNTYzYTEuMiAxLjIgMCAwIDAgMi4yMjguMzA4bDIuMDktMy4wOTNsMS4yNzggMS4yNzhNMTkgMjJ2LjAxTTE5IDE5YTIuMDAzIDIuMDAzIDAgMCAwIC45MTQtMy43ODJhMS45OCAxLjk4IDAgMCAwLTIuNDE0LjQ4MyIvPjwvc3ZnPg==",
+        icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIwLjgyZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMTMgMTYiPjxjaXJjbGUgY3g9IjIiIGN5PSIxMCIgcj0iMSIgZmlsbD0iY3VycmVudENvbG9yIi8+PGNpcmNsZSBjeD0iMiIgY3k9IjYiIHI9IjEiIGZpbGw9ImN1cnJlbnRDb2xvciIvPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTQuNSAxNGMtLjA2IDAtLjExIDAtLjE3LS4wM2EuNS41IDAgMCAxLS4zLS42NGw0LTExYS41MDEuNTAxIDAgMCAxIC45NC4zNGwtNCAxMWMtLjA3LjItLjI3LjMzLS40Ny4zM20zIDBjLS4wNiAwLS4xMSAwLS4xNy0uMDNhLjUuNSAwIDAgMS0uMy0uNjRsNC0xMWEuNTAxLjUwMSAwIDAgMSAuOTQuMzRsLTQgMTFjLS4wNy4yLS4yNy4zMy0uNDcuMzMiLz48L3N2Zz4=",
         bgColor: "#FFFFFF",
       }
     },
@@ -59,7 +59,7 @@ export const registryComps = {
       width: 4,
       height: 4,
       elementProps: {
-        img: ''
+        img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMzIgMzIiPjxwYXRoIGZpbGw9IiMyZGNjOWYiIGQ9Ik0zMCA1Ljg1MXYyMC4yOThIMlY1Ljg1MXoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjQuMjMyIDguNTQxYTIuMiAyLjIgMCAxIDAgMS4xMjcuNjIzYTIuMiAyLjIgMCAwIDAtMS4xMjctLjYyM00xOC4xMTEgMjAuMXEtMi43MjQtMy43ODgtNS40NS03LjU3NUw0LjU3OSAyMy43NjZoMTAuOXExLjMxNi0xLjgzMiAyLjYzNC0zLjY2M00yMi4wNTcgMTZxLTIuNzkzIDMuODgyLTUuNTg0IDcuNzY1aDExLjE2OVEyNC44NTEgMTkuODgyIDIyLjA1NyAxNiIvPjwvc3ZnPg=='
       }
     },
     optionalSizes: []
