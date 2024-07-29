@@ -52,18 +52,18 @@ export const registryComps = {
       { w: 5, h: 5 },
     ]
   },
-  'ImageWidget': {
-    name: '图片组件',
-    Element: ImageWidget,
-    defaultProps: {
-      width: 4,
-      height: 4,
-      elementProps: {
-        img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMzIgMzIiPjxwYXRoIGZpbGw9IiMyZGNjOWYiIGQ9Ik0zMCA1Ljg1MXYyMC4yOThIMlY1Ljg1MXoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjQuMjMyIDguNTQxYTIuMiAyLjIgMCAxIDAgMS4xMjcuNjIzYTIuMiAyLjIgMCAwIDAtMS4xMjctLjYyM00xOC4xMTEgMjAuMXEtMi43MjQtMy43ODgtNS40NS03LjU3NUw0LjU3OSAyMy43NjZoMTAuOXExLjMxNi0xLjgzMiAyLjYzNC0zLjY2M00yMi4wNTcgMTZxLTIuNzkzIDMuODgyLTUuNTg0IDcuNzY1aDExLjE2OVEyNC44NTEgMTkuODgyIDIyLjA1NyAxNiIvPjwvc3ZnPg=='
-      }
-    },
-    optionalSizes: []
-  }
+  // 'ImageWidget': {
+  //   name: '图片组件',
+  //   Element: ImageWidget,
+  //   defaultProps: {
+  //     width: 4,
+  //     height: 4,
+  //     elementProps: {
+  //       img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMzIgMzIiPjxwYXRoIGZpbGw9IiMyZGNjOWYiIGQ9Ik0zMCA1Ljg1MXYyMC4yOThIMlY1Ljg1MXoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjQuMjMyIDguNTQxYTIuMiAyLjIgMCAxIDAgMS4xMjcuNjIzYTIuMiAyLjIgMCAwIDAtMS4xMjctLjYyM00xOC4xMTEgMjAuMXEtMi43MjQtMy43ODgtNS40NS03LjU3NUw0LjU3OSAyMy43NjZoMTAuOXExLjMxNi0xLjgzMiAyLjYzNC0zLjY2M00yMi4wNTcgMTZxLTIuNzkzIDMuODgyLTUuNTg0IDcuNzY1aDExLjE2OVEyNC44NTEgMTkuODgyIDIyLjA1NyAxNiIvPjwvc3ZnPg=='
+  //     }
+  //   },
+  //   optionalSizes: []
+  // }
 }
 
 
@@ -152,17 +152,6 @@ export const compAtoms = atomWithStorage<Comp[]>('comps', [
     element: 'ClimaWidget',
     elementProps: {}
   }
-  // , {
-  //   id: uuidv4(),
-  //   row: 1,
-  //   col: 4,
-  //   width: 4,
-  //   height: 4,
-  //   element: 'ImageWidget',
-  //   elementProps: {
-  //     img: 'https://component-1256901694.cos.ap-shanghai.myqcloud.com/images/img1.jpg',
-  //   }
-  // }
 ])
 
 export const splitCompAtoms = splitAtom(compAtoms)
