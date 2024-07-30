@@ -5,6 +5,13 @@ import { setInterval } from 'timers';
 import { toBottom } from "electron-swd";
 import { DisableMinimize } from 'electron-disable-minimize';
 
+
+const gotTheLock = app.requestSingleInstanceLock();
+
+if (!gotTheLock) {
+  app.quit();
+}
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
