@@ -93,7 +93,7 @@ const createWindow = () => {
   })
 };
 const createTray = () => {
-  const trayIcon = nativeImage.createFromPath('resourcs/logo.png')
+  const trayIcon = nativeImage.createFromPath('resources/logo.png')
   tray = new Tray(trayIcon)
   tray.setTitle('DeskIsle')
   const contextMenu = Menu.buildFromTemplate([
