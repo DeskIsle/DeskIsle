@@ -42,18 +42,6 @@ export default function SettingWidget() {
         onWheel={handleWheel}
         onChange={(v) => setLayoutConfig({ ...layoutConfig, gap: Number(v.target.value) })}
       />
-      <Alert className="mt-4">
-        <AlertTitle>💡 小技巧 1</AlertTitle>
-        <AlertDescription>
-          导航组件编辑快捷键: Ctrl+鼠标左键
-        </AlertDescription>
-      </Alert>
-      <Alert>
-        <AlertTitle>💡 小技巧 2</AlertTitle>
-        <AlertDescription>
-          删除组件: 长按保持1s进入删除模式
-        </AlertDescription>
-      </Alert>
     </div>
   )
 }
