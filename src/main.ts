@@ -57,6 +57,7 @@ const createWindow = () => {
       nodeIntegration: true,
       webSecurity: false
     },
+    icon: path.join(__dirname, 'resources/logo.png'),
     resizable: false,
     center: true,
     frame: false, 
@@ -85,14 +86,14 @@ const createWindow = () => {
   })
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools({mode: 'detach'});
+  // mainWindow.webContents.openDevTools({mode: 'detach'});
 
   mainWindow.on('focus', () => {
     toBottom(mainWindow.getNativeWindowHandle())
   })
 };
 const createTray = () => {
-  const trayIcon = nativeImage.createFromPath('src/static/icon.png')
+  const trayIcon = nativeImage.createFromPath('resourcs/logo.png')
   tray = new Tray(trayIcon)
   tray.setTitle('DeskIsle')
   const contextMenu = Menu.buildFromTemplate([
