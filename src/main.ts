@@ -57,7 +57,7 @@ const createWindow = () => {
       nodeIntegration: true,
       webSecurity: false
     },
-    icon: path.join(__dirname, 'resources/logo.png'),
+    icon: path.join(__dirname, 'icons/logo.ico'),
     resizable: false,
     center: true,
     frame: false, 
@@ -93,7 +93,7 @@ const createWindow = () => {
   })
 };
 const createTray = () => {
-  const trayIcon = nativeImage.createFromPath('resources/logo.png')
+  const trayIcon = nativeImage.createFromPath('icons/logo.ico')
   tray = new Tray(trayIcon)
   tray.setTitle('DeskIsle')
   const contextMenu = Menu.buildFromTemplate([
