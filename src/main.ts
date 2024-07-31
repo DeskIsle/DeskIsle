@@ -23,6 +23,7 @@ let mouseEventThroughTransparencyTimer: NodeJS.Timeout | null
 const mouseEventThroughTransparency = () => {
   const updateIgnoreMouseEvents = async (x: number, y: number) => {
     // capture 1x1 image of mouse position.
+    if (mainWindow.isDestroyed()) return
     const image = await mainWindow.webContents.capturePage({
       x,
       y,
@@ -96,7 +97,11 @@ const createWindow = () => {
   // mainWindow.webContents.openDevTools({mode: 'detach'});
 
   mainWindow.on('focus', () => {
+    if (mainWindow.isDestroyed()) return
     toBottom(mainWindow.getNativeWindowHandle())
+  })
+  mainWindow.on('closed', () => {
+    mainWindow.removeAllListeners()
   })
 };
 const createTray = () => {
