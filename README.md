@@ -2,6 +2,8 @@
 
 > A desktop widget for Windows, where efficiency and elegance coexist.
 
+![Example](docs/example.png)
+
 ## Development Guide
 
 ### Environment
