@@ -1,0 +1,31 @@
+{
+	"name": "@deskisle/electron",
+	"productName": "DeskIsle",
+	"version": "0.0.1",
+	"description": "An Electron application with React and TypeScript",
+	"main": "./out/main/index.js",
+	"scripts": {
+		"typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
+		"typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
+		"typecheck": "npm run typecheck:node && npm run typecheck:web",
+		"start": "electron-vite preview",
+		"dev": "electron-vite dev",
+		"build": "pnpm run typecheck && electron-vite build",
+		"postinstall": "electron-builder install-app-deps",
+		"build:unpack": "pnpm run build && electron-builder --dir",
+		"build:win": "pnpm run build && electron-builder --win",
+		"build:mac": "electron-vite build && electron-builder --mac",
+		"build:linux": "electron-vite build && electron-builder --linux"
+	},
+	"dependencies": {
+		"@electron-toolkit/preload": "^3.0.1",
+		"@electron-toolkit/utils": "^3.0.0",
+		"electron-updater": "^6.1.7",
+		"@deskisle/ui": "workspace:*"
+	},
+	"devDependencies": {
+		"electron": "^31.0.2",
+		"electron-builder": "^24.13.3",
+		"electron-vite": "^2.3.0"
+	}
+}
