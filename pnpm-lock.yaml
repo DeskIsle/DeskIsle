@@ -7,13 +7,56 @@ settings:
 importers:
 
   .:
+    devDependencies:
+      '@biomejs/biome':
+        specifier: 1.8.3
+        version: 1.8.3
+      '@electron-toolkit/tsconfig':
+        specifier: ^1.0.1
+        version: 1.0.1(@types/node@20.16.2)
+      typescript:
+        specifier: ^5.5.2
+        version: 5.5.4
+      vite:
+        specifier: ^5.3.1
+        version: 5.4.2(@types/node@20.16.2)
+
+  packages/electron:
     dependencies:
+      '@deskisle/ui':
+        specifier: workspace:*
+        version: link:../ui
       '@electron-toolkit/preload':
         specifier: ^3.0.1
         version: 3.0.1(electron@31.4.0)
       '@electron-toolkit/utils':
         specifier: ^3.0.0
         version: 3.0.0(electron@31.4.0)
+      electron-updater:
+        specifier: ^6.1.7
+        version: 6.2.1
+    devDependencies:
+      '@electron-toolkit/tsconfig':
+        specifier: ^1.0.1
+        version: 1.0.1(@types/node@20.16.2)
+      '@types/node':
+        specifier: ^20.14.8
+        version: 20.16.2
+      '@vitejs/plugin-react':
+        specifier: ^4.3.1
+        version: 4.3.1(vite@5.4.2(@types/node@20.16.2))
+      electron:
+        specifier: ^31.0.2
+        version: 31.4.0
+      electron-builder:
+        specifier: ^24.13.3
+        version: 24.13.3(electron-builder-squirrel-windows@24.13.3(dmg-builder@24.13.3))
+      electron-vite:
+        specifier: ^2.3.0
+        version: 2.3.0(vite@5.4.2(@types/node@20.16.2))
+
+  packages/ui:
+    dependencies:
       '@radix-ui/react-context-menu':
         specifier: ^2.1.5
         version: 2.2.1(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -65,9 +108,6 @@ importers:
       cmdk:
         specifier: ^1.0.0
         version: 1.0.0(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      electron-updater:
-        specifier: ^6.1.7
-        version: 6.2.1
       embla-carousel-react:
         specifier: ^8.1.7
         version: 8.2.0(react@18.3.1)
@@ -114,9 +154,6 @@ importers:
       '@biomejs/biome':
         specifier: 1.8.3
         version: 1.8.3
-      '@electron-toolkit/tsconfig':
-        specifier: ^1.0.1
-        version: 1.0.1(@types/node@20.16.2)
       '@types/mockjs':
         specifier: ^1.0.10
         version: 1.0.10
@@ -138,15 +175,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.20(postcss@8.4.41)
-      electron:
-        specifier: ^31.0.2
-        version: 31.4.0
-      electron-builder:
-        specifier: ^24.13.3
-        version: 24.13.3(electron-builder-squirrel-windows@24.13.3(dmg-builder@24.13.3))
-      electron-vite:
-        specifier: ^2.3.0
-        version: 2.3.0(vite@5.4.2(@types/node@20.16.2))
       postcss:
         specifier: ^8.4.38
         version: 8.4.41
