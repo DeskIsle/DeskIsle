@@ -1,9 +1,9 @@
-import { AppLayout } from "@/pages/applayout";
-import { Toaster } from "@/components/ui/toaster";
-import { useState } from "react";
 import Modal from "@/components/common/Modal";
-import StoreWidget from "@/components/widgets/StoreWidget";
+import { Toaster } from "@/components/ui/toaster";
 import SettingWidget from "@/components/widgets/SettingWidget";
+import StoreWidget from "@/components/widgets/StoreWidget";
+import { AppLayout } from "@/pages/applayout";
+import { useState } from "react";
 
 export function Desk() {
 	const [storeWidgetVisible, setStoreWidgetVisible] = useState(false);
