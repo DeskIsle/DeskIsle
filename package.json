@@ -4,10 +4,13 @@
 	"scripts": {
 		"lint": "biome lint --write",
 		"format": "biome format --write",
-		"dev": "pnpm filter @deskisle/ui run dev"
+		"dev:ui": "pnpm --filter @deskisle/ui run dev",
+		"build:ui": "pnpm --filter @deskisle/ui run build",
+		"dev:electron": "pnpm build:ui && cd packages/electron && pnpm run dev"
 	},
 	"dependencies": {},
 	"devDependencies": {
+		"@types/node": "^20.14.8",
 		"@biomejs/biome": "1.8.3",
 		"@electron-toolkit/tsconfig": "^1.0.1",
 		"typescript": "^5.5.2",

@@ -2,7 +2,9 @@
 	"name": "@deskisle/ui",
 	"version": "0.0.1",
 	"type": "module",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"module": "./dist/index.js",
 	"exports": {
 		".": {
@@ -18,6 +20,7 @@
 		"dev": "vite"
 	},
 	"dependencies": {
+		"@emotion/is-prop-valid": "^1.3.0",
 		"@radix-ui/react-context-menu": "^2.1.5",
 		"@radix-ui/react-dialog": "^1.0.5",
 		"@radix-ui/react-icons": "^1.3.0",
@@ -62,8 +65,6 @@
 		"postcss": "^8.4.38",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
-		"tailwindcss": "^3.4.3",
-		"typescript": "^5.5.2",
-		"vite": "^5.3.1"
+		"tailwindcss": "^3.4.3"
 	}
 }

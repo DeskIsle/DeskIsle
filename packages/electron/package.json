@@ -24,9 +24,6 @@
 		"@deskisle/ui": "workspace:*"
 	},
 	"devDependencies": {
-		"@electron-toolkit/tsconfig": "^1.0.1",
-		"@types/node": "^20.14.8",
-		"@vitejs/plugin-react": "^4.3.1",
 		"electron": "^31.0.2",
 		"electron-builder": "^24.13.3",
 		"electron-vite": "^2.3.0"

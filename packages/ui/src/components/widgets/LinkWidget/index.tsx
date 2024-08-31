@@ -84,13 +84,13 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 		setComp({ ...comp, elementProps: { ...comp.elementProps, icon } });
 	}
 	async function openFileDialog() {
-		const path = await window.api.openFile();
+		const path = await window.api?.openFile();
 		if (path) {
 			setComp({ ...comp, elementProps: { ...comp.elementProps, link: path } });
 		}
 	}
 	async function openIconDialog() {
-		const path = await window.api.openFile();
+		const path = await window.api?.openFile();
 		if (path) {
 			updateIcon(path);
 		}

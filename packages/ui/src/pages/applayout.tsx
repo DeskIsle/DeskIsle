@@ -104,7 +104,7 @@ export const CompElement = memo(function CompElement({
 			)}
 			{...props}
 		>
-			{/* <Element compAtom={compAtom} /> */}
+			<Element compAtom={compAtom} />
 		</motion.div>
 	);
 });
