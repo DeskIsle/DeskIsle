@@ -1,39 +1,34 @@
-# DeskIsle
+# Deskisle
 
-> A desktop widget for Windows, where efficiency and elegance coexist.
+An Electron application with React and TypeScript
 
-![Example](docs/example.png)
+## Recommended IDE Setup
 
-## Development Guide
+- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-### Environment
-
-- node v21.4.0
-
-- Visual Studio 2022 C++ desktop development environment
-
-- Platform: Windows 11
+## Project Setup
 
 ### Install
 
-`cd DeskIsle`
+```bash
+$ pnpm install
+```
 
-`npm i`
+### Development
 
-### Dev
+```bash
+$ pnpm dev
+```
 
-`npm run start`
+### Build
 
-## Packages
+```bash
+# For windows
+$ pnpm build:win
 
-- [React18](https://react.dev/)
+# For macOS
+$ pnpm build:mac
 
-- [Typescript](https://www.typescriptlang.org/)
-
-- [Tailwindcss](https://www.tailwindcss.cn/)
-
-- [Shadcn](https://ui.shadcn.com/)
-
-- [jotai](https://jotai.jscn.org/)
-
-- [Framer-Motion](https://www.framer.com/motion/)
+# For Linux
+$ pnpm build:linux
+```
