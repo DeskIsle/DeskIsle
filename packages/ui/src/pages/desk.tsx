@@ -15,7 +15,7 @@ export function Desk() {
 		setSettingsVisible(value);
 	});
 	return (
-		<div className="w-screen h-screen p-4 overflow-hidden bg-black">
+		<div className="w-screen h-screen p-4 overflow-hidden">
 			<AppLayout />
 			<Toaster />
 			<Modal
