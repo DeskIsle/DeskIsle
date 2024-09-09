@@ -1,4 +1,4 @@
-# Deskisle
+# DeskIsle
 
 > A desktop widget for Windows, where efficiency and elegance coexist.
 
