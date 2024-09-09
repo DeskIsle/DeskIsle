@@ -1,6 +1,8 @@
 # Deskisle
 
-An Electron application with React and TypeScript
+> A desktop widget for Windows, where efficiency and elegance coexist.
+
+![Example](docs/example.png)
 
 ## Recommended IDE Setup
 
