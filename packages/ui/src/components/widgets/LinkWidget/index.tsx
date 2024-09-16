@@ -1,6 +1,6 @@
 import type { Comp } from "@/atoms/comps";
 import { iconsAtom } from "@/atoms/icons";
-import BaseContextMenuContent from "@/components/common/BaseContextMenuContent";
+import BaseContextMenu from "@/components/common/BaseContextMenu";
 import IconShop from "@/components/common/IconShop";
 import Modal from "@/components/common/Modal";
 import { Button } from "@/components/ui/button";
@@ -46,7 +46,7 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 			<ContextMenu modal={false}>
 				<ContextMenuTrigger className="w-full h-full">
 					<div
-						onMouseUp={openBrowser}
+						// onMouseUp={openBrowser}
 						style={{
 							backgroundColor: bgColor,
 						}}
@@ -55,7 +55,7 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 						<DataUrlIcon className="w-3/4 h-3/4" src={icon} />
 					</div>
 				</ContextMenuTrigger>
-				<BaseContextMenuContent compAtom={compAtom}>
+				<BaseContextMenu compAtom={compAtom}>
 					<ContextMenuItem
 						onClick={() => setModalVisible(true)}
 						className="flex gap-2"
@@ -63,7 +63,7 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 						<RadixIconsPencil2 />
 						<span>编辑</span>
 					</ContextMenuItem>
-				</BaseContextMenuContent>
+				</BaseContextMenu>
 			</ContextMenu>
 			<Modal visible={modalVisible} closeModal={() => setModalVisible(false)}>
 				<LinkWidgetEditor compAtom={compAtom} />

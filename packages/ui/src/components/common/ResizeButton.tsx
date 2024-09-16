@@ -21,7 +21,7 @@ export default function ResizeButton({
 		});
 	}
 	return (
-		<button onClick={handleClick}>
+		<button type="button" onClick={handleClick}>
 			{width}x{height}
 		</button>
 	);

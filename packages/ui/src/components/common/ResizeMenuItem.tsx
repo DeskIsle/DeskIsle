@@ -1,9 +1,9 @@
+import { type Comp, registryComps } from "@/atoms/comps";
 import { RadixIconsDimensions } from "@/icons/RadixIcons";
+import { type PrimitiveAtom, useAtom } from "jotai";
 import type React from "react";
 import { ContextMenuItem } from "../ui/context-menu";
 import ResizeButton from "./ResizeButton";
-import { type Comp, registryComps } from "@/atoms/comps";
-import { type PrimitiveAtom, useAtom } from "jotai";
 
 interface ResizeMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
 	compAtom: PrimitiveAtom<Comp>;
@@ -20,7 +20,7 @@ export default function ResizeMenuItem({ compAtom }: ResizeMenuItemProps) {
 			</div>
 			<div className="grid grid-cols-3 gap-1">
 				{sizes.map((size, index) => (
-					<ContextMenuItem key={index} className="rounded-lg border shadow-sm">
+					<ContextMenuItem key={index} className="rounded-md border shadow-sm">
 						<ResizeButton width={size.w} height={size.h} compAtom={compAtom} />
 					</ContextMenuItem>
 				))}

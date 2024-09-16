@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import "./index.css";
 import { type City, CityList } from "@/atoms/city";
 import type { Comp } from "@/atoms/comps";
-import BaseContextMenuContent from "@/components/common/BaseContextMenuContent";
+import BaseContextMenu from "@/components/common/BaseContextMenu";
 import SelectWithInput from "@/components/common/SelectWithInput";
 import { ContextMenu } from "@/components/ui/context-menu";
 import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
-import { atom, type PrimitiveAtom, useAtom } from "jotai";
+import { type PrimitiveAtom, atom, useAtom } from "jotai";
 import ClimaSvg from "./ClimaSvg";
 
 async function getClimaData(locationID: string | undefined): Promise<any> {
@@ -120,7 +120,7 @@ export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
 					</div>
 				</div>
 			</ContextMenuTrigger>
-			<BaseContextMenuContent compAtom={compAtom}></BaseContextMenuContent>
+			<BaseContextMenu compAtom={compAtom} />
 		</ContextMenu>
 	);
 }
@@ -138,7 +138,7 @@ const ClimaWidgetEditor = () => {
 				filter={(option, value) =>
 					option
 						? option.CityZH.includes(value) ||
-							option.CityEN.toLowerCase().includes(value)
+						option.CityEN.toLowerCase().includes(value)
 						: false}
 			/>
 		</div>

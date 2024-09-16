@@ -3,11 +3,12 @@ import { Toaster } from "@/components/ui/toaster";
 import SettingWidget from "@/components/widgets/SettingWidget";
 import StoreWidget from "@/components/widgets/StoreWidget";
 import { AppLayout } from "@/pages/applayout";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function Desk() {
 	const [storeWidgetVisible, setStoreWidgetVisible] = useState(false);
 	const [settingsVisible, setSettingsVisible] = useState(false);
+	const ref = useRef(null)
 	window.api?.onOpenWidgetStore((value: boolean) => {
 		setStoreWidgetVisible(value);
 	});
@@ -15,8 +16,8 @@ export function Desk() {
 		setSettingsVisible(value);
 	});
 	return (
-		<div className="w-screen h-screen p-4 overflow-hidden bg-black">
-			<AppLayout />
+		<div ref={ref} className="w-screen h-screen p-4 overflow-hidden bg-white">
+			<AppLayout parentRef={ref} />
 			<Toaster />
 			<Modal
 				header="组件商店"

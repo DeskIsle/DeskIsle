@@ -1,10 +1,10 @@
+import { type Comp, compAtoms } from "@/atoms/comps";
+import { TrashIcon } from "@radix-ui/react-icons";
+import { type PrimitiveAtom, useAtom } from "jotai";
 import type React from "react";
 import { useRef } from "react";
 import { ContextMenuContent, ContextMenuItem } from "../ui/context-menu";
 import { Separator } from "../ui/separator";
-import { TrashIcon } from "@radix-ui/react-icons";
-import { type PrimitiveAtom, useAtom } from "jotai";
-import { type Comp, compAtoms } from "@/atoms/comps";
 import ResizeMenuItem from "./ResizeMenuItem";
 
 interface BaseContextMenuContentProps
@@ -12,8 +12,8 @@ interface BaseContextMenuContentProps
 	compAtom: PrimitiveAtom<Comp>;
 }
 
-export default function BaseContextMenuContent(
-	props: BaseContextMenuContentProps,
+export default function BaseContextMenu(
+	props: BaseContextMenuContentProps
 ) {
 	const { compAtom, children } = props;
 	const [comp] = useAtom(compAtom);

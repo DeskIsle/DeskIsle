@@ -7,100 +7,86 @@ import {
 } from "@/atoms/comps";
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { cn } from "@/lib/utils";
-import { motion, type MotionProps } from "framer-motion";
+import { type MotionProps, motion } from "framer-motion";
 import { type PrimitiveAtom, useAtom } from "jotai";
-import { memo, useRef } from "react";
+import { type RefObject, forwardRef, memo, useEffect, useLayoutEffect, useRef, useState } from "react";
+import RGL, { WidthProvider } from "react-grid-layout";
+import "@/grid-layout.css";
+// import "react-resizable/css/styles.css";
 
-export const AppLayout = () => {
+const ReactGridLayout = WidthProvider(RGL);
+
+export const AppLayout = ({ parentRef }: { parentRef: RefObject<HTMLDivElement> }) => {
+	const [layoutConfig] = useAtom(layoutConfigAtom);
+	const { unit, gap, compactType, preventCollision } = layoutConfig;
 	const [compSplitAtoms] = useAtom(splitCompAtoms);
 	const [comps] = useAtom(compAtoms);
-	const [layoutConfig] = useAtom(layoutConfigAtom);
-	const { unit, gap } = layoutConfig;
-	const layoutRef = useRef<HTMLDivElement>(null);
+	const [cols, setCols] = useState(10)
+	const [fixedLayoutWidth, setFixedLayoutWidth] = useState(500)
+	const generateLayout = () => {
+		return comps.map((comp, i) => {
+			return {
+				x: comp.col,
+				y: comp.row,
+				w: comp.width,
+				h: comp.height,
+				i: comp.id
+			};
+		});
+	};
 
-	const modifyTargetForGridLayout = (target: number) => {
-		return Math.round(target / (unit + gap)) * (unit + gap);
+	useEffect(() => {
+		const layoutWidth = parentRef.current?.offsetWidth;
+		let newCols = 0
+		let fixedLayoutWidth = 0
+		if (layoutWidth && layoutWidth > gap) {
+			newCols = Math.floor((layoutWidth - gap) / (unit + gap))
+			fixedLayoutWidth = (unit + gap) * newCols
+			setCols(newCols)
+			setFixedLayoutWidth(fixedLayoutWidth)
+		}
+	}, [parentRef, unit, gap])
+
+	const [layout,] = useState(generateLayout());
+	const generateDOM = () => {
+		return comps.map((comp, i) => (
+			<CompElement key={comp.id} compAtom={compSplitAtoms[i]} />
+		));
 	};
 	return (
-		<div ref={layoutRef} className="relative w-full h-full">
-			{compSplitAtoms.map((atom, index) => {
-				return (
-					<CompElement
-						compAtom={atom}
-						key={comps[index].id}
-						drag={true}
-						dragTransition={{
-							timeConstant: 150,
-							modifyTarget: (target) => modifyTargetForGridLayout(target),
-						}}
-						dragConstraints={layoutRef}
-					/>
-				);
-			})}
-		</div>
+		<ReactGridLayout
+			className='border-2 bg-[#F3F4F6] rounded-md border-dashed relative h-full'
+			style={{ width: fixedLayoutWidth }}
+			layout={layout}
+			compactType={compactType}
+			cols={cols}
+			margin={[gap, gap]}
+			rowHeight={unit}
+			preventCollision={preventCollision}
+		>
+			{generateDOM()}
+		</ReactGridLayout>
 	);
 };
 
 interface CompProps extends MotionProps {
 	compAtom: PrimitiveAtom<Comp>;
-	preview?: boolean;
 	className?: string;
 }
-export const CompElement = memo(function CompElement({
+export const CompElement = forwardRef<HTMLDivElement, CompProps>(function CompElement({
 	compAtom,
-	preview,
 	className,
 	...props
-}: CompProps) {
-	console.log("CompElement render");
-	const [comp, setComp] = useAtom(compAtom);
-	const ref = useRef<HTMLDivElement>(null);
-	const { element, width, height, row, col } = comp;
-	const [{ unit, gap }] = useAtom(layoutConfigAtom);
+}, ref) {
+	const [comp,] = useAtom(compAtom);
+	const { element } = comp;
 	const Element = registryComps[element].Element;
-	const [isDragging, setIsDragging] = useAtom(isDraggingAtom);
-
-	function updateCompPosition() {
-		const targetElement = ref.current;
-		if (targetElement) {
-			const reg = /\d+(\.\d+)?/g;
-			const matchRes = targetElement.style.transform.match(reg);
-			const [x, y] = matchRes ?? [0, 0];
-			const newRow = Math.floor(Number(y) / (unit + gap));
-			const newCol = Math.floor(Number(x) / (unit + gap));
-			setComp({ ...comp, row: newRow, col: newCol });
-		}
-	}
-
 	return (
 		<motion.div
 			ref={ref}
-			onClick={(e) => (preview ? e.stopPropagation() : null)}
-			onDragStart={() => setIsDragging(true)}
-			onDragTransitionEnd={updateCompPosition}
-			onMouseUpCapture={(e) => {
-				if (isDragging) {
-					setIsDragging(false);
-					e.stopPropagation();
-				}
-			}}
-			initial={preview ? {} : {
-				x: (unit + gap) * col,
-				y: (unit + gap) * row,
-				width: unit * width + (width - 1) * gap,
-				height: unit * height + (height - 1) * gap,
-				scale: 0,
-			}}
-			animate={preview ? {} : {
-				x: (unit + gap) * col,
-				y: (unit + gap) * row,
-				width: unit * width + (width - 1) * gap,
-				height: unit * height + (height - 1) * gap,
-				scale: 1,
-			}}
 			className={cn(
 				className,
-				"absolute bg-transparent rounded-lg flex justify-center items-center bg-white",
+				"w-full h-full bg-transparent rounded-lg",
 			)}
 			{...props}
 		>
@@ -108,3 +94,5 @@ export const CompElement = memo(function CompElement({
 		</motion.div>
 	);
 });
+
+CompElement.displayName = "CompElement"
