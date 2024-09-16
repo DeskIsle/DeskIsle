@@ -65,7 +65,7 @@ export default function StoreWidget() {
 											drag={false}
 										/>
 										<div
-											onKeyDown={() => addComp(k)}
+											onMouseDown={() => addComp(k)}
 											className="z-10 w-full h-full bg-transparent"
 										>
 										</div>

@@ -127,7 +127,7 @@ function SearchResultItem<T>(props: SearchResultItemProps<T>) {
 		props;
 	return (
 		<div
-			onKeyDown={() => {
+			onMouseDown={() => {
 				setInputValue(item[inputKey]);
 				setSelected(item);
 				setShowSearchList(false);

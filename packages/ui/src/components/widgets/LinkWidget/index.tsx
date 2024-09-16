@@ -88,8 +88,9 @@ export interface LinkWidgetEditorProps {
 export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 	const [comp, setComp] = useAtom(compAtom);
 	const [icons, setIcons] = useAtom(iconsAtom);
-
+	const isElectron = window.api !== undefined;
 	function updateIcon(icon: string) {
+		console.log(icon);
 		setComp({ ...comp, elementProps: { ...comp.elementProps as LinkWidgetElementProps, icon } });
 	}
 	async function openFileDialog() {
@@ -128,9 +129,11 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 							elementProps: { ...comp.elementProps as LinkWidgetElementProps, link: v.target.value },
 						})}
 				/>
-				<Button onClick={openFileDialog} variant="outline" size="icon">
-					<DotsHorizontalIcon />
-				</Button>
+				{isElectron &&
+					<Button onClick={openFileDialog} variant="outline" size="icon">
+						<DotsHorizontalIcon />
+					</Button>
+				}
 			</div>
 			<Label className="col-span-1" htmlFor="icon">
 				图标
@@ -157,9 +160,11 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 							onChange={(v) => updateIcon(v.target.value)}
 						/>
 						<div className="flex flex-row gap-1">
-							<Button onClick={openIconDialog} variant="outline" size="icon">
-								<DotsHorizontalIcon />
-							</Button>
+							{isElectron &&
+								<Button onClick={openIconDialog} variant="outline" size="icon">
+									<DotsHorizontalIcon />
+								</Button>
+							}
 							<TooltipProvider>
 								<Tooltip>
 									<TooltipTrigger>
