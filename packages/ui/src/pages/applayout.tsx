@@ -23,11 +23,15 @@ interface Layout {
 	i: string
 }
 
-export const AppLayout = ({ parentRef }: { parentRef: RefObject<HTMLDivElement> }) => {
+interface AppLayoutProps {
+	parentRef: RefObject<HTMLDivElement>
+}
+
+export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 	const [layoutConfig] = useAtom(layoutConfigAtom);
 	const { unit, gap, compactType, preventCollision } = layoutConfig;
 	const [compSplitAtoms] = useAtom(splitCompAtoms);
-	const [comps] = useAtom(compAtoms);
+	const [comps, setComps] = useAtom(compAtoms);
 	const [cols, setCols] = useState(10)
 	const [fixedLayoutWidth, setFixedLayoutWidth] = useState(500)
 	const [layout, setLayout] = useState<Layout[]>([]);
@@ -57,7 +61,6 @@ export const AppLayout = ({ parentRef }: { parentRef: RefObject<HTMLDivElement> 
 		setLayout(newLayout)
 	}, [comps])
 
-
 	const generateDOM = () => {
 		return comps.map((comp, i) => (
 			<CompElement key={comp.id} compAtom={compSplitAtoms[i]} />
@@ -68,6 +71,17 @@ export const AppLayout = ({ parentRef }: { parentRef: RefObject<HTMLDivElement> 
 			className='border-2 bg-[#F3F4F6] rounded-md border-dashed relative h-full'
 			style={{ width: fixedLayoutWidth }}
 			layout={layout}
+			onLayoutChange={(newLayout) => {
+				setComps(newLayout.map((layout) => {
+					return {
+						...comps.find((comp) => comp.id === layout.i),
+						col: layout.x,
+						row: layout.y,
+						width: layout.w,
+						height: layout.h,
+					}
+				}))
+			}}
 			compactType={compactType}
 			cols={cols}
 			margin={[gap, gap]}
