@@ -3,7 +3,6 @@ import { iconsAtom } from "@/atoms/icons";
 import BaseContextMenu from "@/components/common/BaseContextMenu";
 import IconShop from "@/components/common/IconShop";
 import Modal from "@/components/common/Modal";
-import modal from "@/components/common/Modal";
 import { Button } from "@/components/ui/button";
 import { ContextMenu, ContextMenuItem } from "@/components/ui/context-menu";
 import { Input } from "@/components/ui/input";
@@ -25,7 +24,6 @@ import {
 	StarIcon,
 } from "@radix-ui/react-icons";
 import { type PrimitiveAtom, useAtom } from "jotai";
-import { type MouseEventHandler, useEffect, useState } from "react";
 import { HexAlphaColorPicker } from "react-colorful";
 import { useModal } from "react-modal-hook";
 
@@ -33,15 +31,20 @@ export interface LinkWidgetProps {
 	compAtom: PrimitiveAtom<Comp>;
 }
 
+interface LinkWidgetElementProps {
+	link: string;
+	icon: string;
+	bgColor: string;
+}
+
 export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 	const [comp] = useAtom(compAtom);
-	const { link, icon, bgColor } = comp.elementProps;
-	const [modalVisible, setModalVisible] = useState(false);
-	const openBrowser: MouseEventHandler = (e) => {
-		if (e.button === 0) {
-			window.open(link);
-		}
-	};
+	const { icon, bgColor } = comp.elementProps as LinkWidgetElementProps;
+	// const openBrowser: MouseEventHandler = (e) => {
+	// 	if (e.button === 0) {
+	// 		window.open(link);
+	// 	}
+	// };
 	const [showModal, hideModal] = useModal(() => (
 		<Modal showModal={true} hideModal={hideModal}>
 			<LinkWidgetEditor compAtom={compAtom} />
@@ -87,12 +90,12 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 	const [icons, setIcons] = useAtom(iconsAtom);
 
 	function updateIcon(icon: string) {
-		setComp({ ...comp, elementProps: { ...comp.elementProps, icon } });
+		setComp({ ...comp, elementProps: { ...comp.elementProps as LinkWidgetElementProps, icon } });
 	}
 	async function openFileDialog() {
 		const path = await window.api?.openFile();
 		if (path) {
-			setComp({ ...comp, elementProps: { ...comp.elementProps, link: path } });
+			setComp({ ...comp, elementProps: { ...comp.elementProps as LinkWidgetElementProps, link: path } });
 		}
 	}
 	async function openIconDialog() {
@@ -102,10 +105,10 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 		}
 	}
 	function collectToIconStore() {
-		if (!icons.includes(comp.elementProps.icon)) {
-			setIcons([...icons, comp.elementProps.icon]);
+		if (!icons.includes((comp.elementProps as LinkWidgetElementProps).icon)) {
+			setIcons([...icons, (comp.elementProps as LinkWidgetElementProps).icon]);
 		} else {
-			setIcons(icons.filter((i) => i !== comp.elementProps.icon));
+			setIcons(icons.filter((i) => i !== (comp.elementProps as LinkWidgetElementProps).icon));
 		}
 	}
 
@@ -118,11 +121,11 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 				<Input
 					className="col-span-3"
 					id="link"
-					value={comp.elementProps.link}
+					value={(comp.elementProps as LinkWidgetElementProps).link}
 					onChange={(v) =>
 						setComp({
 							...comp,
-							elementProps: { ...comp.elementProps, link: v.target.value },
+							elementProps: { ...comp.elementProps as LinkWidgetElementProps, link: v.target.value },
 						})}
 				/>
 				<Button onClick={openFileDialog} variant="outline" size="icon">
@@ -165,13 +168,13 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 											variant="outline"
 											size="icon"
 										>
-											{icons.includes(comp.elementProps.icon)
+											{icons.includes((comp.elementProps as LinkWidgetElementProps).icon)
 												? <StarFilledIcon />
 												: <StarIcon />}
 										</Button>
 									</TooltipTrigger>
 									<TooltipContent>
-										{icons.includes(comp.elementProps.icon)
+										{icons.includes((comp.elementProps as LinkWidgetElementProps).icon)
 											? <p>取消收藏</p>
 											: <p>收藏到图标商店</p>}
 									</TooltipContent>
@@ -188,20 +191,20 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 			<HexAlphaColorPicker
 				className="col-span-4 mt-4"
 				id="bgColor"
-				color={comp.elementProps.bgColor}
+				color={(comp.elementProps as LinkWidgetElementProps).bgColor}
 				onChange={(c) =>
 					setComp({
 						...comp,
-						elementProps: { ...comp.elementProps, bgColor: c },
+						elementProps: { ...comp.elementProps as LinkWidgetElementProps, bgColor: c },
 					})}
 			/>
 			<Input
 				className="col-span-2"
-				value={comp.elementProps.bgColor}
+				value={(comp.elementProps as LinkWidgetElementProps).bgColor}
 				onChange={(c) =>
 					setComp({
 						...comp,
-						elementProps: { ...comp.elementProps, bgColor: c.target.value },
+						elementProps: { ...comp.elementProps as LinkWidgetElementProps, bgColor: c.target.value },
 					})}
 			/>
 		</div>

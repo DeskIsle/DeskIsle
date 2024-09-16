@@ -1,7 +1,6 @@
 import {
 	type Comp,
 	compAtoms,
-	isDraggingAtom,
 	registryComps,
 	splitCompAtoms,
 } from "@/atoms/comps";
@@ -9,7 +8,7 @@ import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { cn } from "@/lib/utils";
 import { type MotionProps, motion } from "framer-motion";
 import { type PrimitiveAtom, useAtom } from "jotai";
-import { type RefObject, forwardRef, memo, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { type RefObject, forwardRef, useEffect, useState } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 import "@/grid-layout.css";
 // import "react-resizable/css/styles.css";
@@ -46,7 +45,7 @@ export const AppLayout = ({ parentRef }: { parentRef: RefObject<HTMLDivElement> 
 	}, [parentRef, unit, gap])
 
 	useEffect(() => {
-		const newLayout = comps.map((comp, i) => {
+		const newLayout = comps.map((comp) => {
 			return {
 				x: comp.col,
 				y: comp.row,

@@ -7,7 +7,7 @@ export interface ImageWidgetProps {
 
 export default function ImageWidget({ compAtom }: ImageWidgetProps) {
 	const [comp] = useAtom(compAtom);
-	const { img } = comp.elementProps;
+	const { img } = comp.elementProps as { img: string };
 	return (
 		<img
 			className="object-cover w-full h-full"
