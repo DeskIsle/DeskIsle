@@ -8,7 +8,7 @@ import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { cn } from "@/lib/utils";
 import { type MotionProps, motion } from "framer-motion";
 import { type PrimitiveAtom, useAtom } from "jotai";
-import { type RefObject, forwardRef, useEffect, useLayoutEffect, useState } from "react";
+import { type RefObject, forwardRef, useEffect, useState } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 import "@/grid-layout.css";
 // import "react-resizable/css/styles.css";
