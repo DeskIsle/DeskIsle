@@ -170,7 +170,7 @@ export const compAtoms = atomWithStorage<Comp[]>("comps", [
 	// 	element: "ClimaWidget",
 	// 	elementProps: {},
 	// },
-]);
+], undefined, { getOnInit: true });
 
 export const splitCompAtoms = splitAtom(compAtoms);
 
