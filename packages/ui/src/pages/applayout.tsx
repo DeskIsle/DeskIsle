@@ -8,7 +8,7 @@ import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { cn } from "@/lib/utils";
 import { type MotionProps, motion } from "framer-motion";
 import { type PrimitiveAtom, useAtom } from "jotai";
-import { type RefObject, forwardRef, useEffect, useState } from "react";
+import { type RefObject, forwardRef, useEffect, useLayoutEffect, useState } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 import "@/grid-layout.css";
 // import "react-resizable/css/styles.css";
@@ -34,7 +34,6 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 	const [comps, setComps] = useAtom(compAtoms);
 	const [cols, setCols] = useState(10)
 	const [fixedLayoutWidth, setFixedLayoutWidth] = useState(500)
-	const [layout, setLayout] = useState<Layout[]>([]);
 
 	useEffect(() => {
 		const layoutWidth = parentRef.current?.offsetWidth;
@@ -48,8 +47,22 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 		}
 	}, [parentRef, unit, gap])
 
+	const generateLayout = () => {
+		return comps.map((comp) => {
+			return {
+				x: comp.col,
+				y: comp.row,
+				w: comp.width,
+				h: comp.height,
+				i: comp.id
+			};
+		});
+	};
+	const [layout, setLayout] = useState<Layout[]>(generateLayout());
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
+		console.log("comps", comps)
 		const newLayout = comps.map((comp) => {
 			return {
 				x: comp.col,
@@ -60,7 +73,7 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			};
 		});
 		setLayout(newLayout)
-	}, [])
+	}, [comps])
 
 	const generateDOM = () => {
 		return comps.map((comp, i) => (
@@ -73,15 +86,18 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			style={{ width: fixedLayoutWidth }}
 			layout={layout}
 			onLayoutChange={(newLayout) => {
-				setComps(newLayout.map((layout) => {
+				console.log("newLayout", newLayout)
+			}}
+			onDragStop={(layout) => {
+				const newComps = layout.map((item) => {
+					const comp = comps.find((comp) => comp.id === item.i)
 					return {
-						...comps.find((comp) => comp.id === layout.i),
-						col: layout.x,
-						row: layout.y,
-						width: layout.w,
-						height: layout.h,
+						...comp,
+						col: item.x,
+						row: item.y,
 					}
-				}))
+				})
+				setComps(newComps)
 			}}
 			compactType={compactType}
 			cols={cols}
