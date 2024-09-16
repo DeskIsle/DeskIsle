@@ -35,16 +35,33 @@ interface ClimaWidgetProps extends React.HTMLAttributes<HTMLDivElement> {
 export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
 	const [selectedCity] = useAtom(selectedCityAtom);
 	const [weather, setWeather] = useState<Weather | null>(null);
-	setInterval(
-		() => {
-			handleRequest();
-			console.log("refresh climaWidget data");
-		},
-		10 * 60 * 1000,
-	);
+	const [message, setMessage] = useState<string | null>(null);
+	useEffect(() => {
+		const intervel = setInterval(
+			() => {
+				handleRequest();
+				console.log("refresh climaWidget data");
+			},
+			30 * 60 * 1000,
+		);
+		return () => clearInterval(intervel);
+	}, [])
+
 	async function handleRequest() {
 		const data = await getClimaData(selectedCity?.Location_ID);
-		if (!data || data.code === "402" || data.code === "400") return;
+		// if (!data || data.code === "402" || data.code === "400") return;
+		if (!data) {
+			setMessage("获取天气数据失败");
+			return;
+		}
+		if (data.code === "402") {
+			setMessage("请求超过次数限制");
+			return;
+		}
+		if (data.code === "400") {
+			setMessage("请求错误");
+			return;
+		}
 		const tempValue = data.now.temp;
 		const icon = Number.parseInt(data.now.icon);
 		const curTime = new Date(Date.parse(data.updateTime));
@@ -90,7 +107,9 @@ export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
 	}
 
 	useEffect(() => {
-		handleRequest();
+		if (selectedCity?.Location_ID) {
+			handleRequest();
+		}
 	}, [selectedCity]);
 
 	return (
@@ -108,6 +127,11 @@ export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
 										<div>天气: {weather.text}</div>
 									</div>
 								)}
+								{message &&
+									<span className="text-gray-500 text-[0.7rem] align-middle">
+										{message}
+									</span>
+								}
 							</div>
 							{weather && (
 								<div className="flex flex-row gap-1 justify-center items-center w-full mb-2">
