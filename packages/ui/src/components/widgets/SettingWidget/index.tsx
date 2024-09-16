@@ -1,6 +1,6 @@
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@radix-ui/react-label";
 import { useAtom } from "jotai";
