@@ -1,5 +1,7 @@
 import { layoutConfigAtom } from "@/atoms/layoutConfig";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import { Label } from "@radix-ui/react-label";
 import { useAtom } from "jotai";
 import type React from "react";
@@ -45,6 +47,20 @@ export default function SettingWidget() {
 				onChange={(v) =>
 					setLayoutConfig({ ...layoutConfig, gap: Number(v.target.value) })}
 			/>
-		</div>
+			<Label htmlFor="compactType">紧凑类型</Label>
+			<Select defaultValue={layoutConfig.compactType} onValueChange={(value) => setLayoutConfig({ ...layoutConfig, compactType: value })}>
+				<SelectTrigger className="w-full">
+					<SelectValue placeholder="" />
+				</SelectTrigger>
+				<SelectContent>
+					<SelectGroup>
+						<SelectItem value="vertical">垂直</SelectItem>
+						<SelectItem value="horizontal">水平</SelectItem>
+					</SelectGroup>
+				</SelectContent>
+			</Select>
+			<Label htmlFor="preventCollision">禁止重叠交换</Label>
+			<Switch checked={layoutConfig.preventCollision} onCheckedChange={(checked) => setLayoutConfig({ ...layoutConfig, preventCollision: checked })} />
+		</div >
 	);
 }
