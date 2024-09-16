@@ -13,7 +13,7 @@ export type RegistryComps = {
 		defaultProps: {
 			width: number;
 			height: number;
-			elementProps: any;
+			elementProps: unknown;
 		};
 		optionalSizes: { w: number; h: number }[];
 	};
@@ -74,7 +74,7 @@ export type Comp = {
 	width: number;
 	height: number;
 	element: keyof RegistryComps;
-	elementProps: any;
+	elementProps: unknown;
 };
 
 export const compAtoms = atomWithStorage<Comp[]>("comps", [

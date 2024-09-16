@@ -2,6 +2,7 @@ export default function ClimaSvg({ weatherClass }: { weatherClass: string[] }) {
 	return (
 		<>
 			<svg id="noise-svg">
+				<title>noise-svg</title>
 				<filter id="noiseFilter">
 					<feTurbulence
 						type="fractalNoise"
@@ -25,6 +26,7 @@ export default function ClimaSvg({ weatherClass }: { weatherClass: string[] }) {
 										xmlnsXlink="http://www.w3.org/1999/xlink"
 										viewBox="0 0 875.7 446.1"
 									>
+										<title>ClimaWidget</title>
 										<defs>
 											<clipPath id="clippath">
 												<path

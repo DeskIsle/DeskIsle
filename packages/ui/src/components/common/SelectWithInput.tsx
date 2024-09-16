@@ -101,6 +101,7 @@ function SearchResultList<T>(props: SearchResultListProps<T>) {
 		<DraggableCard className="absolute top-1.2 flex flex-col w-full h-auto p-1">
 			{filterOptions.map((item, index) => (
 				<SearchResultItem
+					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					key={index}
 					item={item}
 					setSelected={setSelected}
@@ -113,20 +114,20 @@ function SearchResultList<T>(props: SearchResultListProps<T>) {
 	);
 }
 
-interface SearchResultItemProps {
-	item: any;
-	setSelected: (value: any) => void;
+interface SearchResultItemProps<T> {
+	item: T;
+	setSelected: (value: T) => void;
 	inputKey: string;
 	setInputValue: (value: string) => void;
 	setShowSearchList: (value: boolean) => void;
 }
 
-function SearchResultItem(props: SearchResultItemProps) {
+function SearchResultItem<T>(props: SearchResultItemProps<T>) {
 	const { item, setSelected, inputKey, setInputValue, setShowSearchList } =
 		props;
 	return (
 		<div
-			onClick={() => {
+			onKeyDown={() => {
 				setInputValue(item[inputKey]);
 				setSelected(item);
 				setShowSearchList(false);
