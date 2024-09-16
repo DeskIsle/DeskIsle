@@ -48,6 +48,7 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 		}
 	}, [parentRef, unit, gap])
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const newLayout = comps.map((comp) => {
 			return {
@@ -59,7 +60,7 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			};
 		});
 		setLayout(newLayout)
-	}, [comps])
+	}, [])
 
 	const generateDOM = () => {
 		return comps.map((comp, i) => (
