@@ -16,6 +16,14 @@ import "@/grid-layout.css";
 
 const ReactGridLayout = WidthProvider(RGL);
 
+interface Layout {
+	x: number,
+	y: number,
+	w: number,
+	h: number,
+	i: string
+}
+
 export const AppLayout = ({ parentRef }: { parentRef: RefObject<HTMLDivElement> }) => {
 	const [layoutConfig] = useAtom(layoutConfigAtom);
 	const { unit, gap, compactType, preventCollision } = layoutConfig;
@@ -23,17 +31,7 @@ export const AppLayout = ({ parentRef }: { parentRef: RefObject<HTMLDivElement> 
 	const [comps] = useAtom(compAtoms);
 	const [cols, setCols] = useState(10)
 	const [fixedLayoutWidth, setFixedLayoutWidth] = useState(500)
-	const generateLayout = () => {
-		return comps.map((comp, i) => {
-			return {
-				x: comp.col,
-				y: comp.row,
-				w: comp.width,
-				h: comp.height,
-				i: comp.id
-			};
-		});
-	};
+	const [layout, setLayout] = useState<Layout[]>([]);
 
 	useEffect(() => {
 		const layoutWidth = parentRef.current?.offsetWidth;
@@ -47,7 +45,20 @@ export const AppLayout = ({ parentRef }: { parentRef: RefObject<HTMLDivElement> 
 		}
 	}, [parentRef, unit, gap])
 
-	const [layout,] = useState(generateLayout());
+	useEffect(() => {
+		const newLayout = comps.map((comp, i) => {
+			return {
+				x: comp.col,
+				y: comp.row,
+				w: comp.width,
+				h: comp.height,
+				i: comp.id
+			};
+		});
+		setLayout(newLayout)
+	}, [comps])
+
+
 	const generateDOM = () => {
 		return comps.map((comp, i) => (
 			<CompElement key={comp.id} compAtom={compSplitAtoms[i]} />
