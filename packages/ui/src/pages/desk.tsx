@@ -3,13 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import SettingWidget from "@/components/widgets/SettingWidget";
 import StoreWidget from "@/components/widgets/StoreWidget";
-import { isElectron } from "@/lib/utils";
 import { AppLayout } from "@/pages/applayout";
-import { useRef, useState } from "react";
-import { ModalProvider, useModal } from "react-modal-hook";
+import { useRef } from "react";
+import { useModal } from "react-modal-hook";
+
+
+export function isElectron() {
+	return window.api !== undefined;
+}
 
 export function Desk() {
 	const ref = useRef(null)
+	const isElectron = window.api !== undefined;
 	const [showStoreWidget, hideStoreWidget] = useModal(() => (
 		<Modal header='组件商店' showModal={true} hideModal={hideStoreWidget}>
 			<StoreWidget />
