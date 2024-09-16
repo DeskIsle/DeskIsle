@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import SettingWidget from "@/components/widgets/SettingWidget";
 import StoreWidget from "@/components/widgets/StoreWidget";
+import { isElectron } from "@/lib/utils";
 import { AppLayout } from "@/pages/applayout";
 import { useRef, useState } from "react";
 import { ModalProvider, useModal } from "react-modal-hook";
@@ -37,8 +38,12 @@ export function Desk() {
 		<div ref={ref} className="w-screen h-screen p-4 overflow-hidden bg-white">
 			<AppLayout parentRef={ref} />
 			<Toaster />
-			<Button variant='outline' className="mt-2 mr-2" onClick={showStoreWidget}>组件商店</Button>
-			<Button variant='outline' className="mt-2 mr-2" onClick={showSettingsWidget}>设置</Button>
+			{!isElectron &&
+				<>
+					<Button variant='outline' className="mt-2 mr-2" onClick={showStoreWidget}>组件商店</Button>
+					<Button variant='outline' className="mt-2 mr-2" onClick={showSettingsWidget}>设置</Button>
+				</>
+			}
 		</div>
 	);
 }

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import DataUrlIcon from "@/icons/DataUrlIcon";
 import { RadixIconsPencil2 } from "@/icons/RadixIcons";
+import { isElectron } from "@/lib/utils";
 import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
 import {
 	DotsHorizontalIcon,
@@ -88,7 +89,6 @@ export interface LinkWidgetEditorProps {
 export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 	const [comp, setComp] = useAtom(compAtom);
 	const [icons, setIcons] = useAtom(iconsAtom);
-	const isElectron = window.api !== undefined;
 	function updateIcon(icon: string) {
 		console.log(icon);
 		setComp({ ...comp, elementProps: { ...comp.elementProps as LinkWidgetElementProps, icon } });
