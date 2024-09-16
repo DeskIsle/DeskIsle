@@ -153,7 +153,7 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 						<Input
 							className="col-span-3"
 							id="icon"
-							value={comp.elementProps.icon}
+							value={(comp.elementProps as LinkWidgetElementProps).icon}
 							onChange={(v) => updateIcon(v.target.value)}
 						/>
 						<div className="flex flex-row gap-1">
