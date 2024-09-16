@@ -14,7 +14,7 @@ export default function IconShop({ onSelect }: IconShopProps) {
 				<div
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					key={index}
-					onClick={() => onSelect(icon)}
+					onMouseDown={() => onSelect(icon)}
 					className='flex justify-center items-center w-8 h-8 p-1 rounded-sm hover:bg-slate-200'
 				>
 					<DataUrlIcon className="w-3/4 h-3/4" src={icon} />

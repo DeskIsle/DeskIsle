@@ -56,22 +56,19 @@ export default function StoreWidget() {
 						const k = key as keyof typeof registryComps;
 						return (
 							<CarouselItem key={key}>
-								<div className="p-1">
-									<div className="flex aspect-square items-center justify-center p-6">
-										<CompElement
-											className="w-2/3 h-2/3"
-											preview={true}
-											compAtom={defaultComps[index]}
-											drag={false}
-										/>
-										<div
-											onMouseDown={() => addComp(k)}
-											className="z-10 w-full h-full bg-transparent"
-										>
-										</div>
-										<div className="absolute w-full flex justify-center bottom-0">
-											{registryComps[k].name}
-										</div>
+								<div className="flex aspect-square items-center justify-center m-6 border-2 border-slate-200 rounded-md border-dashed bg-[#F3F4F6] p-4">
+									<CompElement
+										preview={true}
+										compAtom={defaultComps[index]}
+										drag={false}
+									/>
+									<div
+										onMouseDown={() => addComp(k)}
+										className="absolute z-10 w-full h-full bg-transparent"
+									>
+									</div>
+									<div className="absolute w-full flex justify-center bottom-0">
+										{registryComps[k].name}
 									</div>
 								</div>
 							</CarouselItem>
