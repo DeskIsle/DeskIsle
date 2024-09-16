@@ -3,6 +3,7 @@ import { iconsAtom } from "@/atoms/icons";
 import BaseContextMenu from "@/components/common/BaseContextMenu";
 import IconShop from "@/components/common/IconShop";
 import Modal from "@/components/common/Modal";
+import modal from "@/components/common/Modal";
 import { Button } from "@/components/ui/button";
 import { ContextMenu, ContextMenuItem } from "@/components/ui/context-menu";
 import { Input } from "@/components/ui/input";
@@ -24,8 +25,9 @@ import {
 	StarIcon,
 } from "@radix-ui/react-icons";
 import { type PrimitiveAtom, useAtom } from "jotai";
-import { type MouseEventHandler, useState } from "react";
+import { type MouseEventHandler, useEffect, useState } from "react";
 import { HexAlphaColorPicker } from "react-colorful";
+import { useModal } from "react-modal-hook";
 
 export interface LinkWidgetProps {
 	compAtom: PrimitiveAtom<Comp>;
@@ -40,7 +42,11 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 			window.open(link);
 		}
 	};
-
+	const [showModal, hideModal] = useModal(() => (
+		<Modal showModal={true} hideModal={hideModal}>
+			<LinkWidgetEditor compAtom={compAtom} />
+		</Modal>
+	))
 	return (
 		<>
 			<ContextMenu modal={false}>
@@ -57,7 +63,7 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 				</ContextMenuTrigger>
 				<BaseContextMenu compAtom={compAtom}>
 					<ContextMenuItem
-						onClick={() => setModalVisible(true)}
+						onClick={showModal}
 						className="flex gap-2"
 					>
 						<RadixIconsPencil2 />
@@ -65,9 +71,9 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 					</ContextMenuItem>
 				</BaseContextMenu>
 			</ContextMenu>
-			<Modal visible={modalVisible} closeModal={() => setModalVisible(false)}>
+			{/* <Modal visible={modalVisible} closeModal={() => setModalVisible(false)}>
 				<LinkWidgetEditor compAtom={compAtom} />
-			</Modal>
+			</Modal> */}
 		</>
 	);
 }

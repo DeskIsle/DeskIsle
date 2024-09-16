@@ -11,6 +11,7 @@ import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
 import { type PrimitiveAtom, atom, useAtom } from "jotai";
 import ClimaSvg from "./ClimaSvg";
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 async function getClimaData(locationID: string | undefined): Promise<any> {
 	const res = await fetch(
 		`https://devapi.qweather.com/v7/weather/now?location=${locationID}&key=4a8cda440c914fe4820b02ddfefbd336`,
@@ -106,6 +107,7 @@ export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
 		});
 	}
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (selectedCity?.Location_ID) {
 			handleRequest();

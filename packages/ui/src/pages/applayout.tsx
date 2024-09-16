@@ -82,10 +82,12 @@ export const AppLayout = ({ parentRef }: { parentRef: RefObject<HTMLDivElement> 
 
 interface CompProps extends MotionProps {
 	compAtom: PrimitiveAtom<Comp>;
+	preview?: boolean;
 	className?: string;
 }
 export const CompElement = forwardRef<HTMLDivElement, CompProps>(function CompElement({
 	compAtom,
+	preview,
 	className,
 	...props
 }, ref) {

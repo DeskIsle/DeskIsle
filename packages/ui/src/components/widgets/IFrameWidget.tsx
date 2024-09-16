@@ -12,7 +12,7 @@ export default function IFrameWidget({ src, scale }: IFrameWidgetProps) {
 		<>
 			<div
 				style={{ transform: `scale(${scale})` }}
-				className={`w-full h-full relative`}
+				className='w-full h-full relative'
 			>
 				<iframe
 					ref={iframeRef}

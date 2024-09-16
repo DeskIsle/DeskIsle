@@ -55,18 +55,17 @@ export default function StoreWidget() {
 					{Object.keys(registryComps).map((key, index) => {
 						const k = key as keyof typeof registryComps;
 						return (
-							<CarouselItem key={index}>
+							<CarouselItem key={key}>
 								<div className="p-1">
 									<div className="flex aspect-square items-center justify-center p-6">
 										<CompElement
 											className="w-2/3 h-2/3"
 											preview={true}
 											compAtom={defaultComps[index]}
-											key={index}
 											drag={false}
 										/>
 										<div
-											onClick={() => addComp(k)}
+											onKeyDown={() => addComp(k)}
 											className="z-10 w-full h-full bg-transparent"
 										>
 										</div>
