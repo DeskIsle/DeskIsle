@@ -1,7 +1,8 @@
 {
-	"name": "deskisle",
+	"name": "@deskisle/monorepo",
 	"version": "0.0.1",
 	"license": "MIT",
+	"packageManager": "pnpm@9.11.0",
 	"scripts": {
 		"prepare": "simple-git-hooks",
 		"lint": "biome lint --write",
