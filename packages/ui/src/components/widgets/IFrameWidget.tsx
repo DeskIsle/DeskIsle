@@ -10,16 +10,8 @@ export default function IFrameWidget({ src, scale }: IFrameWidgetProps) {
 	const maskRef = useRef<HTMLDivElement>(null);
 	return (
 		<>
-			<div
-				style={{ transform: `scale(${scale})` }}
-				className='w-full h-full relative'
-			>
-				<iframe
-					ref={iframeRef}
-					title={src}
-					src={src}
-					className="w-full h-full"
-				/>
+			<div style={{ transform: `scale(${scale})` }} className="w-full h-full relative">
+				<iframe ref={iframeRef} title={src} src={src} className="w-full h-full" />
 			</div>
 			<div ref={maskRef} className="absolute w-full h-full" />
 		</>

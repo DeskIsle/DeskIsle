@@ -7,11 +7,7 @@ interface LayoutButtonProps {
 	compAtom: PrimitiveAtom<Comp>;
 }
 
-export default function ResizeButton({
-	width,
-	height,
-	compAtom,
-}: LayoutButtonProps) {
+export default function ResizeButton({ width, height, compAtom }: LayoutButtonProps) {
 	const [comp, setComp] = useAtom(compAtom);
 	function handleClick() {
 		setComp({

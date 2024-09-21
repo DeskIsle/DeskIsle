@@ -19,12 +19,7 @@ export default function SelectWithInput<T>(props: SelectWithInputProps<T>) {
 	const [showSearchList, setShowSearchList] = useState(false);
 	return (
 		<div className="relative w-full h-full">
-			<Input
-				value={value}
-				setValue={setValue}
-				placeholder={placeholder}
-				setShowSearchList={setShowSearchList}
-			/>
+			<Input value={value} setValue={setValue} placeholder={placeholder} setShowSearchList={setShowSearchList} />
 			{showSearchList && (
 				<SearchResultList
 					inputValue={value}
@@ -65,8 +60,7 @@ function Input(props: InputProps) {
 	);
 }
 
-interface SearchResultListProps<T>
-	extends Omit<SelectWithInputProps<T>, "placeholder"> {
+interface SearchResultListProps<T> extends Omit<SelectWithInputProps<T>, "placeholder"> {
 	inputValue: string;
 	setInputValue: (value: string) => void;
 	setShowSearchList: (value: boolean) => void;
@@ -123,8 +117,7 @@ interface SearchResultItemProps<T> {
 }
 
 function SearchResultItem<T>(props: SearchResultItemProps<T>) {
-	const { item, setSelected, inputKey, setInputValue, setShowSearchList } =
-		props;
+	const { item, setSelected, inputKey, setInputValue, setShowSearchList } = props;
 	return (
 		<div
 			onMouseDown={() => {

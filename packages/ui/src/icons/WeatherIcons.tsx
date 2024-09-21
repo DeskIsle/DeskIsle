@@ -55,12 +55,7 @@ export function MeteoconsClearDayFill(props: SVGProps<SVGSVGElement>) {
 					</path>
 				</symbol>
 			</defs>
-			<use
-				width="384"
-				height="384"
-				href="#meteoconsClearDayFill1"
-				transform="translate(64 64)"
-			/>
+			<use width="384" height="384" href="#meteoconsClearDayFill1" transform="translate(64 64)" />
 		</svg>
 	);
 }
@@ -109,12 +104,7 @@ export function MeteoconsClearNightFill(props: SVGProps<SVGSVGElement>) {
 					</path>
 				</symbol>
 			</defs>
-			<use
-				width="270"
-				height="270"
-				href="#meteoconsClearNightFill1"
-				transform="translate(121 121)"
-			/>
+			<use width="270" height="270" href="#meteoconsClearNightFill1" transform="translate(121 121)" />
 		</svg>
 	);
 }
@@ -150,16 +140,10 @@ export function MeteoconsCloudyFill(props: SVGProps<SVGSVGElement>) {
 						strokeMiterlimit="10"
 						strokeWidth="6"
 						d="m291 107l-2.5.1A83.9 83.9 0 0 0 135.6 43A56 56 0 0 0 51 91a56.6 56.6 0 0 0 .8 9A60 60 0 0 0 63 219l4-.2v.2h224a56 56 0 0 0 0-112Z"
-					>
-					</path>
+					></path>
 				</symbol>
 			</defs>
-			<use
-				width="350"
-				height="222"
-				href="#meteoconsCloudyFill1"
-				transform="translate(81 145)"
-			>
+			<use width="350" height="222" href="#meteoconsCloudyFill1" transform="translate(81 145)">
 				<animateTransform
 					additive="sum"
 					attributeName="transform"
@@ -167,8 +151,7 @@ export function MeteoconsCloudyFill(props: SVGProps<SVGSVGElement>) {
 					repeatCount="indefinite"
 					type="translate"
 					values="-18 0; 18 0; -18 0"
-				>
-				</animateTransform>
+				></animateTransform>
 			</use>
 		</svg>
 	);
@@ -218,8 +201,7 @@ export function MeteoconsDrizzleFill(props: SVGProps<SVGSVGElement>) {
 					y1="-731.1"
 					y2="-706.5"
 					href="#meteoconsDrizzleFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDrizzleFill3"
 					x1="1425.4"
@@ -227,8 +209,7 @@ export function MeteoconsDrizzleFill(props: SVGProps<SVGSVGElement>) {
 					y1="-722.4"
 					y2="-697.8"
 					href="#meteoconsDrizzleFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<symbol id="meteoconsDrizzleFill4" viewBox="0 0 350 222">
 					<path
 						fill="url(#meteoconsDrizzleFill0)"
@@ -236,17 +217,10 @@ export function MeteoconsDrizzleFill(props: SVGProps<SVGSVGElement>) {
 						strokeMiterlimit="10"
 						strokeWidth="6"
 						d="m291 107l-2.5.1A83.9 83.9 0 0 0 135.6 43A56 56 0 0 0 51 91a56.6 56.6 0 0 0 .8 9A60 60 0 0 0 63 219l4-.2v.2h224a56 56 0 0 0 0-112Z"
-					>
-					</path>
+					></path>
 				</symbol>
 			</defs>
-			<use
-				width="350"
-				height="222"
-				href="#meteoconsDrizzleFill4"
-				transform="translate(81 145)"
-			>
-			</use>
+			<use width="350" height="222" href="#meteoconsDrizzleFill4" transform="translate(81 145)"></use>
 			<path
 				fill="url(#meteoconsDrizzleFill1)"
 				stroke="#0a5ad4"
@@ -263,8 +237,7 @@ export function MeteoconsDrizzleFill(props: SVGProps<SVGSVGElement>) {
 					keyTimes="0; .25; 1"
 					type="translate"
 					values="0 -32; 0 -32; 0 120;"
-				>
-				</animateTransform>
+				></animateTransform>
 				<animate
 					id="meteoconsDrizzleFill6"
 					attributeName="opacity"
@@ -272,8 +245,7 @@ export function MeteoconsDrizzleFill(props: SVGProps<SVGSVGElement>) {
 					dur="1s"
 					keyTimes="0; .25; 1"
 					values="0; 1; 0"
-				>
-				</animate>
+				></animate>
 			</path>
 			<path
 				fill="url(#meteoconsDrizzleFill2)"
@@ -291,8 +263,7 @@ export function MeteoconsDrizzleFill(props: SVGProps<SVGSVGElement>) {
 					keyTimes="0; .25; 1"
 					type="translate"
 					values="0 -32; 0 -32; 0 120;"
-				>
-				</animateTransform>
+				></animateTransform>
 				<animate
 					id="meteoconsDrizzleFill8"
 					attributeName="opacity"
@@ -300,8 +271,7 @@ export function MeteoconsDrizzleFill(props: SVGProps<SVGSVGElement>) {
 					dur="1s"
 					keyTimes="0; .25; 1"
 					values="0; 1; 0"
-				>
-				</animate>
+				></animate>
 			</path>
 			<path
 				fill="url(#meteoconsDrizzleFill3)"
@@ -319,8 +289,7 @@ export function MeteoconsDrizzleFill(props: SVGProps<SVGSVGElement>) {
 					keyTimes="0; .25; 1"
 					type="translate"
 					values="0 -32; 0 -32; 0 120;"
-				>
-				</animateTransform>
+				></animateTransform>
 				<animate
 					id="meteoconsDrizzleFilla"
 					attributeName="opacity"
@@ -328,8 +297,7 @@ export function MeteoconsDrizzleFill(props: SVGProps<SVGSVGElement>) {
 					dur="1s"
 					keyTimes="0; .25; 1"
 					values="0; 1; 0"
-				>
-				</animate>
+				></animate>
 			</path>
 		</svg>
 	);
@@ -359,14 +327,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					<stop offset=".5" stopColor="#f3f7fe" />
 					<stop offset="1" stopColor="#deeafb" />
 				</linearGradient>
-				<linearGradient
-					id="meteoconsDustFill1"
-					x1="6"
-					x2="18"
-					y1="169.6"
-					y2="190.4"
-					gradientUnits="userSpaceOnUse"
-				>
+				<linearGradient id="meteoconsDustFill1" x1="6" x2="18" y1="169.6" y2="190.4" gradientUnits="userSpaceOnUse">
 					<stop offset="0" stopColor="#fde68a" />
 					<stop offset=".5" stopColor="#fde68a" />
 					<stop offset="1" stopColor="#fde171" />
@@ -378,8 +339,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="169.6"
 					y2="190.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustFill3"
 					x1="38"
@@ -387,8 +347,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="137.6"
 					y2="158.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustFill4"
 					x1="98"
@@ -396,8 +355,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="137.6"
 					y2="158.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustFill5"
 					x1="70"
@@ -405,8 +363,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="101.6"
 					y2="122.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustFill6"
 					x1="130"
@@ -414,8 +371,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="101.6"
 					y2="122.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustFill7"
 					x1="102"
@@ -423,8 +379,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="69.6"
 					y2="90.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustFill8"
 					x1="162"
@@ -432,8 +387,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="69.6"
 					y2="90.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustFill9"
 					x1="134"
@@ -441,8 +395,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="33.6"
 					y2="54.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustFilla"
 					x1="194"
@@ -450,8 +403,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="33.6"
 					y2="54.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustFillb"
 					x1="166"
@@ -459,8 +411,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="1.6"
 					y2="22.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustFillc"
 					x1="226"
@@ -468,8 +419,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 					y1="1.6"
 					y2="22.4"
 					href="#meteoconsDustFill1"
-				>
-				</linearGradient>
+				></linearGradient>
 				<symbol id="meteoconsDustFilld" viewBox="0 0 350 222">
 					<path
 						fill="url(#meteoconsDustFill0)"
@@ -477,8 +427,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 						strokeMiterlimit="10"
 						strokeWidth="6"
 						d="m291 107l-2.5.1A83.9 83.9 0 0 0 135.6 43A56 56 0 0 0 51 91a56.6 56.6 0 0 0 .8 9A60 60 0 0 0 63 219l4-.2v.2h224a56 56 0 0 0 0-112Z"
-					>
-					</path>
+					></path>
 				</symbol>
 				<symbol id="meteoconsDustFille" viewBox="0 0 244 192">
 					<circle cx="12" cy="180" r="12" fill="url(#meteoconsDustFill1)">
@@ -488,8 +437,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="72" cy="180" r="12" fill="url(#meteoconsDustFill2)">
 						<animate
@@ -498,8 +446,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="44" cy="148" r="12" fill="url(#meteoconsDustFill3)">
 						<animate
@@ -508,8 +455,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="104" cy="148" r="12" fill="url(#meteoconsDustFill4)">
 						<animate
@@ -518,8 +464,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="76" cy="112" r="12" fill="url(#meteoconsDustFill5)">
 						<animate
@@ -528,8 +473,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="136" cy="112" r="12" fill="url(#meteoconsDustFill6)">
 						<animate
@@ -538,8 +482,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="108" cy="80" r="12" fill="url(#meteoconsDustFill7)">
 						<animate
@@ -548,8 +491,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="168" cy="80" r="12" fill="url(#meteoconsDustFill8)">
 						<animate
@@ -558,8 +500,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="140" cy="44" r="12" fill="url(#meteoconsDustFill9)">
 						<animate
@@ -568,8 +509,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="200" cy="44" r="12" fill="url(#meteoconsDustFilla)">
 						<animate
@@ -578,8 +518,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="172" cy="12" r="12" fill="url(#meteoconsDustFillb)">
 						<animate
@@ -588,8 +527,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 					<circle cx="232" cy="12" r="12" fill="url(#meteoconsDustFillc)">
 						<animate
@@ -598,8 +536,7 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							repeatCount="indefinite"
 							values=".5; 1; .5"
-						>
-						</animate>
+						></animate>
 					</circle>
 				</symbol>
 				<clipPath id="meteoconsDustFillf">
@@ -607,21 +544,9 @@ export function MeteoconsDustFill(props: SVGProps<SVGSVGElement>) {
 				</clipPath>
 			</defs>
 			<g clipPath="url(#meteoconsDustFillf)">
-				<use
-					width="350"
-					height="222"
-					href="#meteoconsDustFilld"
-					transform="translate(85 145)"
-				>
-				</use>
+				<use width="350" height="222" href="#meteoconsDustFilld" transform="translate(85 145)"></use>
 			</g>
-			<use
-				width="244"
-				height="192"
-				href="#meteoconsDustFille"
-				transform="translate(192 182)"
-			>
-			</use>
+			<use width="244" height="192" href="#meteoconsDustFille" transform="translate(192 182)"></use>
 		</svg>
 	);
 }
@@ -657,8 +582,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					y1="96.2"
 					y2="254.4"
 					href="#meteoconsDustWindFill0"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustWindFill2"
 					x1="90"
@@ -678,8 +602,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					y1="185.6"
 					y2="206.4"
 					href="#meteoconsDustWindFill2"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustWindFill4"
 					x1="258"
@@ -687,8 +610,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					y1="185.6"
 					y2="206.4"
 					href="#meteoconsDustWindFill2"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustWindFill5"
 					x1="216"
@@ -696,8 +618,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					y1="245.6"
 					y2="266.4"
 					href="#meteoconsDustWindFill2"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustWindFill6"
 					x1="300"
@@ -705,8 +626,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					y1="245.6"
 					y2="266.4"
 					href="#meteoconsDustWindFill2"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustWindFill7"
 					x1="384"
@@ -714,8 +634,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					y1="245.6"
 					y2="266.4"
 					href="#meteoconsDustWindFill2"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustWindFill8"
 					x1="166"
@@ -723,8 +642,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					y1="305.6"
 					y2="326.4"
 					href="#meteoconsDustWindFill2"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustWindFill9"
 					x1="250"
@@ -732,8 +650,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					y1="305.6"
 					y2="326.4"
 					href="#meteoconsDustWindFill2"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsDustWindFilla"
 					x1="334"
@@ -741,8 +658,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					y1="305.6"
 					y2="326.4"
 					href="#meteoconsDustWindFill2"
-				>
-				</linearGradient>
+				></linearGradient>
 				<symbol id="meteoconsDustWindFillb" viewBox="0 0 348 240">
 					<path
 						fill="none"
@@ -753,13 +669,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 						strokeWidth="24"
 						d="M267.2 24.3A40 40 0 1 1 296 92H12"
 					>
-						<animate
-							attributeName="stroke-dashoffset"
-							dur="6s"
-							repeatCount="indefinite"
-							values="0; 2960"
-						>
-						</animate>
+						<animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite" values="0; 2960"></animate>
 					</path>
 					<path
 						fill="none"
@@ -770,38 +680,14 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 						strokeWidth="24"
 						d="M151.2 215.7A40 40 0 1 0 180 148H12"
 					>
-						<animate
-							attributeName="stroke-dashoffset"
-							dur="6s"
-							repeatCount="indefinite"
-							values="0; 1540"
-						>
-						</animate>
+						<animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite" values="0; 1540"></animate>
 					</path>
 				</symbol>
 			</defs>
 			<g opacity="0">
-				<circle
-					cx="96"
-					cy="196"
-					r="12"
-					fill="url(#meteoconsDustWindFill2)"
-				>
-				</circle>
-				<circle
-					cx="222"
-					cy="256"
-					r="12"
-					fill="url(#meteoconsDustWindFill5)"
-				>
-				</circle>
-				<circle
-					cx="172"
-					cy="316"
-					r="12"
-					fill="url(#meteoconsDustWindFill8)"
-				>
-				</circle>
+				<circle cx="96" cy="196" r="12" fill="url(#meteoconsDustWindFill2)"></circle>
+				<circle cx="222" cy="256" r="12" fill="url(#meteoconsDustWindFill5)"></circle>
+				<circle cx="172" cy="316" r="12" fill="url(#meteoconsDustWindFill8)"></circle>
 				<animateTransform
 					id="meteoconsDustWindFillc"
 					additive="sum"
@@ -810,8 +696,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					dur=".83s"
 					type="translate"
 					values="-24 0; 24 0"
-				>
-				</animateTransform>
+				></animateTransform>
 				<animate
 					id="meteoconsDustWindFilld"
 					attributeName="opacity"
@@ -819,31 +704,12 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					dur=".83s"
 					keyTimes="0; .17; .83; 1"
 					values="0; 1; 1; 0"
-				>
-				</animate>
+				></animate>
 			</g>
 			<g opacity="0">
-				<circle
-					cx="180"
-					cy="196"
-					r="12"
-					fill="url(#meteoconsDustWindFill3)"
-				>
-				</circle>
-				<circle
-					cx="306"
-					cy="256"
-					r="12"
-					fill="url(#meteoconsDustWindFill6)"
-				>
-				</circle>
-				<circle
-					cx="256"
-					cy="316"
-					r="12"
-					fill="url(#meteoconsDustWindFill9)"
-				>
-				</circle>
+				<circle cx="180" cy="196" r="12" fill="url(#meteoconsDustWindFill3)"></circle>
+				<circle cx="306" cy="256" r="12" fill="url(#meteoconsDustWindFill6)"></circle>
+				<circle cx="256" cy="316" r="12" fill="url(#meteoconsDustWindFill9)"></circle>
 				<animateTransform
 					id="meteoconsDustWindFille"
 					additive="sum"
@@ -852,8 +718,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					dur=".83s"
 					type="translate"
 					values="-24 0; 24 0"
-				>
-				</animateTransform>
+				></animateTransform>
 				<animate
 					id="meteoconsDustWindFillf"
 					attributeName="opacity"
@@ -861,31 +726,12 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					dur=".83s"
 					keyTimes="0; .17; .83; 1"
 					values="0; 1; 1; 0"
-				>
-				</animate>
+				></animate>
 			</g>
 			<g opacity="0">
-				<circle
-					cx="264"
-					cy="196"
-					r="12"
-					fill="url(#meteoconsDustWindFill4)"
-				>
-				</circle>
-				<circle
-					cx="390"
-					cy="256"
-					r="12"
-					fill="url(#meteoconsDustWindFill7)"
-				>
-				</circle>
-				<circle
-					cx="340"
-					cy="316"
-					r="12"
-					fill="url(#meteoconsDustWindFilla)"
-				>
-				</circle>
+				<circle cx="264" cy="196" r="12" fill="url(#meteoconsDustWindFill4)"></circle>
+				<circle cx="390" cy="256" r="12" fill="url(#meteoconsDustWindFill7)"></circle>
+				<circle cx="340" cy="316" r="12" fill="url(#meteoconsDustWindFilla)"></circle>
 				<animateTransform
 					id="meteoconsDustWindFillg"
 					additive="sum"
@@ -894,8 +740,7 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					dur=".83s"
 					type="translate"
 					values="-24 0; 24 0"
-				>
-				</animateTransform>
+				></animateTransform>
 				<animate
 					id="meteoconsDustWindFillh"
 					attributeName="opacity"
@@ -903,16 +748,9 @@ export function MeteoconsDustWindFill(props: SVGProps<SVGSVGElement>) {
 					dur=".83s"
 					keyTimes="0; .17; .83; 1"
 					values="0; 1; 1; 0"
-				>
-				</animate>
+				></animate>
 			</g>
-			<use
-				width="348"
-				height="240"
-				href="#meteoconsDustWindFillb"
-				transform="translate(83 136)"
-			>
-			</use>
+			<use width="348" height="240" href="#meteoconsDustWindFillb" transform="translate(83 136)"></use>
 		</svg>
 	);
 }
@@ -929,38 +767,17 @@ export function MeteoconsFogFill(props: SVGProps<SVGSVGElement>) {
 			{...props}
 		>
 			<defs>
-				<linearGradient
-					id="meteoconsFogFill0"
-					x1="99.5"
-					x2="232.6"
-					y1="30.7"
-					y2="261.4"
-					gradientUnits="userSpaceOnUse"
-				>
+				<linearGradient id="meteoconsFogFill0" x1="99.5" x2="232.6" y1="30.7" y2="261.4" gradientUnits="userSpaceOnUse">
 					<stop offset="0" stopColor="#f3f7fe" />
 					<stop offset=".5" stopColor="#f3f7fe" />
 					<stop offset="1" stopColor="#deeafb" />
 				</linearGradient>
-				<linearGradient
-					id="meteoconsFogFill1"
-					x1="96"
-					x2="168"
-					y1="-2.4"
-					y2="122.3"
-					gradientUnits="userSpaceOnUse"
-				>
+				<linearGradient id="meteoconsFogFill1" x1="96" x2="168" y1="-2.4" y2="122.3" gradientUnits="userSpaceOnUse">
 					<stop offset="0" stopColor="#d4d7dd" />
 					<stop offset=".5" stopColor="#d4d7dd" />
 					<stop offset="1" stopColor="#bec1c6" />
 				</linearGradient>
-				<linearGradient
-					id="meteoconsFogFill2"
-					x2="168"
-					y1="-50.4"
-					y2="74.3"
-					href="#meteoconsFogFill1"
-				>
-				</linearGradient>
+				<linearGradient id="meteoconsFogFill2" x2="168" y1="-50.4" y2="74.3" href="#meteoconsFogFill1"></linearGradient>
 				<symbol id="meteoconsFogFill3" viewBox="0 0 350 222">
 					<path
 						fill="url(#meteoconsFogFill0)"
@@ -968,8 +785,7 @@ export function MeteoconsFogFill(props: SVGProps<SVGSVGElement>) {
 						strokeMiterlimit="10"
 						strokeWidth="6"
 						d="m291 107l-2.5.1A83.9 83.9 0 0 0 135.6 43A56 56 0 0 0 51 91a56.6 56.6 0 0 0 .8 9A60 60 0 0 0 63 219l4-.2v.2h224a56 56 0 0 0 0-112Z"
-					>
-					</path>
+					></path>
 				</symbol>
 				<symbol id="meteoconsFogFill4" viewBox="0 0 264 72">
 					<path
@@ -987,8 +803,7 @@ export function MeteoconsFogFill(props: SVGProps<SVGSVGElement>) {
 							repeatCount="indefinite"
 							type="translate"
 							values="-24 0; 24 0; -24 0"
-						>
-						</animateTransform>
+						></animateTransform>
 					</path>
 					<path
 						fill="none"
@@ -1005,25 +820,12 @@ export function MeteoconsFogFill(props: SVGProps<SVGSVGElement>) {
 							repeatCount="indefinite"
 							type="translate"
 							values="24 0; -24 0; 24 0"
-						>
-						</animateTransform>
+						></animateTransform>
 					</path>
 				</symbol>
 			</defs>
-			<use
-				width="350"
-				height="222"
-				href="#meteoconsFogFill3"
-				transform="translate(81 145)"
-			>
-			</use>
-			<use
-				width="264"
-				height="72"
-				href="#meteoconsFogFill4"
-				transform="translate(124 402)"
-			>
-			</use>
+			<use width="350" height="222" href="#meteoconsFogFill3" transform="translate(81 145)"></use>
+			<use width="264" height="72" href="#meteoconsFogFill4" transform="translate(124 402)"></use>
 		</svg>
 	);
 }
@@ -1068,8 +870,7 @@ export function MeteoconsHurricaneFill(props: SVGProps<SVGSVGElement>) {
 					repeatCount="indefinite"
 					type="rotate"
 					values="1440 256 256; 0 256 256"
-				>
-				</animateTransform>
+				></animateTransform>
 			</path>
 		</svg>
 	);
@@ -1132,8 +933,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 					y2="-1089.7"
 					gradientTransform="rotate(-9 8009.537 8233.037)"
 					href="#meteoconsOvercastDayRainFill2"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsOvercastDayRainFill4"
 					x1="1492.1"
@@ -1142,8 +942,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 					y2="-1082.1"
 					gradientTransform="rotate(-9 8016.566 8233.078)"
 					href="#meteoconsOvercastDayRainFill2"
-				>
-				</linearGradient>
+				></linearGradient>
 				<linearGradient
 					id="meteoconsOvercastDayRainFill5"
 					x1="78"
@@ -1165,8 +964,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 						stroke="#f8af18"
 						strokeMiterlimit="10"
 						strokeWidth="4"
-					>
-					</circle>
+					></circle>
 					<path
 						fill="none"
 						stroke="#fbbf24"
@@ -1182,8 +980,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 							repeatCount="indefinite"
 							type="rotate"
 							values="0 98 98; 45 98 98"
-						>
-						</animateTransform>
+						></animateTransform>
 					</path>
 				</symbol>
 				<symbol id="meteoconsOvercastDayRainFill7" viewBox="0 0 200.3 126.1">
@@ -1192,8 +989,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 						stroke="#848b98"
 						strokeMiterlimit="10"
 						d="M.5 93.2a32.4 32.4 0 0 0 32.4 32.4h129.8v-.1l2.3.1a34.8 34.8 0 0 0 6.5-68.9a32.4 32.4 0 0 0-48.5-33a48.6 48.6 0 0 0-88.6 37.1h-1.5A32.4 32.4 0 0 0 .5 93.1Z"
-					>
-					</path>
+					></path>
 				</symbol>
 				<symbol id="meteoconsOvercastDayRainFill8" viewBox="0 0 350 222">
 					<path
@@ -1202,16 +998,10 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 						strokeMiterlimit="10"
 						strokeWidth="6"
 						d="m291 107l-2.5.1A83.9 83.9 0 0 0 135.6 43A56 56 0 0 0 51 91a56.6 56.6 0 0 0 .8 9A60 60 0 0 0 63 219l4-.2v.2h224a56 56 0 0 0 0-112Z"
-					>
-					</path>
+					></path>
 				</symbol>
 				<symbol id="meteoconsOvercastDayRainFill9" viewBox="0 0 398 222">
-					<use
-						width="200.3"
-						height="126.1"
-						href="#meteoconsOvercastDayRainFill7"
-						transform="translate(198 27)"
-					>
+					<use width="200.3" height="126.1" href="#meteoconsOvercastDayRainFill7" transform="translate(198 27)">
 						<animateTransform
 							additive="sum"
 							attributeName="transform"
@@ -1219,8 +1009,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 							repeatCount="indefinite"
 							type="translate"
 							values="-9 0; 9 0; -9 0"
-						>
-						</animateTransform>
+						></animateTransform>
 					</use>
 					<use width="350" height="222" href="#meteoconsOvercastDayRainFill8">
 						<animateTransform
@@ -1230,24 +1019,12 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 							repeatCount="indefinite"
 							type="translate"
 							values="-18 0; 18 0; -18 0"
-						>
-						</animateTransform>
+						></animateTransform>
 					</use>
 				</symbol>
 				<symbol id="meteoconsOvercastDayRainFilla" viewBox="0 0 410.8 258">
-					<use
-						width="196"
-						height="196"
-						href="#meteoconsOvercastDayRainFill6"
-					>
-					</use>
-					<use
-						width="398"
-						height="222"
-						href="#meteoconsOvercastDayRainFill9"
-						transform="translate(12.84 36)"
-					>
-					</use>
+					<use width="196" height="196" href="#meteoconsOvercastDayRainFill6"></use>
+					<use width="398" height="222" href="#meteoconsOvercastDayRainFill9" transform="translate(12.84 36)"></use>
 				</symbol>
 				<symbol id="meteoconsOvercastDayRainFillb" viewBox="0 0 129 57">
 					<path
@@ -1265,8 +1042,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							type="translate"
 							values="0 -60; 0 60"
-						>
-						</animateTransform>
+						></animateTransform>
 						<animate
 							id="meteoconsOvercastDayRainFilld"
 							attributeName="opacity"
@@ -1274,8 +1050,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							keyTimes="0; .25; 1"
 							values="0; 1; 0"
-						>
-						</animate>
+						></animate>
 					</path>
 					<path
 						fill="url(#meteoconsOvercastDayRainFill3)"
@@ -1292,8 +1067,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							type="translate"
 							values="0 -60; 0 60"
-						>
-						</animateTransform>
+						></animateTransform>
 						<animate
 							id="meteoconsOvercastDayRainFillf"
 							attributeName="opacity"
@@ -1301,8 +1075,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							keyTimes="0; .25; 1"
 							values="0; 1; 0"
-						>
-						</animate>
+						></animate>
 					</path>
 					<path
 						fill="url(#meteoconsOvercastDayRainFill4)"
@@ -1319,8 +1092,7 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							type="translate"
 							values="0 -60; 0 60"
-						>
-						</animateTransform>
+						></animateTransform>
 						<animate
 							id="meteoconsOvercastDayRainFillh"
 							attributeName="opacity"
@@ -1328,25 +1100,12 @@ export function MeteoconsOvercastDayRainFill(props: SVGProps<SVGSVGElement>) {
 							dur=".67s"
 							keyTimes="0; .25; 1"
 							values="0; 1; 0"
-						>
-						</animate>
+						></animate>
 					</path>
 				</symbol>
 			</defs>
-			<use
-				width="410.8"
-				height="258"
-				href="#meteoconsOvercastDayRainFilla"
-				transform="translate(56 109)"
-			>
-			</use>
-			<use
-				width="129"
-				height="57"
-				href="#meteoconsOvercastDayRainFillb"
-				transform="translate(191.5 343.5)"
-			>
-			</use>
+			<use width="410.8" height="258" href="#meteoconsOvercastDayRainFilla" transform="translate(56 109)"></use>
+			<use width="129" height="57" href="#meteoconsOvercastDayRainFillb" transform="translate(191.5 343.5)"></use>
 		</svg>
 	);
 }

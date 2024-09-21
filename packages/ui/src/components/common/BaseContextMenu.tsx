@@ -7,14 +7,11 @@ import { ContextMenuContent, ContextMenuItem } from "../ui/context-menu";
 import { Separator } from "../ui/separator";
 import ResizeMenuItem from "./ResizeMenuItem";
 
-interface BaseContextMenuContentProps
-	extends React.HTMLAttributes<HTMLDivElement> {
+interface BaseContextMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {
 	compAtom: PrimitiveAtom<Comp>;
 }
 
-export default function BaseContextMenu(
-	props: BaseContextMenuContentProps
-) {
+export default function BaseContextMenu(props: BaseContextMenuContentProps) {
 	const { compAtom, children } = props;
 	const [comp] = useAtom(compAtom);
 	const [, setComps] = useAtom(compAtoms);
