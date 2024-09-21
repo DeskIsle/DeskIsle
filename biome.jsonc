@@ -6,7 +6,15 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"all": true,
+			"style": {
+				"useNamingConvention": "off",
+				"useSelfClosingElements": "info",
+				"noDefaultExport": "info"
+			},
+			"correctness": {
+				"noNodejsModules": "off"
+			}
 		}
 	},
 	"formatter": {

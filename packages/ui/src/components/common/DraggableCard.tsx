@@ -6,7 +6,7 @@ export default function DraggableCard({ children, className, onClick }: HTMLAttr
 	return (
 		<motion.div
 			onClick={onClick}
-			drag
+			drag={true}
 			className={cn("rounded-xl border shadow cursor-pointer flex justify-center items-center bg-white", className)}
 		>
 			{children}

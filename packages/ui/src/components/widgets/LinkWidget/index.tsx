@@ -95,10 +95,10 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 		}
 	}
 	function collectToIconStore() {
-		if (!icons.includes((comp.elementProps as LinkWidgetElementProps).icon)) {
-			setIcons([...icons, (comp.elementProps as LinkWidgetElementProps).icon]);
-		} else {
+		if (icons.includes((comp.elementProps as LinkWidgetElementProps).icon)) {
 			setIcons(icons.filter((i) => i !== (comp.elementProps as LinkWidgetElementProps).icon));
+		} else {
+			setIcons([...icons, (comp.elementProps as LinkWidgetElementProps).icon]);
 		}
 	}
 

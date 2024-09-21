@@ -1,8 +1,9 @@
 {
 	"name": "deskisle",
 	"version": "0.0.1",
+	"license": "MIT",
 	"scripts": {
-		"postinstall": "simple-git-hooks",
+		"prepare": "simple-git-hooks",
 		"lint": "biome lint --write",
 		"format": "biome format --write",
 		"dev:ui": "pnpm --filter @deskisle/ui run dev",
@@ -13,10 +14,10 @@
 		"@biomejs/biome": "1.8.3",
 		"@electron-toolkit/tsconfig": "^1.0.1",
 		"@types/node": "^20.14.8",
+		"lint-staged": "^15.2.10",
 		"simple-git-hooks": "^2.11.1",
 		"typescript": "^5.5.2",
-		"vite": "^5.3.1",
-		"lint-staged": "^15.2.10"
+		"vite": "^5.3.1"
 	},
 	"simple-git-hooks": {
 		"pre-commit": "pnpm exec lint-staged"
