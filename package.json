@@ -23,6 +23,6 @@
 		"pre-commit": "pnpm exec lint-staged"
 	},
 	"lint-staged": {
-		"*": "pnpm format && pnpm lint"
+		"*.{js,jsx,ts,tsx,json,jsonc}": "pnpm format && pnpm lint"
 	}
 }
