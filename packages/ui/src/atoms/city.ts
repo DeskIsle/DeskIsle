@@ -2198,14 +2198,12 @@ export const CityList = [
 	{
 		Location_ID: "101080408",
 		CityZH: "内蒙古自治区-乌兰察布市-察右前旗",
-		CityEN:
-			"Inner Mongolia Autonomous Region-Ulanqab-Chahar Right Front Banner",
+		CityEN: "Inner Mongolia Autonomous Region-Ulanqab-Chahar Right Front Banner",
 	},
 	{
 		Location_ID: "101080409",
 		CityZH: "内蒙古自治区-乌兰察布市-察右中旗",
-		CityEN:
-			"Inner Mongolia Autonomous Region-Ulanqab-Chahar Right Middle Banner",
+		CityEN: "Inner Mongolia Autonomous Region-Ulanqab-Chahar Right Middle Banner",
 	},
 	{
 		Location_ID: "101080410",
@@ -2230,8 +2228,7 @@ export const CityList = [
 	{
 		Location_ID: "101080503",
 		CityZH: "内蒙古自治区-通辽市-科左中旗",
-		CityEN:
-			"Inner Mongolia Autonomous Region-Tongliao-Horqin Left Middle Banner",
+		CityEN: "Inner Mongolia Autonomous Region-Tongliao-Horqin Left Middle Banner",
 	},
 	{
 		Location_ID: "101080504",
@@ -2576,8 +2573,7 @@ export const CityList = [
 	{
 		Location_ID: "101081103",
 		CityZH: "内蒙古自治区-兴安盟-科右中旗",
-		CityEN:
-			"Inner Mongolia Autonomous Region-Hinggan League-Horqin Right Middle Banner",
+		CityEN: "Inner Mongolia Autonomous Region-Hinggan League-Horqin Right Middle Banner",
 	},
 	{
 		Location_ID: "101081104",
@@ -2597,8 +2593,7 @@ export const CityList = [
 	{
 		Location_ID: "101081109",
 		CityZH: "内蒙古自治区-兴安盟-科右前旗",
-		CityEN:
-			"Inner Mongolia Autonomous Region-Hinggan League-Horqin Right Front Banner",
+		CityEN: "Inner Mongolia Autonomous Region-Hinggan League-Horqin Right Front Banner",
 	},
 	{
 		Location_ID: "101081201",
@@ -5578,44 +5573,37 @@ export const CityList = [
 	{
 		Location_ID: "101130401",
 		CityZH: "新疆维吾尔自治区-昌吉回族自治州-昌吉自治州",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Changji Prefecture",
+		CityEN: "Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Changji Prefecture",
 	},
 	{
 		Location_ID: "101130402",
 		CityZH: "新疆维吾尔自治区-昌吉回族自治州-呼图壁",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Hutubi",
+		CityEN: "Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Hutubi",
 	},
 	{
 		Location_ID: "101130404",
 		CityZH: "新疆维吾尔自治区-昌吉回族自治州-阜康",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Fukang",
+		CityEN: "Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Fukang",
 	},
 	{
 		Location_ID: "101130405",
 		CityZH: "新疆维吾尔自治区-昌吉回族自治州-吉木萨尔",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Jimsar",
+		CityEN: "Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Jimsar",
 	},
 	{
 		Location_ID: "101130406",
 		CityZH: "新疆维吾尔自治区-昌吉回族自治州-奇台",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Qitai",
+		CityEN: "Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Qitai",
 	},
 	{
 		Location_ID: "101130407",
 		CityZH: "新疆维吾尔自治区-昌吉回族自治州-玛纳斯",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Manas",
+		CityEN: "Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Manas",
 	},
 	{
 		Location_ID: "101130408",
 		CityZH: "新疆维吾尔自治区-昌吉回族自治州-木垒",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Mori",
+		CityEN: "Xinjiang Uygur Autonomous Region-Changji Hui Autonomous Prefecture-Mori",
 	},
 	{
 		Location_ID: "101130410",
@@ -5645,62 +5633,52 @@ export const CityList = [
 	{
 		Location_ID: "101130601",
 		CityZH: "新疆维吾尔自治区-巴音郭楞蒙古自治州-库尔勒",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Korla",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Korla",
 	},
 	{
 		Location_ID: "101130602",
 		CityZH: "新疆维吾尔自治区-巴音郭楞蒙古自治州-轮台",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Luntai",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Luntai",
 	},
 	{
 		Location_ID: "101130603",
 		CityZH: "新疆维吾尔自治区-巴音郭楞蒙古自治州-尉犁",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Yuli",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Yuli",
 	},
 	{
 		Location_ID: "101130604",
 		CityZH: "新疆维吾尔自治区-巴音郭楞蒙古自治州-若羌",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Ruoqiang",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Ruoqiang",
 	},
 	{
 		Location_ID: "101130605",
 		CityZH: "新疆维吾尔自治区-巴音郭楞蒙古自治州-且末",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Qiemo",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Qiemo",
 	},
 	{
 		Location_ID: "101130606",
 		CityZH: "新疆维吾尔自治区-巴音郭楞蒙古自治州-和静",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Hejing",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Hejing",
 	},
 	{
 		Location_ID: "101130607",
 		CityZH: "新疆维吾尔自治区-巴音郭楞蒙古自治州-焉耆",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Yanqi",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Yanqi",
 	},
 	{
 		Location_ID: "101130608",
 		CityZH: "新疆维吾尔自治区-巴音郭楞蒙古自治州-和硕",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Hoxud",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Hoxud",
 	},
 	{
 		Location_ID: "101130609",
 		CityZH: "新疆维吾尔自治区-巴音郭楞蒙古自治州-巴音郭楞自治州",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Bayingolin Prefecture",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Bayingolin Prefecture",
 	},
 	{
 		Location_ID: "101130612",
 		CityZH: "新疆维吾尔自治区-巴音郭楞蒙古自治州-博湖",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Bohu",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bayingolin Mongol Autonomous Prefecture-Bohu",
 	},
 	{
 		Location_ID: "101130701",
@@ -5760,8 +5738,7 @@ export const CityList = [
 	{
 		Location_ID: "101130901",
 		CityZH: "新疆维吾尔自治区-喀什地区-喀什地区",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Kashgar Prefecture-Kashgar Prefecture",
+		CityEN: "Xinjiang Uygur Autonomous Region-Kashgar Prefecture-Kashgar Prefecture",
 	},
 	{
 		Location_ID: "101130902",
@@ -5826,80 +5803,67 @@ export const CityList = [
 	{
 		Location_ID: "101131001",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-伊宁",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Yining",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Yining",
 	},
 	{
 		Location_ID: "101131002",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-察布查尔",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Qapqal",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Qapqal",
 	},
 	{
 		Location_ID: "101131003",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-尼勒克",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Nilka",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Nilka",
 	},
 	{
 		Location_ID: "101131004",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-伊宁县",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Yining",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Yining",
 	},
 	{
 		Location_ID: "101131005",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-巩留",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Gongliu",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Gongliu",
 	},
 	{
 		Location_ID: "101131006",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-新源",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Xinyuan",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Xinyuan",
 	},
 	{
 		Location_ID: "101131007",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-昭苏",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Zhaosu",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Zhaosu",
 	},
 	{
 		Location_ID: "101131008",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-特克斯",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Tekes",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Tekes",
 	},
 	{
 		Location_ID: "101131009",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-霍城",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Huocheng",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Huocheng",
 	},
 	{
 		Location_ID: "101131010",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-霍尔果斯",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Khorgas",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Khorgas",
 	},
 	{
 		Location_ID: "101131011",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-奎屯",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Kuytun",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Kuytun",
 	},
 	{
 		Location_ID: "101131012",
 		CityZH: "新疆维吾尔自治区-伊犁哈萨克自治州-伊犁自治州",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Ili Prefecture",
+		CityEN: "Xinjiang Uygur Autonomous Region-Ili Kazakh Autonomous Prefecture-Ili Prefecture",
 	},
 	{
 		Location_ID: "101131101",
 		CityZH: "新疆维吾尔自治区-塔城地区-塔城地区",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Tacheng Prefecture-Tacheng Prefecture",
+		CityEN: "Xinjiang Uygur Autonomous Region-Tacheng Prefecture-Tacheng Prefecture",
 	},
 	{
 		Location_ID: "101131102",
@@ -5959,8 +5923,7 @@ export const CityList = [
 	{
 		Location_ID: "101131301",
 		CityZH: "新疆维吾尔自治区-和田地区-和田地区",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Hotan Prefecture-Hotan Prefecture",
+		CityEN: "Xinjiang Uygur Autonomous Region-Hotan Prefecture-Hotan Prefecture",
 	},
 	{
 		Location_ID: "101131302",
@@ -6005,8 +5968,7 @@ export const CityList = [
 	{
 		Location_ID: "101131401",
 		CityZH: "新疆维吾尔自治区-阿勒泰地区-阿勒泰地区",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Altay Prefecture-Altay Prefecture",
+		CityEN: "Xinjiang Uygur Autonomous Region-Altay Prefecture-Altay Prefecture",
 	},
 	{
 		Location_ID: "101131402",
@@ -6046,62 +6008,52 @@ export const CityList = [
 	{
 		Location_ID: "101131501",
 		CityZH: "新疆维吾尔自治区-克孜勒苏柯尔克孜自治州-阿图什",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Kizilsu Kyrgyz Autonomous Prefecture-Artux",
+		CityEN: "Xinjiang Uygur Autonomous Region-Kizilsu Kyrgyz Autonomous Prefecture-Artux",
 	},
 	{
 		Location_ID: "101131502",
 		CityZH: "新疆维吾尔自治区-克孜勒苏柯尔克孜自治州-乌恰",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Kizilsu Kyrgyz Autonomous Prefecture-Wuqia",
+		CityEN: "Xinjiang Uygur Autonomous Region-Kizilsu Kyrgyz Autonomous Prefecture-Wuqia",
 	},
 	{
 		Location_ID: "101131503",
 		CityZH: "新疆维吾尔自治区-克孜勒苏柯尔克孜自治州-阿克陶",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Kizilsu Kyrgyz Autonomous Prefecture-Akto",
+		CityEN: "Xinjiang Uygur Autonomous Region-Kizilsu Kyrgyz Autonomous Prefecture-Akto",
 	},
 	{
 		Location_ID: "101131504",
 		CityZH: "新疆维吾尔自治区-克孜勒苏柯尔克孜自治州-阿合奇",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Kizilsu Kyrgyz Autonomous Prefecture-Akqi",
+		CityEN: "Xinjiang Uygur Autonomous Region-Kizilsu Kyrgyz Autonomous Prefecture-Akqi",
 	},
 	{
 		Location_ID: "101131505",
 		CityZH: "新疆维吾尔自治区-克孜勒苏柯尔克孜自治州-克州",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Kizilsu Kyrgyz Autonomous Prefecture-Kizilsu Prefecture",
+		CityEN: "Xinjiang Uygur Autonomous Region-Kizilsu Kyrgyz Autonomous Prefecture-Kizilsu Prefecture",
 	},
 	{
 		Location_ID: "101131601",
 		CityZH: "新疆维吾尔自治区-博尔塔拉蒙古自治州-博乐",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bortala Mongol Autonomous Prefecture-Bole",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bortala Mongol Autonomous Prefecture-Bole",
 	},
 	{
 		Location_ID: "101131602",
 		CityZH: "新疆维吾尔自治区-博尔塔拉蒙古自治州-温泉",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bortala Mongol Autonomous Prefecture-Wenquan",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bortala Mongol Autonomous Prefecture-Wenquan",
 	},
 	{
 		Location_ID: "101131603",
 		CityZH: "新疆维吾尔自治区-博尔塔拉蒙古自治州-精河",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bortala Mongol Autonomous Prefecture-Jinghe",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bortala Mongol Autonomous Prefecture-Jinghe",
 	},
 	{
 		Location_ID: "101131604",
 		CityZH: "新疆维吾尔自治区-博尔塔拉蒙古自治州-博尔塔拉",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bortala Mongol Autonomous Prefecture-Bortala Prefecture",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bortala Mongol Autonomous Prefecture-Bortala Prefecture",
 	},
 	{
 		Location_ID: "101131606",
 		CityZH: "新疆维吾尔自治区-博尔塔拉蒙古自治州-阿拉山口",
-		CityEN:
-			"Xinjiang Uygur Autonomous Region-Bortala Mongol Autonomous Prefecture-Alashankou",
+		CityEN: "Xinjiang Uygur Autonomous Region-Bortala Mongol Autonomous Prefecture-Alashankou",
 	},
 	{
 		Location_ID: "101131701",
@@ -6651,8 +6603,7 @@ export const CityList = [
 	{
 		Location_ID: "101150305",
 		CityZH: "青海省-黄南藏族自治州-黄南自治州",
-		CityEN:
-			"Qinghai-Huangnan Tibetan Autonomous Prefecture-Huangnan Prefecture",
+		CityEN: "Qinghai-Huangnan Tibetan Autonomous Prefecture-Huangnan Prefecture",
 	},
 	{
 		Location_ID: "101150401",
@@ -6762,8 +6713,7 @@ export const CityList = [
 	{
 		Location_ID: "101150702",
 		CityZH: "青海省-海西蒙古族藏族自治州-海西自治州",
-		CityEN:
-			"qinghai-Haixi Mongol and Tibetan Autonomous Prefecture-Haixi Prefecture",
+		CityEN: "qinghai-Haixi Mongol and Tibetan Autonomous Prefecture-Haixi Prefecture",
 	},
 	{
 		Location_ID: "101150708",

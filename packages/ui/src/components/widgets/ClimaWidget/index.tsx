@@ -46,7 +46,7 @@ export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
 			30 * 60 * 1000,
 		);
 		return () => clearInterval(intervel);
-	}, [])
+	}, []);
 
 	async function handleRequest() {
 		const data = await getClimaData(selectedCity?.Location_ID);
@@ -129,11 +129,7 @@ export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
 										<div>天气: {weather.text}</div>
 									</div>
 								)}
-								{message &&
-									<span className="text-gray-500 text-[0.7rem] align-middle">
-										{message}
-									</span>
-								}
+								{message && <span className="text-gray-500 text-[0.7rem] align-middle">{message}</span>}
 							</div>
 							{weather && (
 								<div className="flex flex-row gap-1 justify-center items-center w-full mb-2">
@@ -162,10 +158,8 @@ const ClimaWidgetEditor = () => {
 				options={CityList}
 				placeholder="输入城市"
 				filter={(option, value) =>
-					option
-						? option.CityZH.includes(value) ||
-						option.CityEN.toLowerCase().includes(value)
-						: false}
+					option ? option.CityZH.includes(value) || option.CityEN.toLowerCase().includes(value) : false
+				}
 			/>
 		</div>
 	);

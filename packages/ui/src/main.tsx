@@ -7,5 +7,5 @@ import { Desk } from "./pages/desk";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<ModalProvider>
 		<Desk />
-	</ModalProvider>
+	</ModalProvider>,
 );

@@ -33,8 +33,7 @@ export default function SettingWidget() {
 				min={0}
 				value={layoutConfig.unit}
 				onWheel={handleWheel}
-				onChange={(v) =>
-					setLayoutConfig({ ...layoutConfig, unit: Number(v.target.value) })}
+				onChange={(v) => setLayoutConfig({ ...layoutConfig, unit: Number(v.target.value) })}
 			/>
 			<Label htmlFor="gap">间隔</Label>
 			<Input
@@ -44,11 +43,13 @@ export default function SettingWidget() {
 				min={0}
 				value={layoutConfig.gap}
 				onWheel={handleWheel}
-				onChange={(v) =>
-					setLayoutConfig({ ...layoutConfig, gap: Number(v.target.value) })}
+				onChange={(v) => setLayoutConfig({ ...layoutConfig, gap: Number(v.target.value) })}
 			/>
 			<Label htmlFor="compactType">紧凑类型</Label>
-			<Select defaultValue={layoutConfig.compactType} onValueChange={(value) => setLayoutConfig({ ...layoutConfig, compactType: value })}>
+			<Select
+				defaultValue={layoutConfig.compactType}
+				onValueChange={(value) => setLayoutConfig({ ...layoutConfig, compactType: value })}
+			>
 				<SelectTrigger className="w-full">
 					<SelectValue placeholder="" />
 				</SelectTrigger>
@@ -60,7 +61,10 @@ export default function SettingWidget() {
 				</SelectContent>
 			</Select>
 			<Label htmlFor="preventCollision">禁止重叠交换</Label>
-			<Switch checked={layoutConfig.preventCollision} onCheckedChange={(checked) => setLayoutConfig({ ...layoutConfig, preventCollision: checked })} />
-		</div >
+			<Switch
+				checked={layoutConfig.preventCollision}
+				onCheckedChange={(checked) => setLayoutConfig({ ...layoutConfig, preventCollision: checked })}
+			/>
+		</div>
 	);
 }

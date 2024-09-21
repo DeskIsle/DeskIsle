@@ -1,8 +1,6 @@
 import { useCallback, useRef } from "react";
 
-export const useEventCallback = <T extends (...args: unknown[]) => unknown>(
-	fn: T,
-) => {
+export const useEventCallback = <T extends (...args: unknown[]) => unknown>(fn: T) => {
 	const ref = useRef<T>(fn);
 	ref.current = fn;
 

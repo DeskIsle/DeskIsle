@@ -1,11 +1,5 @@
 import { type Comp, compAtoms, registryComps } from "@/atoms/comps";
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { atom, useAtom } from "jotai";
 import { v4 as uuidv4 } from "uuid";
 
@@ -57,19 +51,9 @@ export default function StoreWidget() {
 						return (
 							<CarouselItem key={key}>
 								<div className="flex aspect-square items-center justify-center m-6 border-2 border-slate-200 rounded-md border-dashed bg-[#F3F4F6] p-4">
-									<CompElement
-										preview={true}
-										compAtom={defaultComps[index]}
-										drag={false}
-									/>
-									<div
-										onMouseDown={() => addComp(k)}
-										className="absolute z-10 w-full h-full bg-transparent"
-									>
-									</div>
-									<div className="absolute w-full flex justify-center bottom-0">
-										{registryComps[k].name}
-									</div>
+									<CompElement preview={true} compAtom={defaultComps[index]} drag={false} />
+									<div onMouseDown={() => addComp(k)} className="absolute z-10 w-full h-full bg-transparent"></div>
+									<div className="absolute w-full flex justify-center bottom-0">{registryComps[k].name}</div>
 								</div>
 							</CarouselItem>
 						);

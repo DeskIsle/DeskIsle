@@ -8,21 +8,11 @@ import { ContextMenu, ContextMenuItem } from "@/components/ui/context-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import DataUrlIcon from "@/icons/DataUrlIcon";
 import { RadixIconsPencil2 } from "@/icons/RadixIcons";
 import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
-import {
-	DotsHorizontalIcon,
-	ExternalLinkIcon,
-	StarFilledIcon,
-	StarIcon,
-} from "@radix-ui/react-icons";
+import { DotsHorizontalIcon, ExternalLinkIcon, StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
 import { type PrimitiveAtom, useAtom } from "jotai";
 import { HexAlphaColorPicker } from "react-colorful";
 import { useModal } from "react-modal-hook";
@@ -49,7 +39,7 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 		<Modal showModal={true} hideModal={hideModal}>
 			<LinkWidgetEditor compAtom={compAtom} />
 		</Modal>
-	))
+	));
 	return (
 		<>
 			<ContextMenu modal={false}>
@@ -59,16 +49,15 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 						style={{
 							backgroundColor: bgColor,
 						}}
-						className={"w-full h-full rounded-lg text-5xl select-none flex justify-center items-center hover:cursor-pointer"}
+						className={
+							"w-full h-full rounded-lg text-5xl select-none flex justify-center items-center hover:cursor-pointer"
+						}
 					>
 						<DataUrlIcon className="w-3/4 h-3/4" src={icon} />
 					</div>
 				</ContextMenuTrigger>
 				<BaseContextMenu compAtom={compAtom}>
-					<ContextMenuItem
-						onClick={showModal}
-						className="flex gap-2"
-					>
+					<ContextMenuItem onClick={showModal} className="flex gap-2">
 						<RadixIconsPencil2 />
 						<span>编辑</span>
 					</ContextMenuItem>
@@ -91,12 +80,12 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 	const isElectron = window.api !== undefined;
 	function updateIcon(icon: string) {
 		console.log(icon);
-		setComp({ ...comp, elementProps: { ...comp.elementProps as LinkWidgetElementProps, icon } });
+		setComp({ ...comp, elementProps: { ...(comp.elementProps as LinkWidgetElementProps), icon } });
 	}
 	async function openFileDialog() {
 		const path = await window.api?.openFile();
 		if (path) {
-			setComp({ ...comp, elementProps: { ...comp.elementProps as LinkWidgetElementProps, link: path } });
+			setComp({ ...comp, elementProps: { ...(comp.elementProps as LinkWidgetElementProps), link: path } });
 		}
 	}
 	async function openIconDialog() {
@@ -126,14 +115,15 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 					onChange={(v) =>
 						setComp({
 							...comp,
-							elementProps: { ...comp.elementProps as LinkWidgetElementProps, link: v.target.value },
-						})}
+							elementProps: { ...(comp.elementProps as LinkWidgetElementProps), link: v.target.value },
+						})
+					}
 				/>
-				{isElectron &&
+				{isElectron && (
 					<Button onClick={openFileDialog} variant="outline" size="icon">
 						<DotsHorizontalIcon />
 					</Button>
-				}
+				)}
 			</div>
 			<Label className="col-span-1" htmlFor="icon">
 				图标
@@ -143,9 +133,7 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 					<TabsTrigger value="icon-shop">图标商店</TabsTrigger>
 					<TabsTrigger className="flex gap-1" value="icon-url">
 						<span>图标URL</span>
-						<ExternalLinkIcon
-							onClick={() => window.open("https://icones.js.org/")}
-						/>
+						<ExternalLinkIcon onClick={() => window.open("https://icones.js.org/")} />
 					</TabsTrigger>
 				</TabsList>
 				<TabsContent value="icon-shop">
@@ -160,28 +148,28 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 							onChange={(v) => updateIcon(v.target.value)}
 						/>
 						<div className="flex flex-row gap-1">
-							{isElectron &&
+							{isElectron && (
 								<Button onClick={openIconDialog} variant="outline" size="icon">
 									<DotsHorizontalIcon />
 								</Button>
-							}
+							)}
 							<TooltipProvider>
 								<Tooltip>
 									<TooltipTrigger>
-										<Button
-											onClick={collectToIconStore}
-											variant="outline"
-											size="icon"
-										>
-											{icons.includes((comp.elementProps as LinkWidgetElementProps).icon)
-												? <StarFilledIcon />
-												: <StarIcon />}
+										<Button onClick={collectToIconStore} variant="outline" size="icon">
+											{icons.includes((comp.elementProps as LinkWidgetElementProps).icon) ? (
+												<StarFilledIcon />
+											) : (
+												<StarIcon />
+											)}
 										</Button>
 									</TooltipTrigger>
 									<TooltipContent>
-										{icons.includes((comp.elementProps as LinkWidgetElementProps).icon)
-											? <p>取消收藏</p>
-											: <p>收藏到图标商店</p>}
+										{icons.includes((comp.elementProps as LinkWidgetElementProps).icon) ? (
+											<p>取消收藏</p>
+										) : (
+											<p>收藏到图标商店</p>
+										)}
 									</TooltipContent>
 								</Tooltip>
 							</TooltipProvider>
@@ -200,8 +188,9 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 				onChange={(c) =>
 					setComp({
 						...comp,
-						elementProps: { ...comp.elementProps as LinkWidgetElementProps, bgColor: c },
-					})}
+						elementProps: { ...(comp.elementProps as LinkWidgetElementProps), bgColor: c },
+					})
+				}
 			/>
 			<Input
 				className="col-span-2"
@@ -209,8 +198,9 @@ export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
 				onChange={(c) =>
 					setComp({
 						...comp,
-						elementProps: { ...comp.elementProps as LinkWidgetElementProps, bgColor: c.target.value },
-					})}
+						elementProps: { ...(comp.elementProps as LinkWidgetElementProps), bgColor: c.target.value },
+					})
+				}
 			/>
 		</div>
 	);
