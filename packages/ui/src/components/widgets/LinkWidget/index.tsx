@@ -31,7 +31,7 @@ interface LinkWidgetElementProps {
 export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 	const [comp] = useAtom(compAtom);
 	const { link, icon, bgColor } = comp.elementProps as LinkWidgetElementProps;
-	const openBrowser: MouseEventHandler<HTMLDivElement> = (e) => {
+	const openBrowser: MouseEventHandler<HTMLDivElement> = () => {
 		window.open(link);
 	};
 	const [showModal, hideModal] = useModal(() => (
