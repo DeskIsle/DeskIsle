@@ -14,6 +14,7 @@ import { RadixIconsPencil2 } from "@/icons/RadixIcons";
 import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
 import { DotsHorizontalIcon, ExternalLinkIcon, StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
 import { type PrimitiveAtom, useAtom } from "jotai";
+import type { MouseEventHandler } from "react";
 import { HexAlphaColorPicker } from "react-colorful";
 import { useModal } from "react-modal-hook";
 
@@ -29,12 +30,10 @@ interface LinkWidgetElementProps {
 
 export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 	const [comp] = useAtom(compAtom);
-	const { icon, bgColor } = comp.elementProps as LinkWidgetElementProps;
-	// const openBrowser: MouseEventHandler = (e) => {
-	// 	if (e.button === 0) {
-	// 		window.open(link);
-	// 	}
-	// };
+	const { link, icon, bgColor } = comp.elementProps as LinkWidgetElementProps;
+	const openBrowser: MouseEventHandler<HTMLDivElement> = () => {
+		window.open(link);
+	};
 	const [showModal, hideModal] = useModal(() => (
 		<Modal showModal={true} hideModal={hideModal}>
 			<LinkWidgetEditor compAtom={compAtom} />
@@ -45,7 +44,8 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 			<ContextMenu modal={false}>
 				<ContextMenuTrigger className="w-full h-full">
 					<div
-						// onMouseUp={openBrowser}
+						onClick={openBrowser}
+						onKeyDown={() => console.log('key down')}
 						style={{
 							backgroundColor: bgColor,
 						}}

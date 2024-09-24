@@ -2,22 +2,10 @@ import ClimaWidget from "@/components/widgets/ClimaWidget";
 import LinkWidget from "@/components/widgets/LinkWidget";
 import { atom } from "jotai";
 import { atomWithStorage, splitAtom } from "jotai/utils";
-import type React from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-export type RegistryComps = {
-	[key in keyof typeof registryComps]: {
-		name: string;
-		Element: (props?: unknown) => React.JSX.Element;
-		defaultProps: {
-			width: number;
-			height: number;
-			elementProps: unknown;
-		};
-		optionalSizes: { w: number; h: number }[];
-	};
-};
+export type RegistryComps = typeof registryComps;
 
 export const registryComps = {
 	LinkWidget: {
