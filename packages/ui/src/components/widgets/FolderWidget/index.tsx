@@ -5,7 +5,7 @@ import DataUrlIcon from "@/icons/DataUrlIcon"
 import { type PrimitiveAtom, useAtom } from "jotai"
 import type { LinkWidgetElementProps } from "../LinkWidget"
 
-interface FolderWidgetProps {
+export interface FolderWidgetProps {
   compAtom: PrimitiveAtom<Comp>
 }
 
