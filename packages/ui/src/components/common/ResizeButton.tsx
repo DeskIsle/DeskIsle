@@ -1,5 +1,6 @@
 import type { Comp } from "@/atoms/comps";
 import { type PrimitiveAtom, useAtom } from "jotai";
+import { Button } from "../ui/button";
 
 interface LayoutButtonProps {
 	width: number;
@@ -17,8 +18,8 @@ export default function ResizeButton({ width, height, compAtom }: LayoutButtonPr
 		});
 	}
 	return (
-		<button type="button" onClick={handleClick}>
+		<Button variant='outline' className="w-full h-full p-2 h-[2rem]" type="button" onMouseDown={handleClick}>
 			{width}x{height}
-		</button>
+		</Button>
 	);
 }
