@@ -3,6 +3,7 @@ import BaseContextMenu from "@/components/common/BaseContextMenu"
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
 import DataUrlIcon from "@/icons/DataUrlIcon"
 import { type PrimitiveAtom, useAtom } from "jotai"
+import type { LinkWidgetElementProps } from "../LinkWidget"
 
 interface FolderWidgetProps {
   compAtom: PrimitiveAtom<Comp>
@@ -21,7 +22,7 @@ export const FolderWidget = ({ compAtom }: FolderWidgetProps) => {
         <ContextMenuTrigger className="w-full h-full">
           <div className={`w-full h-full grid grid-cols-2 grid-rows-2 gap-${comp.width} p-${comp.width} hover:cursor-pointer bg-black/25 rounded-lg`}>
             {comps.map((comp) => {
-              const { link, icon, bgColor } = comp.elementProps
+              const { icon, bgColor } = comp.elementProps as LinkWidgetElementProps
               return (
                 <div
                   key={comp.id}

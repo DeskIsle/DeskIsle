@@ -22,7 +22,7 @@ export interface LinkWidgetProps {
 	compAtom: PrimitiveAtom<Comp>;
 }
 
-interface LinkWidgetElementProps {
+export interface LinkWidgetElementProps {
 	link: string;
 	icon: string;
 	bgColor: string;
