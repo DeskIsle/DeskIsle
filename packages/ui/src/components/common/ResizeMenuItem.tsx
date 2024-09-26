@@ -20,7 +20,7 @@ export default function ResizeMenuItem({ compAtom }: ResizeMenuItemProps) {
 			</div>
 			<div className="grid grid-cols-3 gap-1">
 				{sizes.map((size, index) => (
-					<ContextMenuItem key={`${size.w}-${size.h}-${index}`} className="rounded-md border shadow-sm">
+					<ContextMenuItem key={`${size.w}-${size.h}-${index}`} className="p-0">
 						<ResizeButton width={size.w} height={size.h} compAtom={compAtom} />
 					</ContextMenuItem>
 				))}
