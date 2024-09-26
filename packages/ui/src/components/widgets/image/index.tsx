@@ -6,7 +6,7 @@ export interface ImageWidgetProps {
 }
 
 export function ImageWidget({ componentAtom }: ImageWidgetProps) {
-	const [comp] = useAtom(componentAtom);
-	const { img } = comp.elementProps as { img: string };
+	const [component] = useAtom(componentAtom);
+	const { img } = component.elementProps as { img: string };
 	return <img className="object-cover w-full h-full" draggable={false} src={img} alt="" />;
 }

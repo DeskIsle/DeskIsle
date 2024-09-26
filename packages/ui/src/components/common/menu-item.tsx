@@ -1,4 +1,4 @@
-import { type BaseComponentMeta, registryComponents } from "@/atoms/components";
+import { type BaseComponentMeta, componentsRegistry } from "@/atoms/components";
 import { RadixIconsDimensions } from "@/icons/radix";
 import { type PrimitiveAtom, useAtom } from "jotai";
 import type React from "react";
@@ -9,8 +9,8 @@ interface ResizeMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
 	componentAtom: PrimitiveAtom<BaseComponentMeta>;
 }
 export function ResizeMenuItem({ componentAtom }: ResizeMenuItemProps) {
-	const [comp] = useAtom(componentAtom);
-	const sizes = registryComponents[comp.element].optionalSizes;
+	const [component] = useAtom(componentAtom);
+	const sizes = componentsRegistry[component.element].optionalSizes;
 
 	return (
 		<div className="relative flex gap-1 flex-col cursor-default select-none justify-center rounded-sm px-2 py-1.5 text-sm outline-none">

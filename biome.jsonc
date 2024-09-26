@@ -14,6 +14,9 @@
 			},
 			"correctness": {
 				"noNodejsModules": "off"
+			},
+			"complexity": {
+				"noBannedTypes": "off"
 			}
 		}
 	},

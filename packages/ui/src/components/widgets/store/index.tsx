@@ -1,4 +1,4 @@
-import { type BaseComponentMeta, componentsAtoms, registryComponents } from "@/atoms/components";
+import { type BaseComponentMeta, componentsAtoms, componentsRegistry } from "@/atoms/components";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { atom, useAtom } from "jotai";
 import { v4 as uuidv4 } from "uuid";
@@ -9,16 +9,16 @@ import { WidgetWrapper } from "../widget-wrapper";
 
 const defaultCompAtoms = splitAtom(
 	atom<BaseComponentMeta[]>(
-		Object.keys(registryComponents).map((key) => {
-			const k = key as keyof typeof registryComponents;
+		Object.keys(componentsRegistry).map((key) => {
+			const k = key as keyof typeof componentsRegistry;
 			return {
 				id: uuidv4(),
 				row: 0,
 				col: 0,
-				width: registryComponents[k].defaultProps.width,
-				height: registryComponents[k].defaultProps.height,
+				width: componentsRegistry[k].defaultProps.width,
+				height: componentsRegistry[k].defaultProps.height,
 				element: k,
-				elementProps: registryComponents[k].defaultProps.elementProps,
+				elementProps: componentsRegistry[k].defaultProps.elementProps,
 			};
 		}),
 	),
@@ -26,18 +26,18 @@ const defaultCompAtoms = splitAtom(
 
 export function StoreWidget() {
 	const [defaultComps] = useAtom(defaultCompAtoms);
-	const [comps, setComps] = useAtom(componentsAtoms);
-	const addComp = (k: keyof typeof registryComponents) => {
-		setComps([
-			...comps,
+	const [components, setComponents] = useAtom(componentsAtoms);
+	const addComp = (k: keyof typeof componentsRegistry) => {
+		setComponents([
+			...components,
 			{
 				id: uuidv4(),
 				row: 0,
 				col: 0,
-				width: registryComponents[k].defaultProps.width,
-				height: registryComponents[k].defaultProps.height,
+				width: componentsRegistry[k].defaultProps.width,
+				height: componentsRegistry[k].defaultProps.height,
 				element: k,
-				elementProps: registryComponents[k].defaultProps.elementProps,
+				elementProps: componentsRegistry[k].defaultProps.elementProps,
 			},
 		]);
 	};
@@ -45,14 +45,14 @@ export function StoreWidget() {
 		<div className="flex justify-center items-center">
 			<Carousel className="w-full h-full max-w-xs">
 				<CarouselContent>
-					{Object.keys(registryComponents).map((key, index) => {
-						const k = key as keyof typeof registryComponents;
+					{Object.keys(componentsRegistry).map((key, index) => {
+						const k = key as keyof typeof componentsRegistry;
 						return (
 							<CarouselItem key={key}>
 								<div className="flex aspect-square items-center justify-center m-6 border-2 border-slate-200 rounded-md border-dashed bg-[#F3F4F6] p-4">
 									<WidgetWrapper preview={true} componentAtom={defaultComps[index]} drag={false} />
 									<div onMouseDown={() => addComp(k)} className="absolute z-10 w-full h-full bg-transparent" />
-									<div className="absolute w-full flex justify-center bottom-0">{registryComponents[k].name}</div>
+									<div className="absolute w-full flex justify-center bottom-0">{componentsRegistry[k].name}</div>
 								</div>
 							</CarouselItem>
 						);
@@ -62,24 +62,15 @@ export function StoreWidget() {
 				<CarouselNext />
 			</Carousel>
 		</div>
-		// <div className="">
-
-		//   {Object.keys(registryComps).map((key, index) => {
-		//     const k = key as keyof typeof registryComps
-		//     return (
-		//       <WidgetItem key={index} k={k}></WidgetItem>
-		//     )
-		//   })}
-		// </div>
 	);
 }
 
-export function WidgetItem({ k }: { k: keyof typeof registryComponents }) {
-	const { name, defaultProps } = registryComponents[k];
-	const [comps, setComps] = useAtom(componentsAtoms);
+export function WidgetItem({ k }: { k: keyof typeof componentsRegistry }) {
+	const { name, defaultProps } = componentsRegistry[k];
+	const [components, setComponents] = useAtom(componentsAtoms);
 	function addWidget() {
-		setComps([
-			...comps,
+		setComponents([
+			...components,
 			{
 				id: uuidv4(),
 				row: 0,

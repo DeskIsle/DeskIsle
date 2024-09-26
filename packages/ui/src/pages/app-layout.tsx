@@ -24,8 +24,8 @@ interface AppLayoutProps {
 export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 	const [{ unit, gap, compactType, preventCollision }] = useAtom(layoutConfigAtom);
 
-	const [compSplitAtoms] = useAtom(splitComponentsAtoms);
-	const [comps, setComps] = useAtom(componentsAtoms);
+	const [componentSplitAtoms] = useAtom(splitComponentsAtoms);
+	const [components, setComponents] = useAtom(componentsAtoms);
 	const [cols, setCols] = useState(10);
 	const [fixedLayoutWidth, setFixedLayoutWidth] = useState(500);
 	const [isDragging, setIsDragging] = useState(false);
@@ -43,30 +43,30 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 	}, [parentRef, unit, gap]);
 
 	const generateLayout = () => {
-		return comps.map((comp) => {
+		return components.map((component) => {
 			return {
-				x: comp.col,
-				y: comp.row,
-				w: comp.width,
-				h: comp.height,
-				i: comp.id,
+				x: component.col,
+				y: component.row,
+				w: component.width,
+				h: component.height,
+				i: component.id,
 			};
 		});
 	};
 	const [layout, setLayout] = useState<Layout[]>(generateLayout());
 
 	useEffect(() => {
-		const newLayout = comps.map((comp) => {
+		const newLayout = components.map((component) => {
 			return {
-				x: comp.col,
-				y: comp.row,
-				w: comp.width,
-				h: comp.height,
-				i: comp.id,
+				x: component.col,
+				y: component.row,
+				w: component.width,
+				h: component.height,
+				i: component.id,
 			};
 		});
 		setLayout(newLayout);
-	}, [comps]);
+	}, [components]);
 
 	return (
 		<ReactGridLayout
@@ -78,14 +78,14 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			}}
 			onDragStop={(layout) => {
 				const newComps = layout.map((item) => {
-					const comp = comps.find((comp) => comp.id === item.i);
+					const component = components.find((component) => component.id === item.i);
 					return {
-						...comp,
+						...component,
 						col: item.x,
 						row: item.y,
 					};
 				});
-				setComps(newComps);
+				setComponents(newComps);
 			}}
 			compactType={compactType}
 			cols={cols}
@@ -93,10 +93,10 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			rowHeight={unit}
 			preventCollision={preventCollision}
 		>
-			{comps.map((comp, i) => (
+			{components.map((component, i) => (
 				<WidgetWrapper
-					key={comp.id}
-					componentAtom={compSplitAtoms[i]}
+					key={component.id}
+					componentAtom={componentSplitAtoms[i]}
 					onClickCapture={(e) => {
 						if (isDragging) {
 							e.stopPropagation();

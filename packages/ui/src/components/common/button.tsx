@@ -9,10 +9,10 @@ interface LayoutButtonProps {
 }
 
 export function ResizeButton({ width, height, componentAtom }: LayoutButtonProps) {
-	const [comp, setComp] = useAtom(componentAtom);
+	const [component, setComponent] = useAtom(componentAtom);
 	function handleClick() {
-		setComp({
-			...comp,
+		setComponent({
+			...component,
 			width: width,
 			height: height,
 		});

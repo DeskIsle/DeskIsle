@@ -1,4 +1,4 @@
-import { type BaseComponentMeta, type ComponentType, componentsAtoms } from "@/atoms/components";
+import { type BaseComponentMeta, componentsAtoms } from "@/atoms/components";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { type PrimitiveAtom, useAtom } from "jotai";
 import type React from "react";
@@ -8,16 +8,16 @@ import { Separator } from "../ui/separator";
 import { ResizeMenuItem } from "./menu-item";
 
 interface BaseContextMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {
-	componentAtom: PrimitiveAtom<BaseComponentMeta<ComponentType>>;
+	componentAtom: PrimitiveAtom<BaseComponentMeta>;
 }
 
 export function BaseContextMenu(props: BaseContextMenuContentProps) {
 	const { componentAtom, children } = props;
-	const [comp] = useAtom(componentAtom);
-	const [, setComps] = useAtom(componentsAtoms);
+	const [component] = useAtom(componentAtom);
+	const [, setComponents] = useAtom(componentsAtoms);
 
 	const deleteComp = () => {
-		setComps((comps) => comps.filter((c) => c.id !== comp.id));
+		setComponents((components) => components.filter((c) => c.id !== component.id));
 	};
 	const ref = useRef<HTMLDivElement>(null);
 	return (
