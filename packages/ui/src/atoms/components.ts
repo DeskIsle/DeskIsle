@@ -1,14 +1,14 @@
-import ClimaWidget from "@/components/widgets/ClimaWidget";
-import { FolderWidget } from "@/components/widgets/FolderWidget";
-import LinkWidget from "@/components/widgets/LinkWidget";
+import { ClimaWidget, type ClimaWidgetProps } from "@/components/widgets/clima";
+import { FolderWidget, type FolderWidgetProps } from "@/components/widgets/folder";
+import { LinkWidget, type LinkWidgetElementProps } from "@/components/widgets/link";
 import { atom } from "jotai";
 import { atomWithStorage, splitAtom } from "jotai/utils";
 
 import { v4 as uuidv4 } from "uuid";
 
-export type RegistryComps = typeof registryComps;
+export type ComponentType = "LinkWidget" | "ClimaWidget" | "FolderWidget";
 
-export const registryComps = {
+export const registryComponents = {
 	LinkWidget: {
 		name: "导航组件",
 		Element: LinkWidget,
@@ -70,17 +70,37 @@ export const registryComps = {
 	// }
 };
 
-export type Comp = {
+interface ComponentProps {
+	LinkWidget: LinkWidgetElementProps;
+	ClimaWidget: ClimaWidgetProps;
+	FolderWidget: FolderWidgetProps;
+}
+
+export interface BaseComponentMeta<T extends ComponentType> {
 	id: string;
 	row: number;
 	col: number;
 	width: number;
 	height: number;
-	element: keyof RegistryComps;
-	elementProps: unknown;
+	element: T;
+	elementProps: ComponentProps[T];
+}
+
+const aa: BaseComponentMeta<"LinkWidget"> = {
+	id: uuidv4(),
+	row: 0,
+	col: 0,
+	width: 1,
+	height: 1,
+	element: "LinkWidget",
+	elementProps: {
+		link: "https://www.tailwindcss.cn/",
+		icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxLjY3ZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjU2IDE1NCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJsb2dvc1RhaWx3aW5kY3NzSWNvbjAiIHgxPSItMi43NzglIiB4Mj0iMTAwJSIgeTE9IjMyJSIgeTI9IjY3LjU1NiUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyMjk4QkQiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwRUQ3QjUiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBmaWxsPSJ1cmwoI2xvZ29zVGFpbHdpbmRjc3NJY29uMCkiIGQ9Ik0xMjggMEM5My44NjcgMCA3Mi41MzMgMTcuMDY3IDY0IDUxLjJDNzYuOCAzNC4xMzMgOTEuNzMzIDI3LjczMyAxMDguOCAzMmM5LjczNyAyLjQzNCAxNi42OTcgOS40OTkgMjQuNDAxIDE3LjMxOEMxNDUuNzUxIDYyLjA1NyAxNjAuMjc1IDc2LjggMTkyIDc2LjhjMzQuMTMzIDAgNTUuNDY3LTE3LjA2NyA2NC01MS4yYy0xMi44IDE3LjA2Ny0yNy43MzMgMjMuNDY3LTQ0LjggMTkuMmMtOS43MzctMi40MzQtMTYuNjk3LTkuNDk5LTI0LjQwMS0xNy4zMThDMTc0LjI0OSAxNC43NDMgMTU5LjcyNSAwIDEyOCAwTTY0IDc2LjhDMjkuODY3IDc2LjggOC41MzMgOTMuODY3IDAgMTI4YzEyLjgtMTcuMDY3IDI3LjczMy0yMy40NjcgNDQuOC0xOS4yYzkuNzM3IDIuNDM0IDE2LjY5NyA5LjQ5OSAyNC40MDEgMTcuMzE4QzgxLjc1MSAxMzguODU3IDk2LjI3NSAxNTMuNiAxMjggMTUzLjZjMzQuMTMzIDAgNTUuNDY3LTE3LjA2NyA2NC01MS4yYy0xMi44IDE3LjA2Ny0yNy43MzMgMjMuNDY3LTQ0LjggMTkuMmMtOS43MzctMi40MzQtMTYuNjk3LTkuNDk5LTI0LjQwMS0xNy4zMThDMTEwLjI0OSA5MS41NDMgOTUuNzI1IDc2LjggNjQgNzYuOCIvPjwvc3ZnPg==",
+		bgColor: "#FFFFFF",
+	},
 };
 
-export const compAtoms = atomWithStorage<Comp[]>(
+export const componentsAtoms = atomWithStorage<BaseComponentMeta<ComponentType>[]>(
 	"comps",
 	[
 		{
@@ -215,7 +235,7 @@ export const compAtoms = atomWithStorage<Comp[]>(
 							bgColor: "#FFFFFF",
 						},
 					},
-				]
+				],
 			},
 		},
 	],
@@ -223,7 +243,7 @@ export const compAtoms = atomWithStorage<Comp[]>(
 	{ getOnInit: true },
 );
 
-export const splitCompAtoms = splitAtom(compAtoms);
+export const splitComponentsAtoms = splitAtom(componentsAtoms);
 
 export const isDraggingAtom = atom(false);
 export const isDeleteModeAtom = atom(false);

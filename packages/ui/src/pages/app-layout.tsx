@@ -1,11 +1,11 @@
-import { type Comp, compAtoms, registryComps, splitCompAtoms } from "@/atoms/comps";
-import { layoutConfigAtom } from "@/atoms/layoutConfig";
-import { cn } from "@/lib/utils";
-import { type MotionProps, motion } from "framer-motion";
-import { type PrimitiveAtom, useAtom } from "jotai";
-import { type MouseEventHandler, type RefObject, forwardRef, useEffect, useState } from "react";
-import RGL, { WidthProvider } from "react-grid-layout";
 import "@/grid-layout.css";
+import { useAtom } from "jotai";
+import { type RefObject, useEffect, useState } from "react";
+import RGL, { WidthProvider } from "react-grid-layout";
+
+import { componentsAtoms, splitComponentsAtoms } from "@/atoms/components";
+import { layoutConfigAtom } from "@/atoms/layout-config";
+import { WidgetWrapper } from "@/components/widgets/widget-wrapper";
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -22,13 +22,14 @@ interface AppLayoutProps {
 }
 
 export const AppLayout = ({ parentRef }: AppLayoutProps) => {
-	const [layoutConfig] = useAtom(layoutConfigAtom);
-	const { unit, gap, compactType, preventCollision } = layoutConfig;
-	const [compSplitAtoms] = useAtom(splitCompAtoms);
-	const [comps, setComps] = useAtom(compAtoms);
+	const [{ unit, gap, compactType, preventCollision }] = useAtom(layoutConfigAtom);
+
+	const [compSplitAtoms] = useAtom(splitComponentsAtoms);
+	const [comps, setComps] = useAtom(componentsAtoms);
 	const [cols, setCols] = useState(10);
 	const [fixedLayoutWidth, setFixedLayoutWidth] = useState(500);
 	const [isDragging, setIsDragging] = useState(false);
+
 	useEffect(() => {
 		const layoutWidth = parentRef.current?.offsetWidth;
 		let newCols = 0;
@@ -54,7 +55,6 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 	};
 	const [layout, setLayout] = useState<Layout[]>(generateLayout());
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const newLayout = comps.map((comp) => {
 			return {
@@ -93,42 +93,18 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			rowHeight={unit}
 			preventCollision={preventCollision}
 		>
-			{
-				comps.map((comp, i) =>
-					<CompElement
-						key={comp.id}
-						compAtom={compSplitAtoms[i]}
-						onClickCapture={(e) => {
-							if (isDragging) {
-								e.stopPropagation();
-							}
-							setIsDragging(false);
-						}}
-					/>
-				)
-			}
+			{comps.map((comp, i) => (
+				<WidgetWrapper
+					key={comp.id}
+					componentAtom={compSplitAtoms[i]}
+					onClickCapture={(e) => {
+						if (isDragging) {
+							e.stopPropagation();
+						}
+						setIsDragging(false);
+					}}
+				/>
+			))}
 		</ReactGridLayout>
 	);
 };
-
-interface CompProps extends MotionProps {
-	compAtom: PrimitiveAtom<Comp>;
-	preview?: boolean;
-	className?: string;
-	onClickCapture?: MouseEventHandler<HTMLDivElement>;
-}
-export const CompElement = forwardRef<HTMLDivElement, CompProps>(function CompElement(
-	{ compAtom, preview, onClickCapture, className, ...props },
-	ref,
-) {
-	const [comp] = useAtom(compAtom);
-	const { element } = comp;
-	const Element = registryComps[element].Element;
-	return (
-		<motion.div onClickCapture={onClickCapture} ref={ref} className={cn(className, "w-full h-full bg-transparent rounded-lg")} {...props}>
-			<Element compAtom={compAtom} />
-		</motion.div>
-	);
-});
-
-CompElement.displayName = "CompElement";

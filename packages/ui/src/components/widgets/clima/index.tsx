@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 
 import "./index.css";
 import { type City, CityList } from "@/atoms/city";
-import type { Comp } from "@/atoms/comps";
-import BaseContextMenu from "@/components/common/BaseContextMenu";
-import SelectWithInput from "@/components/common/SelectWithInput";
+import type { BaseComponentMeta } from "@/atoms/components";
+import { BaseContextMenu } from "@/components/common/context-menu";
+import { SelectWithInput } from "@/components/common/selector";
 import { ContextMenu } from "@/components/ui/context-menu";
 import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
 import { type PrimitiveAtom, atom, useAtom } from "jotai";
-import ClimaSvg from "./ClimaSvg";
+import { ClimaSvg } from "./clima-svg";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 async function getClimaData(locationID: string | undefined): Promise<any> {
@@ -29,11 +29,11 @@ type Weather = {
 
 const selectedCityAtom = atom<City | null>(null);
 
-interface ClimaWidgetProps extends React.HTMLAttributes<HTMLDivElement> {
-	compAtom: PrimitiveAtom<Comp>;
+export interface ClimaWidgetProps extends React.HTMLAttributes<HTMLDivElement> {
+	componentAtom: PrimitiveAtom<BaseComponentMeta<"ClimaWidget">>;
 }
 
-export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
+export function ClimaWidget({ componentAtom }: ClimaWidgetProps) {
 	const [selectedCity] = useAtom(selectedCityAtom);
 	const [weather, setWeather] = useState<Weather | null>(null);
 	const [message, setMessage] = useState<string | null>(null);
@@ -142,7 +142,7 @@ export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
 					</div>
 				</div>
 			</ContextMenuTrigger>
-			<BaseContextMenu compAtom={compAtom} />
+			<BaseContextMenu componentAtom={componentAtom} />
 		</ContextMenu>
 	);
 }

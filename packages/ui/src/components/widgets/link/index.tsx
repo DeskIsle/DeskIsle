@@ -1,16 +1,16 @@
-import type { Comp } from "@/atoms/comps";
+import type { BaseComponentMeta } from "@/atoms/components";
 import { iconsAtom } from "@/atoms/icons";
-import BaseContextMenu from "@/components/common/BaseContextMenu";
-import IconShop from "@/components/common/IconShop";
-import Modal from "@/components/common/Modal";
+import { BaseContextMenu } from "@/components/common/context-menu";
+import { IconShop } from "@/components/common/icon-shop";
+import { Modal } from "@/components/common/modal";
 import { Button } from "@/components/ui/button";
 import { ContextMenu, ContextMenuItem } from "@/components/ui/context-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import DataUrlIcon from "@/icons/DataUrlIcon";
-import { RadixIconsPencil2 } from "@/icons/RadixIcons";
+import { DataUrlIcon } from "@/icons/data-url";
+import { RadixIconsPencil2 } from "@/icons/radix";
 import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
 import { DotsHorizontalIcon, ExternalLinkIcon, StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
 import { type PrimitiveAtom, useAtom } from "jotai";
@@ -19,7 +19,7 @@ import { HexAlphaColorPicker } from "react-colorful";
 import { useModal } from "react-modal-hook";
 
 export interface LinkWidgetProps {
-	compAtom: PrimitiveAtom<Comp>;
+	componentAtom: PrimitiveAtom<BaseComponentMeta<"LinkWidget">>;
 }
 
 export interface LinkWidgetElementProps {
@@ -28,15 +28,15 @@ export interface LinkWidgetElementProps {
 	bgColor: string;
 }
 
-export default function LinkWidget({ compAtom }: LinkWidgetProps) {
-	const [comp] = useAtom(compAtom);
-	const { link, icon, bgColor } = comp.elementProps as LinkWidgetElementProps;
+export function LinkWidget({ componentAtom }: LinkWidgetProps) {
+	const [comp] = useAtom(componentAtom);
+	const { link, icon, bgColor } = comp.elementProps;
 	const openBrowser: MouseEventHandler<HTMLDivElement> = () => {
 		window.open(link);
 	};
 	const [showModal, hideModal] = useModal(() => (
 		<Modal showModal={true} hideModal={hideModal}>
-			<LinkWidgetEditor compAtom={compAtom} />
+			<LinkWidgetEditor componentAtom={componentAtom} />
 		</Modal>
 	));
 	return (
@@ -45,7 +45,7 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 				<ContextMenuTrigger className="w-full h-full">
 					<div
 						onClick={openBrowser}
-						onKeyDown={() => console.log('key down')}
+						onKeyDown={() => console.log("key down")}
 						style={{
 							backgroundColor: bgColor,
 						}}
@@ -56,7 +56,7 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 						<DataUrlIcon className="w-3/4 h-3/4" src={icon} />
 					</div>
 				</ContextMenuTrigger>
-				<BaseContextMenu compAtom={compAtom}>
+				<BaseContextMenu componentAtom={componentAtom}>
 					<ContextMenuItem onClick={showModal} className="flex gap-2">
 						<RadixIconsPencil2 />
 						<span>编辑</span>
@@ -64,18 +64,18 @@ export default function LinkWidget({ compAtom }: LinkWidgetProps) {
 				</BaseContextMenu>
 			</ContextMenu>
 			{/* <Modal visible={modalVisible} closeModal={() => setModalVisible(false)}>
-				<LinkWidgetEditor compAtom={compAtom} />
+				<LinkWidgetEditor componentAtom={componentAtom} />
 			</Modal> */}
 		</>
 	);
 }
 
 export interface LinkWidgetEditorProps {
-	compAtom: PrimitiveAtom<Comp>;
+	componentAtom: PrimitiveAtom<BaseComponentMeta<"LinkWidget">>;
 }
 
-export const LinkWidgetEditor = ({ compAtom }: LinkWidgetEditorProps) => {
-	const [comp, setComp] = useAtom(compAtom);
+export const LinkWidgetEditor = ({ componentAtom }: LinkWidgetEditorProps) => {
+	const [comp, setComp] = useAtom(componentAtom);
 	const [icons, setIcons] = useAtom(iconsAtom);
 	const isElectron = window.api !== undefined;
 	function updateIcon(icon: string) {

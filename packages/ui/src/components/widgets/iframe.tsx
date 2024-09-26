@@ -5,7 +5,7 @@ export interface IFrameWidgetProps {
 	scale?: number;
 }
 
-export default function IFrameWidget({ src, scale }: IFrameWidgetProps) {
+export function IFrameWidget({ src, scale }: IFrameWidgetProps) {
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 	const maskRef = useRef<HTMLDivElement>(null);
 	return (
