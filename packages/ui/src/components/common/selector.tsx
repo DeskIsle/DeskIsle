@@ -79,9 +79,13 @@ function SearchResultList<T>(props: SearchResultListProps<T>) {
 	} = props;
 	let filterCount = 0;
 	const filterOptions = options.filter((city) => {
-		if (filterCount > maxShowCount) return false;
+		if (filterCount > maxShowCount) {
+			return false;
+		}
 		const res = filter(city, inputValue);
-		if (res) filterCount++;
+		if (res) {
+			filterCount++;
+		}
 		return res;
 	});
 	if (filterOptions.length === 0) {
