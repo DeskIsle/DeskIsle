@@ -1,4 +1,4 @@
-export default function ClimaSvg({ weatherClass }: { weatherClass: string[] }) {
+export function ClimaSvg({ weatherClass }: { weatherClass: string[] }) {
 	return (
 		<>
 			<svg id="noise-svg">

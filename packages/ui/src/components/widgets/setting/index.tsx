@@ -1,4 +1,4 @@
-import { layoutConfigAtom } from "@/atoms/layoutConfig";
+import { layoutConfigAtom } from "@/atoms/layout-config";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
@@ -6,7 +6,7 @@ import { Label } from "@radix-ui/react-label";
 import { useAtom } from "jotai";
 import type React from "react";
 
-export default function SettingWidget() {
+export function SettingWidget() {
 	const [layoutConfig, setLayoutConfig] = useAtom(layoutConfigAtom);
 	function handleWheel(event: React.WheelEvent<HTMLInputElement>) {
 		event.preventDefault();

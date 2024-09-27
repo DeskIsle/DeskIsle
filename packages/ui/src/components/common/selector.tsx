@@ -1,7 +1,7 @@
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import type React from "react";
 import { useState } from "react";
-import DraggableCard from "./DraggableCard";
+import { DraggableCard } from "./card";
 
 interface SelectWithInputProps<T> extends React.HTMLAttributes<HTMLDivElement> {
 	placeholder?: string;
@@ -13,7 +13,7 @@ interface SelectWithInputProps<T> extends React.HTMLAttributes<HTMLDivElement> {
 	filter: (option: T, value: string) => boolean;
 }
 
-export default function SelectWithInput<T>(props: SelectWithInputProps<T>) {
+export function SelectWithInput<T>(props: SelectWithInputProps<T>) {
 	const { placeholder, ...others } = props;
 	const [value, setValue] = useState("");
 	const [showSearchList, setShowSearchList] = useState(false);

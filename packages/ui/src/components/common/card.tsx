@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import type { HTMLAttributes } from "react";
 
-export default function DraggableCard({ children, className, onClick }: HTMLAttributes<HTMLDivElement>) {
+export function DraggableCard({ children, className, onClick }: HTMLAttributes<HTMLDivElement>) {
 	return (
 		<motion.div
 			onClick={onClick}

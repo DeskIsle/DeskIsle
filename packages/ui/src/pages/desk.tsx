@@ -1,10 +1,10 @@
-import Modal from "@/components/common/Modal";
+import { Modal } from "@/components/common/modal";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
-import SettingWidget from "@/components/widgets/SettingWidget";
-import StoreWidget from "@/components/widgets/StoreWidget";
+import { SettingWidget } from "@/components/widgets/setting";
+import { StoreWidget } from "@/components/widgets/store";
 import { isElectron } from "@/lib/env";
-import { AppLayout } from "@/pages/applayout";
+import { AppLayout } from "@/pages/app-layout";
 import { useRef } from "react";
 import { useModal } from "react-modal-hook";
 

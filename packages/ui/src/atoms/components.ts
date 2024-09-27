@@ -1,14 +1,44 @@
-import ClimaWidget from "@/components/widgets/ClimaWidget";
-import { FolderWidget } from "@/components/widgets/FolderWidget";
-import LinkWidget from "@/components/widgets/LinkWidget";
+import { ClimaWidget } from "@/components/widgets/clima";
+import { FolderWidget, type FolderWidgetProps } from "@/components/widgets/folder";
+import { LinkWidget, type LinkWidgetProps } from "@/components/widgets/link";
 import { atom } from "jotai";
 import { atomWithStorage, splitAtom } from "jotai/utils";
+import type React from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-export type RegistryComps = typeof registryComps;
+type ComponentType = "LinkWidget" | "ClimaWidget" | "FolderWidget";
 
-export const registryComps = {
+interface ComponentProps {
+	LinkWidget: LinkWidgetProps;
+	ClimaWidget: {};
+	FolderWidget: FolderWidgetProps;
+}
+
+export interface BaseComponentMeta<T extends ComponentType = ComponentType> {
+	id: string;
+	row: number;
+	col: number;
+	width: number;
+	height: number;
+	element: T;
+	elementProps: ComponentProps[T];
+}
+
+type ComponentsRegistry = {
+	[key in ComponentType]: {
+		name: string;
+		Element: React.ComponentType<ComponentProps[key]>;
+		defaultProps: {
+			width: number;
+			height: number;
+			elementProps: ComponentProps[key];
+		};
+		optionalSizes: { w: number; h: number }[];
+	};
+};
+
+export const componentsRegistry: ComponentsRegistry = {
 	LinkWidget: {
 		name: "导航组件",
 		Element: LinkWidget,
@@ -48,7 +78,7 @@ export const registryComps = {
 			width: 1,
 			height: 1,
 			elementProps: {
-				comps: [],
+				components: [],
 			},
 		},
 		optionalSizes: [
@@ -56,32 +86,10 @@ export const registryComps = {
 			{ w: 2, h: 2 },
 		],
 	},
-	// 'ImageWidget': {
-	//   name: '图片组件',
-	//   Element: ImageWidget,
-	//   defaultProps: {
-	//     width: 4,
-	//     height: 4,
-	//     elementProps: {
-	//       img: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMzIgMzIiPjxwYXRoIGZpbGw9IiMyZGNjOWYiIGQ9Ik0zMCA1Ljg1MXYyMC4yOThIMlY1Ljg1MXoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjQuMjMyIDguNTQxYTIuMiAyLjIgMCAxIDAgMS4xMjcuNjIzYTIuMiAyLjIgMCAwIDAtMS4xMjctLjYyM00xOC4xMTEgMjAuMXEtMi43MjQtMy43ODgtNS40NS03LjU3NUw0LjU3OSAyMy43NjZoMTAuOXExLjMxNi0xLjgzMiAyLjYzNC0zLjY2M00yMi4wNTcgMTZxLTIuNzkzIDMuODgyLTUuNTg0IDcuNzY1aDExLjE2OVEyNC44NTEgMTkuODgyIDIyLjA1NyAxNiIvPjwvc3ZnPg=='
-	//     }
-	//   },
-	//   optionalSizes: []
-	// }
 };
 
-export type Comp = {
-	id: string;
-	row: number;
-	col: number;
-	width: number;
-	height: number;
-	element: keyof RegistryComps;
-	elementProps: unknown;
-};
-
-export const compAtoms = atomWithStorage<Comp[]>(
-	"comps",
+export const componentsAtoms = atomWithStorage<BaseComponentMeta[]>(
+	"components",
 	[
 		{
 			id: uuidv4(),
@@ -178,7 +186,7 @@ export const compAtoms = atomWithStorage<Comp[]>(
 			height: 1,
 			element: "FolderWidget",
 			elementProps: {
-				comps: [
+				components: [
 					{
 						id: uuidv4(),
 						element: "LinkWidget",
@@ -215,7 +223,7 @@ export const compAtoms = atomWithStorage<Comp[]>(
 							bgColor: "#FFFFFF",
 						},
 					},
-				]
+				],
 			},
 		},
 	],
@@ -223,7 +231,7 @@ export const compAtoms = atomWithStorage<Comp[]>(
 	{ getOnInit: true },
 );
 
-export const splitCompAtoms = splitAtom(compAtoms);
+export const splitComponentsAtoms = splitAtom(componentsAtoms);
 
 export const isDraggingAtom = atom(false);
 export const isDeleteModeAtom = atom(false);

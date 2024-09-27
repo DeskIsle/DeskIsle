@@ -11,7 +11,7 @@ interface ModalProps {
 	header?: ReactNode;
 }
 
-const Modal = ({ children, showModal, hideModal, header }: ModalProps) => {
+export const Modal = ({ children, showModal, hideModal, header }: ModalProps) => {
 	const ref = useRef(null);
 	const [canDrag, setCanDrag] = useState(true);
 	const rootDiv = document.getElementById("root");
@@ -34,5 +34,3 @@ const Modal = ({ children, showModal, hideModal, header }: ModalProps) => {
 	);
 	return <div>{showModal && modal}</div>;
 };
-
-export default Modal;
