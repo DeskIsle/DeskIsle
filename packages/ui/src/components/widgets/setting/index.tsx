@@ -1,13 +1,12 @@
-import { layoutConfigAtom } from "@/atoms/layout-config";
+import { useLayoutConfig } from "@/atoms/layout";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@radix-ui/react-label";
-import { useAtom } from "jotai";
 import type React from "react";
 
 export function SettingWidget() {
-	const [layoutConfig, setLayoutConfig] = useAtom(layoutConfigAtom);
+	const { layoutConfig, setLayoutConfig } = useLayoutConfig();
 	function handleWheel(event: React.WheelEvent<HTMLInputElement>) {
 		event.preventDefault();
 		const input = event.target as HTMLInputElement;
@@ -17,11 +16,11 @@ export function SettingWidget() {
 		} else {
 			input.stepUp();
 		}
-		const newLayoutConfig = {
-			...layoutConfig,
+
+		setLayoutConfig((config) => ({
+			...config,
 			[input.id]: Number(input.value),
-		};
-		setLayoutConfig(newLayoutConfig);
+		}));
 	}
 	return (
 		<div className="p-4 flex flex-col items-start gap-1.5">

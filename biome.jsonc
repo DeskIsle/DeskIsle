@@ -10,8 +10,9 @@
 			"style": {
 				"useNamingConvention": "off",
 				"useSelfClosingElements": "off",
-				"noDefaultExport": "off",
-				"noNamespaceImport": "off"
+				"noDefaultExport": "info",
+				"noNamespaceImport": "off",
+				"useBlockStatements": "off"
 			},
 			"correctness": {
 				"noNodejsModules": "off"
@@ -22,8 +23,8 @@
 				"noExcessiveCognitiveComplexity": "off"
 			},
 			"suspicious": {
-				"noConsoleLog": "off",
-				"noExplicitAny": "off"
+				"noConsoleLog": "info",
+				"noExplicitAny": "info"
 			}
 		}
 	},
@@ -32,9 +33,6 @@
 		"lineWidth": 120
 	},
 	"files": {
-		"ignore": [
-			"node_modules",
-			"dist"
-		]
+		"ignore": ["node_modules", "dist", "output"]
 	}
 }

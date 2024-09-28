@@ -6,7 +6,7 @@ import { SelectWithInput } from "@/components/common/selector";
 import { atom, useAtom } from "jotai";
 import { ClimaSvg } from "./clima-svg";
 
-async function getClimaData(locationID: string | undefined): Promise<any> {
+async function getClimaData(locationID: string | undefined) {
 	const res = await fetch(
 		`https://devapi.qweather.com/v7/weather/now?location=${locationID}&key=4a8cda440c914fe4820b02ddfefbd336`,
 	);

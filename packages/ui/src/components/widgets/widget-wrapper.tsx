@@ -1,17 +1,22 @@
-import { type BaseComponentMeta, componentsRegistry } from "@/atoms/components";
+import { type BaseComponentMeta, componentsRegistry, placeholderComponentAtom } from "@/atoms/components";
 import { cn } from "@/lib/utils";
 import { type MotionProps, motion } from "framer-motion";
 import { type PrimitiveAtom, useAtom } from "jotai";
 import type React from "react";
 import { type MouseEventHandler, forwardRef } from "react";
+import { createContext } from "react";
+import { BaseContextMenu } from "../common/context-menu";
 
-interface CompProps extends MotionProps {
+interface WidgitWrapperProps extends MotionProps {
 	componentAtom: PrimitiveAtom<BaseComponentMeta>;
 	preview?: boolean;
 	className?: string;
 	onClickCapture?: MouseEventHandler<HTMLDivElement>;
 }
-export const WidgetWrapper = forwardRef<HTMLDivElement, CompProps>(
+
+export const CurrentComponentAtomContext = createContext<PrimitiveAtom<BaseComponentMeta>>(placeholderComponentAtom);
+
+export const WidgetWrapper = forwardRef<HTMLDivElement, WidgitWrapperProps>(
 	({ componentAtom, preview, onClickCapture, className, ...props }, ref) => {
 		const [component] = useAtom(componentAtom);
 		const { element, elementProps } = component;
@@ -20,10 +25,14 @@ export const WidgetWrapper = forwardRef<HTMLDivElement, CompProps>(
 			<motion.div
 				onClickCapture={onClickCapture}
 				ref={ref}
-				className={cn(className, "w-full h-full bg-transparent rounded-lg")}
+				className={cn(className, "bg-transparent rounded-lg")}
 				{...props}
 			>
-				<Element {...elementProps} />
+				<CurrentComponentAtomContext.Provider value={componentAtom}>
+					<BaseContextMenu menus={[]}>
+						<Element {...elementProps} />
+					</BaseContextMenu>
+				</CurrentComponentAtomContext.Provider>
 			</motion.div>
 		);
 	},

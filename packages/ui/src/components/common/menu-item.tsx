@@ -1,15 +1,15 @@
-import { type BaseComponentMeta, componentsRegistry } from "@/atoms/components";
+import { componentsRegistry } from "@/atoms/components";
+import { useComponentAtom } from "@/atoms/components";
+import { CurrentComponentAtomContext } from "@/components/widgets/widget-wrapper";
 import { RadixIconsDimensions } from "@/icons/radix";
-import { type PrimitiveAtom, useAtom } from "jotai";
-import type React from "react";
+import { TrashIcon } from "@radix-ui/react-icons";
+import { useContext } from "react";
+import { Button } from "../ui/button";
 import { ContextMenuItem } from "../ui/context-menu";
-import { ResizeButton } from "./button";
 
-interface ResizeMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
-	componentAtom: PrimitiveAtom<BaseComponentMeta>;
-}
-export function ResizeMenuItem({ componentAtom }: ResizeMenuItemProps) {
-	const [component] = useAtom(componentAtom);
+export function ResizeMenuItem() {
+	const componentAtom = useContext(CurrentComponentAtomContext);
+	const { component, resizeComponent } = useComponentAtom(componentAtom);
 	const sizes = componentsRegistry[component.element].optionalSizes;
 
 	return (
@@ -21,10 +21,31 @@ export function ResizeMenuItem({ componentAtom }: ResizeMenuItemProps) {
 			<div className="grid grid-cols-3 gap-1">
 				{sizes.map((size, index) => (
 					<ContextMenuItem key={`${size.w}-${size.h}-${index}`} className="p-0">
-						<ResizeButton width={size.w} height={size.h} componentAtom={componentAtom} />
+						<Button
+							variant="outline"
+							className="w-full p-2 h-[2rem]"
+							type="button"
+							onClick={() => resizeComponent(size.w, size.h)}
+						>
+							{size.w}x{size.h}
+						</Button>
 					</ContextMenuItem>
 				))}
 			</div>
 		</div>
+	);
+}
+
+export function DeleteMenuItem() {
+	const componentAtom = useContext(CurrentComponentAtomContext);
+	const { deleteComponent } = useComponentAtom(componentAtom);
+	return (
+		<ContextMenuItem
+			onClick={deleteComponent}
+			className="flex gap-2 text-[#FF0000] focus:text-[#FF0000] focus:bg-[#FFDBDC]"
+		>
+			<TrashIcon />
+			<span>Delete</span>
+		</ContextMenuItem>
 	);
 }

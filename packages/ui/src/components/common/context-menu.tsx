@@ -1,39 +1,27 @@
-import { type BaseComponentMeta, componentsAtoms } from "@/atoms/components";
-import { TrashIcon } from "@radix-ui/react-icons";
-import { type PrimitiveAtom, useAtom } from "jotai";
+import { useLayoutConfig } from "@/atoms/layout";
 import type React from "react";
-import { useRef } from "react";
-import { ContextMenuContent, ContextMenuItem } from "../ui/context-menu";
-import { Separator } from "../ui/separator";
-import { ResizeMenuItem } from "./menu-item";
+import { ContextMenu, ContextMenuContent, ContextMenuTrigger } from "../ui/context-menu";
+import { DeleteMenuItem, ResizeMenuItem } from "./menu-item";
 
-interface BaseContextMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {
-	componentAtom: PrimitiveAtom<BaseComponentMeta>;
+interface BaseContextMenuProps extends React.HTMLAttributes<HTMLDivElement> {
+	menus: React.ReactNode;
 }
 
-export function BaseContextMenu(props: BaseContextMenuContentProps) {
-	const { componentAtom, children } = props;
-	const [component] = useAtom(componentAtom);
-	const [, setComponents] = useAtom(componentsAtoms);
+export function BaseContextMenu({ children, menus }: BaseContextMenuProps) {
+	const { setIsDraggable } = useLayoutConfig();
 
-	const deleteComp = () => {
-		setComponents((components) => components.filter((c) => c.id !== component.id));
+	const handleOpenChange = (open: boolean) => {
+		setIsDraggable(!open);
 	};
-	const ref = useRef<HTMLDivElement>(null);
+
 	return (
-		<ContextMenuContent ref={ref}>
-			<ContextMenuItem className="focus:bg-transparent">
-				<Separator className="my-1" />
-			</ContextMenuItem>
-			{children}
-			<ResizeMenuItem componentAtom={componentAtom} />
-			<ContextMenuItem
-				onClick={deleteComp}
-				className="flex gap-2 text-[#FF0000] focus:text-[#FF0000] focus:bg-[#FFDBDC]"
-			>
-				<TrashIcon />
-				<span>Delete</span>
-			</ContextMenuItem>
-		</ContextMenuContent>
+		<ContextMenu modal={false} onOpenChange={handleOpenChange}>
+			<ContextMenuTrigger>{children}</ContextMenuTrigger>
+			<ContextMenuContent>
+				<ResizeMenuItem />
+				<DeleteMenuItem />
+				{menus}
+			</ContextMenuContent>
+		</ContextMenu>
 	);
 }
