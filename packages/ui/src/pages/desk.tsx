@@ -1,50 +1,49 @@
-import { Modal } from "@/components/common/modal";
 import { Button } from "@/components/ui/button";
-import { Toaster } from "@/components/ui/toaster";
+import { useModal } from "@/components/ui/use-modal";
+import { useRef } from "react";
+
 import { SettingWidget } from "@/components/widgets/setting";
 import { StoreWidget } from "@/components/widgets/store";
 import { isElectron } from "@/lib/env";
 import { AppLayout } from "@/pages/app-layout";
-import { useRef } from "react";
-import { useModal } from "react-modal-hook";
 
 export function Desk() {
 	const ref = useRef(null);
 
-	const [showStoreWidget, hideStoreWidget] = useModal(() => (
-		<Modal header="组件商店" showModal={true} hideModal={hideStoreWidget}>
-			<StoreWidget />
-		</Modal>
-	));
-	const [showSettingsWidget, hideSettingsWidget] = useModal(() => (
-		<Modal header="设置" showModal={true} hideModal={hideSettingsWidget}>
-			<SettingWidget />
-		</Modal>
-	));
-	window.api?.onOpenWidgetStore((value: boolean) => {
-		if (value) {
-			showStoreWidget();
-		} else {
-			hideStoreWidget();
-		}
+	const { confirm } = useModal();
+
+	const showStore = () => {
+		confirm({
+			title: "组件商店",
+			description: "组件商店",
+			body: <StoreWidget />,
+		});
+	};
+
+	const showSettings = () => {
+		confirm({
+			title: "设置",
+			description: "设置",
+			body: <SettingWidget />,
+		});
+	};
+
+	window.api?.onOpenWidgetStore(() => {
+		showStore();
 	});
-	window.api?.onOpenSettings((value: boolean) => {
-		if (value) {
-			showSettingsWidget();
-		} else {
-			hideSettingsWidget();
-		}
+	window.api?.onOpenSettings(() => {
+		showSettings();
 	});
 	return (
-		<div ref={ref} className="w-screen h-screen p-4 overflow-hidden bg-white">
+		<div ref={ref} className="w-screen p-4 overflow-hidden bg-white">
 			<AppLayout parentRef={ref} />
-			<Toaster />
+
 			{!isElectron() && (
 				<>
-					<Button variant="outline" className="mt-2 mr-2" onClick={showStoreWidget}>
+					<Button variant="outline" className="mt-2 mr-2" onClick={showStore}>
 						组件商店
 					</Button>
-					<Button variant="outline" className="mt-2 mr-2" onClick={showSettingsWidget}>
+					<Button variant="outline" className="mt-2 mr-2" onClick={showSettings}>
 						设置
 					</Button>
 				</>

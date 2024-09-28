@@ -1,7 +1,7 @@
 import { ClimaWidget } from "@/components/widgets/clima";
 import { FolderWidget, type FolderWidgetProps } from "@/components/widgets/folder";
 import { LinkWidget, type LinkWidgetProps } from "@/components/widgets/link";
-import { atom } from "jotai";
+import { type PrimitiveAtom, atom, useAtom } from "jotai";
 import { atomWithStorage, splitAtom } from "jotai/utils";
 import type React from "react";
 
@@ -232,6 +232,36 @@ export const componentsAtoms = atomWithStorage<BaseComponentMeta[]>(
 );
 
 export const splitComponentsAtoms = splitAtom(componentsAtoms);
+
+// only for provide context types
+export const placeholderComponentAtom = atom<BaseComponentMeta>({
+	id: "__",
+	row: 0,
+	col: 0,
+	width: 1,
+	height: 1,
+	element: "LinkWidget",
+	elementProps: {},
+});
+
+export const useComponentAtom = (componentAtom: PrimitiveAtom<BaseComponentMeta>) => {
+	const [component, setComponent] = useAtom(componentAtom);
+	const [, setComponents] = useAtom(componentsAtoms);
+
+	const deleteComponent = () => {
+		setComponents((components) => components.filter((c) => c.id !== component.id));
+	};
+
+	const resizeComponent = (width: number, height: number) => {
+		setComponent({ ...component, width: width, height: height });
+	};
+
+	return {
+		component,
+		deleteComponent,
+		resizeComponent,
+	};
+};
 
 export const isDraggingAtom = atom(false);
 export const isDeleteModeAtom = atom(false);

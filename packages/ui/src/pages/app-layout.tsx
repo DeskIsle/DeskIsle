@@ -4,7 +4,7 @@ import { type RefObject, useEffect, useState } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 
 import { componentsAtoms, splitComponentsAtoms } from "@/atoms/components";
-import { layoutConfigAtom } from "@/atoms/layout-config";
+import { layoutConfigAtom } from "@/atoms/layout";
 import { WidgetWrapper } from "@/components/widgets/widget-wrapper";
 
 const ReactGridLayout = WidthProvider(RGL);
@@ -22,22 +22,23 @@ interface AppLayoutProps {
 }
 
 export const AppLayout = ({ parentRef }: AppLayoutProps) => {
-	const [{ unit, gap, compactType, preventCollision }] = useAtom(layoutConfigAtom);
+	const [{ unit, gap, compactType, preventCollision, isDraggable }] = useAtom(layoutConfigAtom);
 
 	const [componentSplitAtoms] = useAtom(splitComponentsAtoms);
 	const [components, setComponents] = useAtom(componentsAtoms);
-	const [cols, setCols] = useState(10);
+	const [columns, setColumns] = useState(10);
 	const [fixedLayoutWidth, setFixedLayoutWidth] = useState(500);
 	const [isDragging, setIsDragging] = useState(false);
 
+	// Calculate the number of columns based on the parent width
+	// TODO: listen to window resize event to recalculate the number of columns
 	useEffect(() => {
 		const layoutWidth = parentRef.current?.offsetWidth;
-		let newCols = 0;
-		let fixedLayoutWidth = 0;
+
 		if (layoutWidth && layoutWidth > gap) {
-			newCols = Math.floor((layoutWidth - gap) / (unit + gap));
-			fixedLayoutWidth = (unit + gap) * newCols;
-			setCols(newCols);
+			const columns = Math.floor((layoutWidth - gap) / (unit + gap));
+			const fixedLayoutWidth = (unit + gap) * columns;
+			setColumns(columns);
 			setFixedLayoutWidth(fixedLayoutWidth);
 		}
 	}, [parentRef, unit, gap]);
@@ -88,7 +89,8 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 				setComponents(newComps);
 			}}
 			compactType={compactType}
-			cols={cols}
+			cols={columns}
+			isDraggable={isDraggable}
 			margin={[gap, gap]}
 			rowHeight={unit}
 			preventCollision={preventCollision}

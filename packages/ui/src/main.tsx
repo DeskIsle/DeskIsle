@@ -1,13 +1,18 @@
 import "./index.css";
-
+import "jotai-devtools/styles.css";
+import { Modal } from "@/components/ui/modal";
+import { Toaster } from "@/components/ui/toaster";
+import { Provider as JotaiProvider } from "jotai";
+import { DevTools } from "jotai-devtools";
 import ReactDOM from "react-dom/client";
-import { ModalProvider } from "react-modal-hook";
+
 import { Desk } from "./pages/desk";
 
-console.log("DeskIsHere");
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-	<ModalProvider>
+	<JotaiProvider>
 		<Desk />
-	</ModalProvider>,
+		<Toaster />
+		<Modal />
+		<DevTools />
+	</JotaiProvider>,
 );
