@@ -9,6 +9,7 @@ export interface FolderWidgetProps {
 }
 
 export const FolderWidget = (props: FolderWidgetProps) => {
+	// @ts-ignore
 	const { component } = useCurrentComponent();
 	const { components } = props;
 
