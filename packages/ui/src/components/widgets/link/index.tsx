@@ -10,7 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { DataUrlIcon } from "@/icons/data-url";
 
 import { DotsHorizontalIcon, ExternalLinkIcon, StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
-import { type PrimitiveAtom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import type { MouseEventHandler } from "react";
 import { HexAlphaColorPicker } from "react-colorful";
 
@@ -33,7 +33,6 @@ export function LinkWidget({ link, icon, bgColor }: LinkWidgetProps) {
 		<>
 			<div
 				onClick={openBrowser}
-				onKeyDown={() => console.log("key down")}
 				style={{
 					backgroundColor: bgColor,
 				}}
@@ -47,21 +46,21 @@ export function LinkWidget({ link, icon, bgColor }: LinkWidgetProps) {
 	);
 }
 
-export interface LinkWidgetEditorProps {
-	componentAtom: PrimitiveAtom<BaseComponentMeta<"LinkWidget">>;
+interface LinkWidgetEditorProps {
+	component: BaseComponentMeta<"LinkWidget">;
+	setComponent: (component: BaseComponentMeta<"LinkWidget">) => void;
 }
 
-export const LinkWidgetEditor = ({ componentAtom }: LinkWidgetEditorProps) => {
-	const [component, setComponent] = useAtom(componentAtom);
+export const LinkWidgetEditor = ({ component, setComponent }: LinkWidgetEditorProps) => {
 	const [icons, setIcons] = useAtom(iconsAtom);
 	const isElectron = window.api !== undefined;
 	function updateIcon(icon: string) {
-		setComponent({ ...component, elementProps: { ...(component.elementProps as LinkWidgetProps), icon } });
+		setComponent({ ...component, elementProps: { ...component.elementProps, icon } });
 	}
 	async function openFileDialog() {
 		const path = await window.api?.openFile();
 		if (path) {
-			setComponent({ ...component, elementProps: { ...(component.elementProps as LinkWidgetProps), link: path } });
+			setComponent({ ...component, elementProps: { ...component.elementProps, link: path } });
 		}
 	}
 	async function openIconDialog() {
@@ -71,10 +70,10 @@ export const LinkWidgetEditor = ({ componentAtom }: LinkWidgetEditorProps) => {
 		}
 	}
 	function collectToIconStore() {
-		if (icons.includes((component.elementProps as LinkWidgetProps).icon)) {
-			setIcons(icons.filter((i) => i !== (component.elementProps as LinkWidgetProps).icon));
+		if (icons.includes(component.elementProps.icon)) {
+			setIcons(icons.filter((i) => i !== component.elementProps.icon));
 		} else {
-			setIcons([...icons, (component.elementProps as LinkWidgetProps).icon]);
+			setIcons([...icons, component.elementProps.icon]);
 		}
 	}
 
@@ -87,11 +86,11 @@ export const LinkWidgetEditor = ({ componentAtom }: LinkWidgetEditorProps) => {
 				<Input
 					className="col-span-3"
 					id="link"
-					value={(component.elementProps as LinkWidgetProps).link}
+					value={component.elementProps.link}
 					onChange={(v) =>
 						setComponent({
 							...component,
-							elementProps: { ...(component.elementProps as LinkWidgetProps), link: v.target.value },
+							elementProps: { ...component.elementProps, link: v.target.value },
 						})
 					}
 				/>
@@ -120,7 +119,7 @@ export const LinkWidgetEditor = ({ componentAtom }: LinkWidgetEditorProps) => {
 						<Input
 							className="col-span-3"
 							id="icon"
-							value={(component.elementProps as LinkWidgetProps).icon}
+							value={component.elementProps.icon}
 							onChange={(v) => updateIcon(v.target.value)}
 						/>
 						<div className="flex flex-row gap-1">
@@ -133,19 +132,11 @@ export const LinkWidgetEditor = ({ componentAtom }: LinkWidgetEditorProps) => {
 								<Tooltip>
 									<TooltipTrigger>
 										<Button onClick={collectToIconStore} variant="outline" size="icon">
-											{icons.includes((component.elementProps as LinkWidgetProps).icon) ? (
-												<StarFilledIcon />
-											) : (
-												<StarIcon />
-											)}
+											{icons.includes(component.elementProps.icon) ? <StarFilledIcon /> : <StarIcon />}
 										</Button>
 									</TooltipTrigger>
 									<TooltipContent>
-										{icons.includes((component.elementProps as LinkWidgetProps).icon) ? (
-											<p>取消收藏</p>
-										) : (
-											<p>收藏到图标商店</p>
-										)}
+										{icons.includes(component.elementProps.icon) ? <p>取消收藏</p> : <p>收藏到图标商店</p>}
 									</TooltipContent>
 								</Tooltip>
 							</TooltipProvider>
@@ -160,21 +151,21 @@ export const LinkWidgetEditor = ({ componentAtom }: LinkWidgetEditorProps) => {
 			<HexAlphaColorPicker
 				className="col-span-4 mt-4"
 				id="bgColor"
-				color={(component.elementProps as LinkWidgetProps).bgColor}
+				color={component.elementProps.bgColor}
 				onChange={(c) =>
 					setComponent({
 						...component,
-						elementProps: { ...(component.elementProps as LinkWidgetProps), bgColor: c },
+						elementProps: { ...component.elementProps, bgColor: c },
 					})
 				}
 			/>
 			<Input
 				className="col-span-2"
-				value={(component.elementProps as LinkWidgetProps).bgColor}
+				value={component.elementProps.bgColor}
 				onChange={(c) =>
 					setComponent({
 						...component,
-						elementProps: { ...(component.elementProps as LinkWidgetProps), bgColor: c.target.value },
+						elementProps: { ...component.elementProps, bgColor: c.target.value },
 					})
 				}
 			/>

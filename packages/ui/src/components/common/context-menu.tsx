@@ -1,13 +1,11 @@
 import { useLayoutConfig } from "@/atoms/layout";
 import type React from "react";
 import { ContextMenu, ContextMenuContent, ContextMenuTrigger } from "../ui/context-menu";
-import { DeleteMenuItem, ResizeMenuItem } from "./menu-item";
+import { CustomMenuItem, DeleteMenuItem, ResizeMenuItem } from "./menu-item";
 
-interface BaseContextMenuProps extends React.HTMLAttributes<HTMLDivElement> {
-	menus: React.ReactNode;
-}
+interface BaseContextMenuProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function BaseContextMenu({ children, menus }: BaseContextMenuProps) {
+export function BaseContextMenu({ children }: BaseContextMenuProps) {
 	const { setIsDraggable } = useLayoutConfig();
 
 	const handleOpenChange = (open: boolean) => {
@@ -19,8 +17,8 @@ export function BaseContextMenu({ children, menus }: BaseContextMenuProps) {
 			<ContextMenuTrigger>{children}</ContextMenuTrigger>
 			<ContextMenuContent>
 				<ResizeMenuItem />
+				<CustomMenuItem />
 				<DeleteMenuItem />
-				{menus}
 			</ContextMenuContent>
 		</ContextMenu>
 	);

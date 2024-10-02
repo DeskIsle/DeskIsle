@@ -15,7 +15,6 @@ export function Desk() {
 	const showStore = () => {
 		confirm({
 			title: "组件商店",
-			description: "组件商店",
 			body: <StoreWidget />,
 		});
 	};
@@ -23,7 +22,6 @@ export function Desk() {
 	const showSettings = () => {
 		confirm({
 			title: "设置",
-			description: "设置",
 			body: <SettingWidget />,
 		});
 	};

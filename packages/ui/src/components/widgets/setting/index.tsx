@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@radix-ui/react-label";
-import type React from "react";
 
 export function SettingWidget() {
 	const { layoutConfig, setLayoutConfig } = useLayoutConfig();
