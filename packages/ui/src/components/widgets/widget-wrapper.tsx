@@ -1,9 +1,9 @@
-import { type BaseComponentMeta, componentsRegistry, placeholderComponentAtom } from "@/atoms/components";
+import { type BaseComponentMeta, componentsRegistry, useComponentAtom } from "@/atoms/components";
 import { cn } from "@/lib/utils";
 import { type MotionProps, motion } from "framer-motion";
 import { type PrimitiveAtom, useAtom } from "jotai";
 import type React from "react";
-import { type MouseEventHandler, forwardRef } from "react";
+import { type MouseEventHandler, forwardRef, useContext } from "react";
 import { createContext } from "react";
 import { BaseContextMenu } from "../common/context-menu";
 
@@ -14,7 +14,12 @@ interface WidgitWrapperProps extends MotionProps {
 	onClickCapture?: MouseEventHandler<HTMLDivElement>;
 }
 
-export const CurrentComponentAtomContext = createContext<PrimitiveAtom<BaseComponentMeta>>(placeholderComponentAtom);
+// biome-ignore lint/style/noNonNullAssertion: context must be initialized
+export const CurrentComponentAtomContext = createContext<PrimitiveAtom<BaseComponentMeta>>(null!);
+
+export function useCurrentComponent() {
+	return useComponentAtom(useContext(CurrentComponentAtomContext));
+}
 
 export const WidgetWrapper = forwardRef<HTMLDivElement, WidgitWrapperProps>(
 	({ componentAtom, preview, onClickCapture, className, ...props }, ref) => {

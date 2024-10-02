@@ -1,14 +1,15 @@
 import type { BaseComponentMeta } from "@/atoms/components";
 
 import { DataUrlIcon } from "@/icons/data-url";
-
 import type { LinkWidgetProps } from "../link";
+import { useCurrentComponent } from "../widget-wrapper";
 
 export interface FolderWidgetProps {
 	components: BaseComponentMeta[];
 }
 
 export const FolderWidget = (props: FolderWidgetProps) => {
+	const { component } = useCurrentComponent();
 	const { components } = props;
 
 	return (

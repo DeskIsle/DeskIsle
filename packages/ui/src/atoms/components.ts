@@ -233,17 +233,6 @@ export const componentsAtoms = atomWithStorage<BaseComponentMeta[]>(
 
 export const splitComponentsAtoms = splitAtom(componentsAtoms);
 
-// only for provide context types
-export const placeholderComponentAtom = atom<BaseComponentMeta>({
-	id: "__",
-	row: 0,
-	col: 0,
-	width: 1,
-	height: 1,
-	element: "LinkWidget",
-	elementProps: {},
-});
-
 export const useComponentAtom = (componentAtom: PrimitiveAtom<BaseComponentMeta>) => {
 	const [component, setComponent] = useAtom(componentAtom);
 	const [, setComponents] = useAtom(componentsAtoms);
