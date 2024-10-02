@@ -1,15 +1,12 @@
 import { componentsRegistry } from "@/atoms/components";
-import { useComponentAtom } from "@/atoms/components";
-import { CurrentComponentAtomContext } from "@/components/widgets/widget-wrapper";
+import { useCurrentComponent } from "@/components/widgets/widget-wrapper";
 import { RadixIconsDimensions } from "@/icons/radix";
 import { TrashIcon } from "@radix-ui/react-icons";
-import { useContext } from "react";
 import { Button } from "../ui/button";
 import { ContextMenuItem } from "../ui/context-menu";
 
 export function ResizeMenuItem() {
-	const componentAtom = useContext(CurrentComponentAtomContext);
-	const { component, resizeComponent } = useComponentAtom(componentAtom);
+	const { component, resizeComponent } = useCurrentComponent();
 	const sizes = componentsRegistry[component.element].optionalSizes;
 
 	return (
@@ -37,8 +34,7 @@ export function ResizeMenuItem() {
 }
 
 export function DeleteMenuItem() {
-	const componentAtom = useContext(CurrentComponentAtomContext);
-	const { deleteComponent } = useComponentAtom(componentAtom);
+	const { deleteComponent } = useCurrentComponent();
 	return (
 		<ContextMenuItem
 			onClick={deleteComponent}
