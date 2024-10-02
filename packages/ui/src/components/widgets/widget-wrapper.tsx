@@ -36,7 +36,7 @@ export const WidgetWrapper = forwardRef<HTMLDivElement, WidgitWrapperProps>(
 				{...props}
 			>
 				<CurrentComponentAtomContext.Provider value={componentAtom}>
-					<BaseContextMenu menus={[]}>
+					<BaseContextMenu>
 						<Element {...elementProps} />
 					</BaseContextMenu>
 				</CurrentComponentAtomContext.Provider>

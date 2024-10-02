@@ -1,9 +1,11 @@
 import { componentsRegistry } from "@/atoms/components";
 import { useCurrentComponent } from "@/components/widgets/widget-wrapper";
-import { RadixIconsDimensions } from "@/icons/radix";
+import { RadixIconsDimensions, RadixIconsPencil2 } from "@/icons/radix";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import { ContextMenuItem } from "../ui/context-menu";
+import { useModal } from "../ui/use-modal";
+import { LinkWidgetEditor } from "../widgets/link";
 
 export function ResizeMenuItem() {
 	const { component, resizeComponent } = useCurrentComponent();
@@ -44,4 +46,25 @@ export function DeleteMenuItem() {
 			<span>Delete</span>
 		</ContextMenuItem>
 	);
+}
+
+export function CustomMenuItem() {
+	const { component, setComponent } = useCurrentComponent();
+	const element = component.element;
+	const { confirm } = useModal();
+	const openEditor = () => {
+		confirm({
+			title: "编辑",
+			body: <LinkWidgetEditor component={component} setComponent={setComponent} />,
+		});
+	};
+	if (element === "LinkWidget") {
+		return (
+			<ContextMenuItem onClick={openEditor} className="flex gap-2">
+				<RadixIconsPencil2 />
+				<span>Edit</span>
+			</ContextMenuItem>
+		);
+	}
+	return null;
 }

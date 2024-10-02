@@ -12,10 +12,12 @@ export const FolderWidget = (props: FolderWidgetProps) => {
 	// @ts-ignore
 	const { component } = useCurrentComponent();
 	const { components } = props;
-
+	const gapValue = component.width;
 	return (
 		<>
-			<div className={"w-full h-full grid grid-cols-2 grid-rows-2 hover:cursor-pointer bg-black/25 rounded-lg"}>
+			<div
+				className={`gap-${gapValue} p-${gapValue} w-full h-full grid grid-cols-2 grid-rows-2 hover:cursor-pointer bg-black/25 rounded-lg`}
+			>
 				{components.map((component) => {
 					const { icon, bgColor } = component.elementProps as LinkWidgetProps;
 					return (

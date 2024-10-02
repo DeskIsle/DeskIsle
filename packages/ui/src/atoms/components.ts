@@ -236,7 +236,6 @@ export const splitComponentsAtoms = splitAtom(componentsAtoms);
 export const useComponentAtom = (componentAtom: PrimitiveAtom<BaseComponentMeta>) => {
 	const [component, setComponent] = useAtom(componentAtom);
 	const [, setComponents] = useAtom(componentsAtoms);
-
 	const deleteComponent = () => {
 		setComponents((components) => components.filter((c) => c.id !== component.id));
 	};
@@ -249,6 +248,7 @@ export const useComponentAtom = (componentAtom: PrimitiveAtom<BaseComponentMeta>
 		component,
 		deleteComponent,
 		resizeComponent,
+		setComponent,
 	};
 };
 

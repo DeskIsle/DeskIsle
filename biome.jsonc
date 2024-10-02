@@ -25,6 +25,9 @@
 			"suspicious": {
 				"noConsoleLog": "info",
 				"noExplicitAny": "info"
+			},
+			"a11y": {
+				"useKeyWithClickEvents": "off"
 			}
 		}
 	},
