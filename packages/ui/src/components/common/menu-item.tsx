@@ -1,4 +1,4 @@
-import { componentsRegistry } from "@/atoms/components";
+import { type BaseComponentMeta, componentsRegistry } from "@/atoms/components";
 import { useCurrentComponent } from "@/components/widgets/widget-wrapper";
 import { RadixIconsDimensions, RadixIconsPencil2 } from "@/icons/radix";
 import { TrashIcon } from "@radix-ui/react-icons";
@@ -55,7 +55,7 @@ export function CustomMenuItem() {
 	const openEditor = () => {
 		confirm({
 			title: "编辑",
-			body: <LinkWidgetEditor component={component} setComponent={setComponent} />,
+			body: <LinkWidgetEditor component={component as BaseComponentMeta<"LinkWidget">} setComponent={setComponent} />,
 		});
 	};
 	if (element === "LinkWidget") {
