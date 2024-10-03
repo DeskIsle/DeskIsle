@@ -1,7 +1,7 @@
 import { useLayoutConfig } from "@/atoms/layout";
 import type React from "react";
 import { ContextMenu, ContextMenuContent, ContextMenuTrigger } from "../ui/context-menu";
-import { CustomMenuItem, DeleteMenuItem, ResizeMenuItem } from "./menu-item";
+import { DeleteMenuItem, LinkWidgetMenuItem, ResizeMenuItem } from "./menu-item";
 
 interface BaseContextMenuProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -17,7 +17,7 @@ export function BaseContextMenu({ children }: BaseContextMenuProps) {
 			<ContextMenuTrigger>{children}</ContextMenuTrigger>
 			<ContextMenuContent>
 				<ResizeMenuItem />
-				<CustomMenuItem />
+				<LinkWidgetMenuItem />
 				<DeleteMenuItem />
 			</ContextMenuContent>
 		</ContextMenu>
