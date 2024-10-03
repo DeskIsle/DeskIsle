@@ -6,8 +6,8 @@ import { useModal } from "./use-modal";
 import type { ModalState } from "./use-modal";
 
 export interface ModalProps {
-	body?: React.ReactNode;
-	title?: string;
+	body: React.ReactNode;
+	title: string;
 	description?: string;
 }
 
@@ -28,23 +28,20 @@ function ModalDialog({ open, onOpenChange, ...props }: ModalState) {
 		<>
 			<Dialog open={open} onOpenChange={onOpenChange}>
 				<DialogContent className="sm:max-w-[425px]">
-					{props.title ? (
-						<DialogHeader>
-							<DialogTitle>{props.title}</DialogTitle>
-							{props.description && <DialogDescription>{props.description}</DialogDescription>}
-						</DialogHeader>
-					) : null}
+					<DialogHeader>
+						<DialogTitle>{props.title}</DialogTitle>
+						<DialogDescription>{props.description}</DialogDescription>
+					</DialogHeader>
 					<motion.div
 						initial={{ opacity: 0, scale: 0.5 }}
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{
-							duration: 0.4,
-							ease: [0, 0.71, 0.2, 1.01],
+							duration: 0.2,
+							type: "spring",
 						}}
 					>
 						{props.body}
 					</motion.div>
-
 					<DialogFooter>
 						<Button type="button" onClick={() => onOpenChange(false)}>
 							Okey

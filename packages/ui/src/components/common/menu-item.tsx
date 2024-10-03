@@ -48,23 +48,24 @@ export function DeleteMenuItem() {
 	);
 }
 
-export function CustomMenuItem() {
+export function LinkWidgetMenuItem() {
 	const { component, setComponent } = useCurrentComponent();
-	const element = component.element;
+	const { element } = component;
 	const { confirm } = useModal();
+
+	if (element !== "LinkWidget") return null;
+
 	const openEditor = () => {
 		confirm({
 			title: "编辑",
 			body: <LinkWidgetEditor component={component as BaseComponentMeta<"LinkWidget">} setComponent={setComponent} />,
 		});
 	};
-	if (element === "LinkWidget") {
-		return (
-			<ContextMenuItem onClick={openEditor} className="flex gap-2">
-				<RadixIconsPencil2 />
-				<span>Edit</span>
-			</ContextMenuItem>
-		);
-	}
-	return null;
+
+	return (
+		<ContextMenuItem onClick={openEditor} className="flex gap-2">
+			<RadixIconsPencil2 />
+			<span>Edit</span>
+		</ContextMenuItem>
+	);
 }
