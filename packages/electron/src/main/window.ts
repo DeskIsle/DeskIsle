@@ -11,33 +11,37 @@ function getExternalDisplay() {
 	return externalDisplay;
 }
 
-function mouseEventThroughTransparency(window: BrowserWindow) {
-	const updateIgnoreMouseEvents = async (x: number, y: number) => {
-		// capture 1x1 image of mouse position.
-		if (window.isDestroyed()) return;
-		const image = await window.webContents.capturePage({
-			x,
-			y,
-			width: 1,
-			height: 1,
-		});
+// function mouseEventThroughTransparency(window: BrowserWindow) {
+//   const updateIgnoreMouseEvents = async (x: number, y: number) => {
+//     // capture 1x1 image of mouse position.
+//     if (window.isDestroyed()) {
+//       return;
+//     }
+//     const image = await window.webContents.capturePage({
+//       x,
+//       y,
+//       width: 1,
+//       height: 1,
+//     });
 
-		const buffer = image.getBitmap();
+//     const buffer = image.getBitmap();
 
-		const transparent = !buffer[3];
-		window.setIgnoreMouseEvents(transparent);
-	};
-	return setInterval(() => {
-		if (!window) return;
-		const point = screen.getCursorScreenPoint();
-		const [x, y] = window.getPosition();
-		const [w, h] = window.getSize();
+//     const transparent = !buffer[3];
+//     window.setIgnoreMouseEvents(transparent);
+//   };
+//   return setInterval(() => {
+//     if (!window) {
+//       return;
+//     }
+//     const point = screen.getCursorScreenPoint();
+//     const [x, y] = window.getPosition();
+//     const [w, h] = window.getSize();
 
-		if (point.x > x && point.x < x + w && point.y > y && point.y < y + h) {
-			updateIgnoreMouseEvents(point.x - x, point.y - y);
-		}
-	}, 200);
-}
+//     if (point.x > x && point.x < x + w && point.y > y && point.y < y + h) {
+//       updateIgnoreMouseEvents(point.x - x, point.y - y);
+//     }
+//   }, 200);
+// }
 
 export function createWindow(): BrowserWindow {
 	// Create the browser window.
@@ -88,7 +92,9 @@ export function createWindow(): BrowserWindow {
 	}
 
 	mainWindow.on("focus", () => {
-		if (mainWindow.isDestroyed()) return;
+		if (mainWindow.isDestroyed()) {
+			return;
+		}
 		// toBottom(mainWindow.getNativeWindowHandle())
 	});
 	mainWindow.on("closed", () => {

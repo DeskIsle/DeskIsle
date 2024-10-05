@@ -1,18 +1,12 @@
-import type React from "react";
 import { useEffect, useState } from "react";
 
 import "./index.css";
 import { type City, CityList } from "@/atoms/city";
-import type { Comp } from "@/atoms/comps";
-import BaseContextMenu from "@/components/common/BaseContextMenu";
-import SelectWithInput from "@/components/common/SelectWithInput";
-import { ContextMenu } from "@/components/ui/context-menu";
-import { ContextMenuTrigger } from "@radix-ui/react-context-menu";
-import { type PrimitiveAtom, atom, useAtom } from "jotai";
-import ClimaSvg from "./ClimaSvg";
+import { SelectWithInput } from "@/components/common/selector";
+import { atom, useAtom } from "jotai";
+import { ClimaSvg } from "./clima-svg";
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-async function getClimaData(locationID: string | undefined): Promise<any> {
+async function getClimaData(locationID: string | undefined) {
 	const res = await fetch(
 		`https://devapi.qweather.com/v7/weather/now?location=${locationID}&key=4a8cda440c914fe4820b02ddfefbd336`,
 	);
@@ -29,11 +23,7 @@ type Weather = {
 
 const selectedCityAtom = atom<City | null>(null);
 
-interface ClimaWidgetProps extends React.HTMLAttributes<HTMLDivElement> {
-	compAtom: PrimitiveAtom<Comp>;
-}
-
-export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
+export function ClimaWidget() {
 	const [selectedCity] = useAtom(selectedCityAtom);
 	const [weather, setWeather] = useState<Weather | null>(null);
 	const [message, setMessage] = useState<string | null>(null);
@@ -41,7 +31,6 @@ export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
 		const intervel = setInterval(
 			() => {
 				handleRequest();
-				console.log("refresh climaWidget data");
 			},
 			30 * 60 * 1000,
 		);
@@ -115,35 +104,28 @@ export default function ClimaWidget({ compAtom }: ClimaWidgetProps) {
 	}, [selectedCity]);
 
 	return (
-		<ContextMenu modal={false}>
-			<ContextMenuTrigger className="w-full h-full">
-				<div className="w-full h-full relative">
-					<ClimaSvg weatherClass={weather?.cssClass ?? []} />
-					<div className="bottom-panel px-8 pt-4 pb-4 text-white">
-						<div className="h-full flex flex-col justify-between items-center">
-							<div className="text-sm flex flex-col justify-center items-center gap-2">
-								<ClimaWidgetEditor />
-								{weather && (
-									<div className="flex flex-row gap-4">
-										<div>温度: {weather.temp}°C</div>
-										<div>天气: {weather.text}</div>
-									</div>
-								)}
-								{message && <span className="text-gray-500 text-[0.7rem] align-middle">{message}</span>}
+		<div className="w-full h-full relative">
+			<ClimaSvg weatherClass={weather?.cssClass ?? []} />
+			<div className="bottom-panel px-8 pt-4 pb-4 text-white">
+				<div className="h-full flex flex-col justify-between items-center">
+					<div className="text-sm flex flex-col justify-center items-center gap-2">
+						<ClimaWidgetEditor />
+						{weather && (
+							<div className="flex flex-row gap-4">
+								<div>温度: {weather.temp}°C</div>
+								<div>天气: {weather.text}</div>
 							</div>
-							{weather && (
-								<div className="flex flex-row gap-1 justify-center items-center w-full mb-2">
-									<span className="text-gray-500 text-[0.7rem] align-middle">
-										最后更新时间: {weather.lastUpdateTime}
-									</span>
-								</div>
-							)}
-						</div>
+						)}
+						{message && <span className="text-gray-500 text-[0.7rem] align-middle">{message}</span>}
 					</div>
+					{weather && (
+						<div className="flex flex-row gap-1 justify-center items-center w-full mb-2">
+							<span className="text-gray-500 text-[0.7rem] align-middle">最后更新时间: {weather.lastUpdateTime}</span>
+						</div>
+					)}
 				</div>
-			</ContextMenuTrigger>
-			<BaseContextMenu compAtom={compAtom} />
-		</ContextMenu>
+			</div>
+		</div>
 	);
 }
 

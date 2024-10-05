@@ -9,11 +9,25 @@
 			"all": true,
 			"style": {
 				"useNamingConvention": "off",
-				"useSelfClosingElements": "info",
-				"noDefaultExport": "info"
+				"useSelfClosingElements": "off",
+				"noDefaultExport": "info",
+				"noNamespaceImport": "off",
+				"useBlockStatements": "off"
 			},
 			"correctness": {
 				"noNodejsModules": "off"
+			},
+			"complexity": {
+				"noBannedTypes": "off",
+				"useSimplifiedLogicExpression": "off",
+				"noExcessiveCognitiveComplexity": "off"
+			},
+			"suspicious": {
+				"noConsoleLog": "info",
+				"noExplicitAny": "info"
+			},
+			"a11y": {
+				"useKeyWithClickEvents": "off"
 			}
 		}
 	},
@@ -22,6 +36,6 @@
 		"lineWidth": 120
 	},
 	"files": {
-		"ignore": ["node_modules", "dist"]
+		"ignore": ["node_modules", "dist", "output"]
 	}
 }
