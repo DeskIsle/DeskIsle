@@ -78,6 +78,7 @@ export const componentsRegistry: ComponentsRegistry = {
 			width: 1,
 			height: 1,
 			elementProps: {
+				title: "文件夹",
 				components: [],
 			},
 		},
@@ -186,6 +187,7 @@ export const componentsAtoms = atomWithStorage<BaseComponentMeta[]>(
 			height: 1,
 			element: "FolderWidget",
 			elementProps: {
+				title: "学习",
 				components: [
 					{
 						id: uuidv4(),
