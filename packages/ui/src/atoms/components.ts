@@ -7,7 +7,7 @@ import type React from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-type ComponentType = "LinkWidget" | "ClimaWidget" | "FolderWidget";
+export type ComponentType = "LinkWidget" | "ClimaWidget" | "FolderWidget";
 
 interface ComponentProps {
 	LinkWidget: LinkWidgetProps;
