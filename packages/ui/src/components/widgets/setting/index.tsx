@@ -7,7 +7,8 @@ import type React from "react";
 
 export function SettingWidget() {
 	const { layoutConfig, setLayoutConfig } = useLayoutConfig();
-	function handleWheel(event: React.WheelEvent<HTMLInputElement>) {
+
+	const handleWheel = (event: React.WheelEvent<HTMLInputElement>) => {
 		event.stopPropagation();
 		const input = event.target as HTMLInputElement;
 		const delta = event.deltaY || event.detail;
@@ -21,7 +22,8 @@ export function SettingWidget() {
 			...config,
 			[input.id]: Number(input.value),
 		}));
-	}
+	};
+
 	return (
 		<div className="p-4 flex flex-col items-start gap-1.5">
 			<Label htmlFor="unit">单位长度</Label>
