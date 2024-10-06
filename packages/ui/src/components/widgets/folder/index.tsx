@@ -39,7 +39,7 @@ export const FolderWidget = (props: FolderWidgetProps) => {
 				className={`gap-${gapValue} p-${gapValue} w-full h-full grid grid-cols-2 grid-rows-2 hover:cursor-pointer bg-black/25 rounded-lg`}
 				onClick={openFolderModal}
 			>
-				{components.map((component) => {
+				{components.slice(0, 4).map((component) => {
 					const { icon, bgColor } = component.elementProps as LinkWidgetProps;
 					return (
 						<div
