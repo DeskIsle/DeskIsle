@@ -10,7 +10,7 @@ export const TimeWidget = () => {
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
-			setRefresh((r) => r + 1);
+			setRefresh(refresh + 1);
 			const now = new Date();
 			setTimer(format(now, "HH:mm"));
 			setDate(format(now, "MM月dd日", { locale: zhCN }));
