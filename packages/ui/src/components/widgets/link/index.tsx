@@ -24,11 +24,6 @@ export function LinkWidget({ link, icon, bgColor }: LinkWidgetProps) {
 	const openBrowser: MouseEventHandler<HTMLDivElement> = () => {
 		window.open(link);
 	};
-	// const [showModal, hideModal] = useModal(() => (
-	// 	<Modal showModal={true} hideModal={hideModal}>
-	// 		<LinkWidgetEditor componentAtom={componentAtom} />
-	// 	</Modal>
-	// ));
 	return (
 		<>
 			<div

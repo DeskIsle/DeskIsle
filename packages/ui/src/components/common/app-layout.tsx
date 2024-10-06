@@ -1,11 +1,12 @@
 import "@/grid-layout.css";
 import { useAtom } from "jotai";
-import { type RefObject, useEffect, useState } from "react";
+import { type RefObject, useEffect, useRef, useState } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 
-import { componentsAtoms, splitComponentsAtoms } from "@/atoms/components";
+import { type BaseComponentMeta, componentsAtoms, splitComponentsAtoms } from "@/atoms/components";
 import { layoutConfigAtom } from "@/atoms/layout";
 import { WidgetWrapper } from "@/components/widgets/widget-wrapper";
+import { useLongPress } from "ahooks";
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -48,7 +49,22 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 	const [columns, setColumns] = useState(10);
 	const [fixedLayoutWidth, setFixedLayoutWidth] = useState(500);
 	const [isDragging, setIsDragging] = useState(false);
-
+	const [allowOverlap, setAllowOverlap] = useState(false);
+	const draggingComponent = useRef<BaseComponentMeta>();
+	useLongPress(
+		() => {
+			if (draggingComponent.current?.element === "LinkWidget") {
+				setAllowOverlap(true);
+			}
+		},
+		parentRef,
+		{
+			delay: 1500,
+			onLongPressEnd() {
+				setAllowOverlap(false);
+			},
+		},
+	);
 	// Calculate the number of columns based on the parent width
 	// TODO: listen to window resize event to recalculate the number of columns
 	useEffect(() => {
@@ -92,25 +108,49 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 		return layout;
 	};
 
+	const isOverlap = (itemA: Layout, itemB: Layout) => {
+		return itemA.x === itemB.x && itemA.y === itemB.y;
+	};
+
 	return (
 		<ReactGridLayout
 			className="border-2 bg-[#F3F4F6] rounded-md border-dashed relative h-full"
 			style={{ width: fixedLayoutWidth }}
 			layout={layout}
 			onLayoutChange={handleLayoutChange}
+			onDragStart={(_layout, oldItem) => {
+				draggingComponent.current = components.find((component) => component.id === oldItem.i);
+			}}
 			onDrag={() => {
 				setIsDragging(true);
 			}}
-			onDragStop={(layout) => {
-				const newComps = layout.map((item) => {
-					const component = components.find((component) => component.id === item.i);
+			onDragStop={(layout, _oldItem, newItem) => {
+				let overlapIndex = -1;
+				let newItemIndex = -1;
+				const newComps = layout.map((item, index) => {
+					if (item.i === newItem.i) {
+						newItemIndex = index;
+					}
+					if (overlapIndex === -1 && item !== newItem && isOverlap(item, newItem)) {
+						overlapIndex = index;
+					}
 					return {
-						...component,
+						...components[index],
 						col: item.x,
 						row: item.y,
 					};
 				});
-				setComponents(newComps);
+				if (
+					overlapIndex !== -1 &&
+					components[newItemIndex].element === "LinkWidget" &&
+					components[overlapIndex].element === "FolderWidget"
+				) {
+					let filterComps = newComps[overlapIndex].elementProps.components.push(newComps[newItemIndex]);
+					filterComps = newComps.filter((component) => component.id !== newItem.i);
+					setComponents(filterComps);
+				} else {
+					setComponents(newComps);
+				}
 			}}
 			compactType={compactType}
 			cols={columns}
@@ -118,6 +158,7 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			margin={[gap, gap]}
 			rowHeight={unit}
 			preventCollision={preventCollision}
+			allowOverlap={allowOverlap}
 		>
 			{components.map((component, i) => (
 				<WidgetWrapper
