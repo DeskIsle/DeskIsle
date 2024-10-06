@@ -172,7 +172,7 @@ export const componentsAtoms = atomWithStorage<BaseComponentMeta[]>(
 		},
 		{
 			id: uuidv4(),
-			row: 5,
+			row: 1,
 			col: 0,
 			width: 4,
 			height: 4,
@@ -181,7 +181,7 @@ export const componentsAtoms = atomWithStorage<BaseComponentMeta[]>(
 		},
 		{
 			id: uuidv4(),
-			row: 0,
+			row: 1,
 			col: 6,
 			width: 1,
 			height: 1,

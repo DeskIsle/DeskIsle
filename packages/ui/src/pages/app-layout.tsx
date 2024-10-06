@@ -92,6 +92,10 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 		return layout;
 	};
 
+	const isOverlap = (itemA: Layout, itemB: Layout) => {
+		return itemA.x === itemB.x && itemA.y === itemB.y;
+	};
+
 	return (
 		<ReactGridLayout
 			className="border-2 bg-[#F3F4F6] rounded-md border-dashed relative h-full"
@@ -101,16 +105,33 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			onDrag={() => {
 				setIsDragging(true);
 			}}
-			onDragStop={(layout) => {
-				const newComps = layout.map((item) => {
-					const component = components.find((component) => component.id === item.i);
+			onDragStop={(layout, _oldItem, newItem) => {
+				let overlapIndex = -1;
+				let newItemIndex = -1;
+				const newComps = layout.map((item, index) => {
+					if (item.i === newItem.i) {
+						newItemIndex = index;
+					}
+					if (overlapIndex === -1 && item !== newItem && isOverlap(item, newItem)) {
+						overlapIndex = index;
+					}
 					return {
-						...component,
+						...components[index],
 						col: item.x,
 						row: item.y,
 					};
 				});
-				setComponents(newComps);
+				if (
+					overlapIndex !== -1 &&
+					components[newItemIndex].element === "LinkWidget" &&
+					components[overlapIndex].element === "FolderWidget"
+				) {
+					let filterComps = newComps[overlapIndex].elementProps.components.push(newComps[newItemIndex]);
+					filterComps = newComps.filter((component) => component.id !== newItem.i);
+					setComponents(filterComps);
+				} else {
+					setComponents(newComps);
+				}
 			}}
 			compactType={compactType}
 			cols={columns}
@@ -118,6 +139,7 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			margin={[gap, gap]}
 			rowHeight={unit}
 			preventCollision={preventCollision}
+			allowOverlap={true}
 		>
 			{components.map((component, i) => (
 				<WidgetWrapper
