@@ -64,7 +64,7 @@ function DrawerModal({ open, onOpenChange, ...props }: ModalState) {
 	return (
 		<>
 			<Drawer open={open} onOpenChange={onOpenChange} direction={"right"}>
-				<DrawerContent>
+				<DrawerContent className="left-auto">
 					<DrawerHeader>
 						<DrawerTitle>{props.title}</DrawerTitle>
 						<DrawerDescription className={cn(props.description ? "block" : "hidden")}>
