@@ -10,11 +10,30 @@ import { WidgetWrapper } from "@/components/widgets/widget-wrapper";
 const ReactGridLayout = WidthProvider(RGL);
 
 interface Layout {
+	// A string corresponding to the component key
+	i: string;
+
+	// These are all in grid units, not pixels
 	x: number;
 	y: number;
 	w: number;
 	h: number;
-	i: string;
+	minW?: number;
+	maxW?: number;
+	minH?: number;
+	maxH?: number;
+
+	// If true, equal to `isDraggable: false, isResizable: false`.
+	static?: boolean;
+	// If false, will not be draggable. Overrides `static`.
+	isDraggable?: boolean;
+	// If false, will not be resizable. Overrides `static`.
+	isResizable?: boolean;
+	// By default, a handle is only shown on the bottom-right (southeast) corner.
+	// As of RGL >= 1.4.0, resizing on any corner works just fine!
+	resizeHandles?: Array<"s" | "w" | "e" | "n" | "sw" | "nw" | "se" | "ne">;
+	// If true and draggable, item will be moved only within grid.
+	isBounded?: boolean;
 }
 
 interface AppLayoutProps {
@@ -69,11 +88,16 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 		setLayout(newLayout);
 	}, [components]);
 
+	const handleLayoutChange = (layout: Layout[]) => {
+		return layout;
+	};
+
 	return (
 		<ReactGridLayout
 			className="border-2 bg-[#F3F4F6] rounded-md border-dashed relative h-full"
 			style={{ width: fixedLayoutWidth }}
 			layout={layout}
+			onLayoutChange={handleLayoutChange}
 			onDrag={() => {
 				setIsDragging(true);
 			}}
