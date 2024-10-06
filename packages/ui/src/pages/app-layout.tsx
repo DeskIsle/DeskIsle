@@ -1,11 +1,12 @@
 import "@/grid-layout.css";
 import { useAtom } from "jotai";
-import { type RefObject, useEffect, useState } from "react";
+import { type RefObject, useEffect, useRef, useState } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 
-import { componentsAtoms, splitComponentsAtoms } from "@/atoms/components";
+import { type BaseComponentMeta, componentsAtoms, splitComponentsAtoms } from "@/atoms/components";
 import { layoutConfigAtom } from "@/atoms/layout";
 import { WidgetWrapper } from "@/components/widgets/widget-wrapper";
+import { useLongPress } from "ahooks";
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -48,7 +49,22 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 	const [columns, setColumns] = useState(10);
 	const [fixedLayoutWidth, setFixedLayoutWidth] = useState(500);
 	const [isDragging, setIsDragging] = useState(false);
-
+	const [allowOverlap, setAllowOverlap] = useState(false);
+	const draggingComponent = useRef<BaseComponentMeta>();
+	useLongPress(
+		() => {
+			if (draggingComponent.current?.element === "LinkWidget") {
+				setAllowOverlap(true);
+			}
+		},
+		parentRef,
+		{
+			delay: 1500,
+			onLongPressEnd() {
+				setAllowOverlap(false);
+			},
+		},
+	);
 	// Calculate the number of columns based on the parent width
 	// TODO: listen to window resize event to recalculate the number of columns
 	useEffect(() => {
@@ -102,6 +118,9 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			style={{ width: fixedLayoutWidth }}
 			layout={layout}
 			onLayoutChange={handleLayoutChange}
+			onDragStart={(_layout, oldItem) => {
+				draggingComponent.current = components.find((component) => component.id === oldItem.i);
+			}}
 			onDrag={() => {
 				setIsDragging(true);
 			}}
@@ -139,7 +158,7 @@ export const AppLayout = ({ parentRef }: AppLayoutProps) => {
 			margin={[gap, gap]}
 			rowHeight={unit}
 			preventCollision={preventCollision}
-			allowOverlap={true}
+			allowOverlap={allowOverlap}
 		>
 			{components.map((component, i) => (
 				<WidgetWrapper
