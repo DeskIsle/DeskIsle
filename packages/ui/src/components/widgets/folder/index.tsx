@@ -29,7 +29,7 @@ export const FolderWidget = (props: FolderWidgetProps) => {
 		confirm({
 			title: title,
 			body: <FolderModal component={component as BaseComponentMeta<"FolderWidget">} setComponent={setComponent} />,
-			dialogContentClassName: "bg-black/10 backdrop-blur-sm",
+			dialogContentClassName: "bg-black/10 backdrop-blur-sm text-white",
 			onTitleChange: handleTitleChange,
 		});
 	};
@@ -60,10 +60,10 @@ export const FolderWidget = (props: FolderWidgetProps) => {
 
 interface FolderModalProps {
 	component: BaseComponentMeta<"FolderWidget">;
-	// setComponent: (component: BaseComponentMeta<"FolderWidget">) => void;
+	setComponent: (component: BaseComponentMeta<"FolderWidget">) => void;
 }
 
-export const FolderModal = ({ component }: FolderModalProps) => {
+export const FolderModal = ({ component, setComponent }: FolderModalProps) => {
 	const { components } = component.elementProps;
 	return (
 		<div className="flex flex-wrap gap-2 items-center justify-center">
