@@ -3,11 +3,13 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@radix-ui/react-label";
+import type React from "react";
 
 export function SettingWidget() {
 	const { layoutConfig, setLayoutConfig } = useLayoutConfig();
-	function handleWheel(event: React.WheelEvent<HTMLInputElement>) {
-		event.preventDefault();
+
+	const handleWheel = (event: React.WheelEvent<HTMLInputElement>) => {
+		event.stopPropagation();
 		const input = event.target as HTMLInputElement;
 		const delta = event.deltaY || event.detail;
 		if (delta > 0) {
@@ -20,7 +22,8 @@ export function SettingWidget() {
 			...config,
 			[input.id]: Number(input.value),
 		}));
-	}
+	};
+
 	return (
 		<div className="p-4 flex flex-col items-start gap-1.5">
 			<Label htmlFor="unit">单位长度</Label>

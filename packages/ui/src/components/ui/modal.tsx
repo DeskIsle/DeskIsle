@@ -1,13 +1,14 @@
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./dialog";
+import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from "./drawer";
 import { Input } from "./input";
 import { useModal } from "./use-modal";
 import type { ModalState } from "./use-modal";
 
 export interface ModalProps {
+	type?: "dialog" | "drawer";
 	body: React.ReactNode;
 	title: string;
 	description?: string;
@@ -20,14 +21,14 @@ export function Modal() {
 
 	return (
 		<>
-			{modals.map((modal) => (
-				<ModalDialog key={modal.id} {...modal} />
-			))}
+			{modals.map((modal) =>
+				modal.type === "drawer" ? <DrawerModal key={modal.id} {...modal} /> : <DialogModal key={modal.id} {...modal} />,
+			)}
 		</>
 	);
 }
 
-function ModalDialog({ open, onOpenChange, ...props }: ModalState) {
+function DialogModal({ open, onOpenChange, ...props }: ModalState) {
 	const [title, setTitle] = useState(props.title);
 	useEffect(() => {
 		props.onTitleChange?.(title);
@@ -48,20 +49,31 @@ function ModalDialog({ open, onOpenChange, ...props }: ModalState) {
 								<div className="text-lg">{title}</div>
 							)}
 						</DialogTitle>
-						<DialogDescription>{props.description}</DialogDescription>
+						<DialogDescription className={cn(props.description ? "block" : "hidden")}>
+							{props.description || props.title}
+						</DialogDescription>
 					</DialogHeader>
-					<motion.div
-						initial={{ opacity: 0, scale: 0.5 }}
-						animate={{ opacity: 1, scale: 1 }}
-						transition={{
-							duration: 0.2,
-							type: "spring",
-						}}
-					>
-						{props.body}
-					</motion.div>
+					{props.body}
 				</DialogContent>
 			</Dialog>
+		</>
+	);
+}
+
+function DrawerModal({ open, onOpenChange, ...props }: ModalState) {
+	return (
+		<>
+			<Drawer open={open} onOpenChange={onOpenChange} direction={"right"}>
+				<DrawerContent>
+					<DrawerHeader>
+						<DrawerTitle>{props.title}</DrawerTitle>
+						<DrawerDescription className={cn(props.description ? "block" : "hidden")}>
+							{props.description || props.title}
+						</DrawerDescription>
+					</DrawerHeader>
+					{props.body}
+				</DrawerContent>
+			</Drawer>
 		</>
 	);
 }
