@@ -2,10 +2,10 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/components/ui/use-modal";
 import { useRef } from "react";
 
+import { AppLayout } from "@/components/common/app-layout";
 import { SettingWidget } from "@/components/widgets/setting";
 import { StoreWidget } from "@/components/widgets/store";
 import { isElectron } from "@/lib/env";
-import { AppLayout } from "@/pages/app-layout";
 
 export function Desk() {
 	const ref = useRef(null);
@@ -22,6 +22,7 @@ export function Desk() {
 	const showSettings = () => {
 		confirm({
 			title: "设置",
+			type: "drawer",
 			body: <SettingWidget />,
 		});
 	};
