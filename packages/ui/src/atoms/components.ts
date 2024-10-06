@@ -1,13 +1,14 @@
 import { ClimaWidget } from "@/components/widgets/clima";
 import { FolderWidget, type FolderWidgetProps } from "@/components/widgets/folder";
 import { LinkWidget, type LinkWidgetProps } from "@/components/widgets/link";
+import { TimeWidget } from "@/components/widgets/time";
 import { type PrimitiveAtom, atom, useAtom } from "jotai";
 import { atomWithStorage, splitAtom } from "jotai/utils";
 import type React from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-export type ComponentType = "LinkWidget" | "ClimaWidget" | "FolderWidget";
+export type ComponentType = "LinkWidget" | "ClimaWidget" | "FolderWidget" | "TimeWidget";
 
 interface ComponentProps {
 	LinkWidget: LinkWidgetProps;
@@ -86,6 +87,16 @@ export const componentsRegistry: ComponentsRegistry = {
 			{ w: 1, h: 1 },
 			{ w: 2, h: 2 },
 		],
+	},
+	TimeWidget: {
+		name: "时间组件",
+		Element: TimeWidget,
+		defaultProps: {
+			width: 3,
+			height: 1,
+			elementProps: {},
+		},
+		optionalSizes: [{ w: 3, h: 2 }],
 	},
 };
 
@@ -227,6 +238,15 @@ export const componentsAtoms = atomWithStorage<BaseComponentMeta[]>(
 					},
 				],
 			},
+		},
+		{
+			id: uuidv4(),
+			row: 2,
+			col: 4,
+			width: 3,
+			height: 2,
+			element: "TimeWidget",
+			elementProps: {},
 		},
 	],
 	undefined,
