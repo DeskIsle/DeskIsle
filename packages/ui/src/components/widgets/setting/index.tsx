@@ -3,11 +3,12 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@radix-ui/react-label";
+import type React from "react";
 
 export function SettingWidget() {
 	const { layoutConfig, setLayoutConfig } = useLayoutConfig();
 	function handleWheel(event: React.WheelEvent<HTMLInputElement>) {
-		event.preventDefault();
+		event.stopPropagation();
 		const input = event.target as HTMLInputElement;
 		const delta = event.deltaY || event.detail;
 		if (delta > 0) {
