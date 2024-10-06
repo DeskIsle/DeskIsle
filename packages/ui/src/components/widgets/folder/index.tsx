@@ -2,6 +2,7 @@ import type { BaseComponentMeta } from "@/atoms/components";
 
 import { useModal } from "@/components/ui/use-modal";
 import { DataUrlIcon } from "@/icons/data-url";
+import { useSortable } from "@dnd-kit/react/sortable";
 import type { LinkWidgetProps } from "../link";
 import { useCurrentComponent } from "../widget-wrapper";
 
@@ -66,21 +67,35 @@ interface FolderModalProps {
 export const FolderModal = ({ component, setComponent }: FolderModalProps) => {
 	const { components } = component.elementProps;
 	return (
-		<div className="flex flex-wrap gap-2 items-center justify-center">
-			{components.map((component) => {
-				const { icon, bgColor } = component.elementProps as LinkWidgetProps;
-				return (
-					<div
-						key={component.id}
-						style={{
-							backgroundColor: bgColor,
-						}}
-						className={"w-16 h-16 rounded-md text-5xl select-none flex justify-center items-center"}
-					>
-						<DataUrlIcon className="w-3/4 h-3/4" src={icon} />
-					</div>
-				);
-			})}
+		<div>
+			<ul className="flex flex-wrap gap-2 items-center justify-start">
+				{components.map((component, index) => {
+					const { icon, bgColor } = component.elementProps as LinkWidgetProps;
+					return (
+						<Sortable
+							key={component.id}
+							id={component.id}
+							index={index}
+							style={{
+								backgroundColor: bgColor,
+							}}
+							className="w-16 h-16 rounded-md text-5xl select-none flex justify-center items-center"
+						>
+							<DataUrlIcon className="w-3/4 h-3/4" src={icon} />
+						</Sortable>
+					);
+				})}
+			</ul>
 		</div>
 	);
 };
+
+function Sortable({ id, index, children, className, style }) {
+	const { ref } = useSortable({ id, index });
+
+	return (
+		<li className={className} ref={ref} style={style}>
+			{children}
+		</li>
+	);
+}
