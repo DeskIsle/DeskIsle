@@ -14,6 +14,7 @@ interface ComponentProps {
 	LinkWidget: LinkWidgetProps;
 	ClimaWidget: {};
 	FolderWidget: FolderWidgetProps;
+	TimeWidget: {};
 }
 
 export interface BaseComponentMeta<T extends ComponentType = ComponentType> {
