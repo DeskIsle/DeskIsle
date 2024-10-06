@@ -2,6 +2,8 @@ import type { BaseComponentMeta } from "@/atoms/components";
 
 import { useModal } from "@/components/ui/use-modal";
 import { DataUrlIcon } from "@/icons/data-url";
+import { arrayMove } from "@/lib/utils";
+import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable } from "@dnd-kit/react/sortable";
 import type { LinkWidgetProps } from "../link";
 import { useCurrentComponent } from "../widget-wrapper";
@@ -66,8 +68,19 @@ interface FolderModalProps {
 
 export const FolderModal = ({ component, setComponent }: FolderModalProps) => {
 	const { components } = component.elementProps;
+	const handleDragOver = (event) => {
+		const { initialIndex, previousIndex } = event.operation.source.sortable;
+		const newComponents = arrayMove(components, initialIndex, previousIndex);
+		setComponent({
+			...component,
+			elementProps: {
+				...component.elementProps,
+				components: newComponents,
+			},
+		});
+	};
 	return (
-		<div>
+		<DragDropProvider onDragOver={handleDragOver}>
 			<ul className="flex flex-wrap gap-2 items-center justify-start">
 				{components.map((component, index) => {
 					const { icon, bgColor } = component.elementProps as LinkWidgetProps;
@@ -86,7 +99,7 @@ export const FolderModal = ({ component, setComponent }: FolderModalProps) => {
 					);
 				})}
 			</ul>
-		</div>
+		</DragDropProvider>
 	);
 };
 
