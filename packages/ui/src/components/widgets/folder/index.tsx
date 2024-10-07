@@ -5,7 +5,7 @@ import { DataUrlIcon } from "@/icons/data-url";
 import { arrayMove } from "@/lib/utils";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable } from "@dnd-kit/react/sortable";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { LinkWidgetProps } from "../link";
 import { useCurrentComponent } from "../widget-wrapper";
 
@@ -72,13 +72,8 @@ interface FolderModalProps {
 }
 
 function FolderModal(props: FolderModalProps) {
-	const { open, onOpenChange, onTitleChange, component, setComponent } = props;
+	const { open, onOpenChange, title, onTitleChange, component, setComponent } = props;
 	const { components } = component.elementProps;
-
-	const [title, setTitle] = useState(props.title);
-	useEffect(() => {
-		onTitleChange(title);
-	}, [title, onTitleChange]);
 
 	const handleDragOver = (event) => {
 		const { initialIndex, previousIndex } = event.operation.source.sortable;
@@ -100,7 +95,7 @@ function FolderModal(props: FolderModalProps) {
 						<DialogTitle>
 							<Input
 								value={title}
-								onChange={(e) => setTitle(e.target.value)}
+								onChange={(e) => onTitleChange(e.target.value)}
 								className="w-fit h-fit focus-visible:ring-none focus-visible:ring-transparent text-lg p-0 border-none"
 							/>
 						</DialogTitle>
