@@ -256,7 +256,7 @@ export const componentsAtoms = atomWithStorage<BaseComponentMeta[]>(
 
 export const splitComponentsAtoms = splitAtom(componentsAtoms);
 
-export const useComponentAtom = (componentAtom: PrimitiveAtom<BaseComponentMeta>) => {
+export function useComponentAtom<T extends ComponentType>(componentAtom: PrimitiveAtom<BaseComponentMeta<T>>) {
 	const [component, setComponent] = useAtom(componentAtom);
 	const [, setComponents] = useAtom(componentsAtoms);
 	const deleteComponent = () => {
@@ -273,7 +273,7 @@ export const useComponentAtom = (componentAtom: PrimitiveAtom<BaseComponentMeta>
 		resizeComponent,
 		setComponent,
 	};
-};
+}
 
 export const isDraggingAtom = atom(false);
 export const isDeleteModeAtom = atom(false);

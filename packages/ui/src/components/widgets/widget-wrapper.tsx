@@ -1,4 +1,4 @@
-import { useComponentAtom } from "@/atoms/components";
+import { type ComponentType, useComponentAtom } from "@/atoms/components";
 import { type BaseComponentMeta, componentsRegistry } from "@/atoms/components";
 import { cn } from "@/lib/utils";
 import { type MotionProps, motion } from "framer-motion";
@@ -17,10 +17,11 @@ interface WidgitWrapperProps extends MotionProps {
 }
 
 // biome-ignore lint/style/noNonNullAssertion: context must be initialized
-export const CurrentComponentAtomContext = createContext<PrimitiveAtom<BaseComponentMeta>>(null!);
+const CurrentComponentAtomContext = createContext<PrimitiveAtom<BaseComponentMeta>>(null!);
 
-export function useCurrentComponent() {
-	return useComponentAtom(useContext(CurrentComponentAtomContext));
+export function useCurrentComponent<T extends ComponentType = ComponentType>() {
+	const context = useContext(CurrentComponentAtomContext) as unknown as PrimitiveAtom<BaseComponentMeta<T>>;
+	return useComponentAtom<T>(context);
 }
 
 export const WidgetWrapper = forwardRef<HTMLDivElement, WidgitWrapperProps>(
