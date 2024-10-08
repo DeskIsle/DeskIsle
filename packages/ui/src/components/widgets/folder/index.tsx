@@ -1,4 +1,5 @@
 import type { BaseComponentMeta } from "@/atoms/components";
+import { useLayoutConfig } from "@/atoms/layout";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { DataUrlIcon } from "@/icons/data-url";
@@ -19,6 +20,7 @@ export function FolderWidget(props: FolderWidgetProps) {
 	const { components, title } = props;
 	const gapValue = component.width;
 	const [open, handleModalOpen] = useState(false);
+	const { setIsDraggable } = useLayoutConfig();
 	const handleTitleChange = (title: string) => {
 		setComponent({
 			...component,
@@ -28,12 +30,19 @@ export function FolderWidget(props: FolderWidgetProps) {
 			},
 		});
 	};
-
+	const handleOpenChange = (open: boolean) => {
+		handleModalOpen(open);
+		setIsDraggable(!open);
+	};
+	const openModal = () => {
+		handleModalOpen(true);
+		setIsDraggable(false);
+	};
 	return (
 		<>
 			<div
 				className={`gap-${gapValue} p-${gapValue} w-full h-full grid grid-cols-2 grid-rows-2 hover:cursor-pointer bg-black/25 rounded-lg`}
-				onClick={() => handleModalOpen(true)}
+				onClick={openModal}
 			>
 				{components.slice(0, 4).map((component) => {
 					const { icon, bgColor } = component.elementProps as LinkWidgetProps;
@@ -52,7 +61,7 @@ export function FolderWidget(props: FolderWidgetProps) {
 			</div>
 			<FolderModal
 				open={open}
-				onOpenChange={handleModalOpen}
+				onOpenChange={handleOpenChange}
 				title={title}
 				onTitleChange={handleTitleChange}
 				component={component}

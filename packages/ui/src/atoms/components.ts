@@ -97,7 +97,7 @@ export const componentsRegistry: ComponentsRegistry = {
 			height: 1,
 			elementProps: {},
 		},
-		optionalSizes: [{ w: 3, h: 2 }],
+		optionalSizes: [{ w: 4, h: 2 }],
 	},
 };
 
@@ -244,7 +244,7 @@ export const componentsAtoms = atomWithStorage<BaseComponentMeta[]>(
 			id: uuidv4(),
 			row: 2,
 			col: 4,
-			width: 3,
+			width: 4,
 			height: 2,
 			element: "TimeWidget",
 			elementProps: {},
